@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Android自定义View和Drawable总结 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Android自定义View简述
+自定义属性
+onMeasure()
+onLayout()
+onDraw()
+一些Tips：
+
+
+Drawable总结
+BitmapDrawable
+NinePatchDrawable
+LayerDrawable
+StateListDrawable
+TransitionDrawable
+InsertDrawable
+ClipDrawable
+
+
+参考
+
+
+And">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android自定义View和Drawable总结">
+<meta property="og:url" content="http://yoursite.com/2016/09/13/android-custom-view-and-drawable/index.html">
+<meta property="og:site_name" content="Andrewlcgu's Blog">
+<meta property="og:description" content="Android自定义View简述
+自定义属性
+onMeasure()
+onLayout()
+onDraw()
+一些Tips：
+
+
+Drawable总结
+BitmapDrawable
+NinePatchDrawable
+LayerDrawable
+StateListDrawable
+TransitionDrawable
+InsertDrawable
+ClipDrawable
+
+
+参考
+
+
+And">
+<meta property="og:updated_time" content="2016-09-13T08:21:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android自定义View和Drawable总结">
+<meta name="twitter:description" content="Android自定义View简述
+自定义属性
+onMeasure()
+onLayout()
+onDraw()
+一些Tips：
+
+
+Drawable总结
+BitmapDrawable
+NinePatchDrawable
+LayerDrawable
+StateListDrawable
+TransitionDrawable
+InsertDrawable
+ClipDrawable
+
+
+参考
+
+
+And">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-android-custom-view-and-drawable" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/13/android-custom-view-and-drawable/" class="article-date">
+  	<time datetime="2016-09-13T08:15:29.000Z" itemprop="datePublished">2016-09-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android自定义View和Drawable总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Andorid学习笔记/">Andorid学习笔记</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#android自定义view简述"><span class="toc-text">Android自定义View简述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义属性"><span class="toc-text">自定义属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onmeasure"><span class="toc-text">onMeasure()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onlayout"><span class="toc-text">onLayout()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ondraw"><span class="toc-text">onDraw()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些tips"><span class="toc-text">一些Tips：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#drawable总结"><span class="toc-text">Drawable总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bitmapdrawable"><span class="toc-text">BitmapDrawable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ninepatchdrawable"><span class="toc-text">NinePatchDrawable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#layerdrawable"><span class="toc-text">LayerDrawable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#statelistdrawable"><span class="toc-text">StateListDrawable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transitiondrawable"><span class="toc-text">TransitionDrawable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#insertdrawable"><span class="toc-text">InsertDrawable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#clipdrawable"><span class="toc-text">ClipDrawable</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <!-- toc -->
+<ul>
+<li><a href="#android&#x81EA;&#x5B9A;&#x4E49;view&#x7B80;&#x8FF0;">Android&#x81EA;&#x5B9A;&#x4E49;View&#x7B80;&#x8FF0;</a><ul>
+<li><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;">&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;</a></li>
+<li><a href="#onmeasure">onMeasure()</a></li>
+<li><a href="#onlayout">onLayout()</a></li>
+<li><a href="#ondraw">onDraw()</a></li>
+<li><a href="#&#x4E00;&#x4E9B;tips">&#x4E00;&#x4E9B;Tips&#xFF1A;</a></li>
+</ul>
+</li>
+<li><a href="#drawable&#x603B;&#x7ED3;">Drawable&#x603B;&#x7ED3;</a><ul>
+<li><a href="#bitmapdrawable">BitmapDrawable</a></li>
+<li><a href="#ninepatchdrawable">NinePatchDrawable</a></li>
+<li><a href="#layerdrawable">LayerDrawable</a></li>
+<li><a href="#statelistdrawable">StateListDrawable</a></li>
+<li><a href="#transitiondrawable">TransitionDrawable</a></li>
+<li><a href="#insertdrawable">InsertDrawable</a></li>
+<li><a href="#clipdrawable">ClipDrawable</a></li>
+</ul>
+</li>
+<li><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="android&#x81EA;&#x5B9A;&#x4E49;view&#x7B80;&#x8FF0;"><a href="#Android&#x81EA;&#x5B9A;&#x4E49;View&#x7B80;&#x8FF0;" class="headerlink" title="Android&#x81EA;&#x5B9A;&#x4E49;View&#x7B80;&#x8FF0;"></a>Android&#x81EA;&#x5B9A;&#x4E49;View&#x7B80;&#x8FF0;</h2><p>Android&#x81EA;&#x5B9A;&#x4E49;View&#x65B9;&#x5F0F;&#x6709;&#x8BB8;&#x591A;&#xFF0C;&#x672C;&#x6587;&#x5BF9;&#x76F4;&#x63A5;&#x7EE7;&#x627F;View&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x603B;&#x7ED3;&#xFF0C;&#x5EFA;&#x8BAE;&#x6DF1;&#x5165;&#x9605;&#x8BFB;&#x6E90;&#x7801;&#x4E86;&#x89E3;View&#x662F;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x7ED8;&#x5236;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x4ECE; <strong>ViewRootImpl#performTraversals()</strong> &#x65B9;&#x6CD5;&#x5F00;&#x59CB;&#xFF0C;&#x5E76;&#x4E14;&#x5EFA;&#x8BAE;&#x540C;&#x65F6;&#x7406;&#x89E3;View&#x7684;&#x4E8B;&#x4EF6;&#x4F20;&#x9012;&#x673A;&#x5236;&#x548C;&#x52A8;&#x753B;&#x673A;&#x5236;&#xFF0C;&#x8FD9;&#x6837;&#x624D;&#x80FD;&#x5B9E;&#x73B0;&#x975E;&#x5E38;&#x70AB;&#x4E3D;&#x7684;View&#xFF1B;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x8BA8;&#x8BBA;onMeasure()&#x3001;onLayout()&#x548C;onDraw()&#x8FDB;&#x884C;override&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#xFF0C;&#x4E0D;&#x4F1A;&#x8BA8;&#x8BBA;&#x589E;&#x52A0;&#x4EA4;&#x4E92;&#x548C;&#x52A8;&#x753B;&#x7B49;&#x4E8B;&#x5B9C;&#x3002;</p>
+<h3 id="&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;"><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;"></a>&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;</h3><p><strong>1.</strong> &#x5EFA;&#x7ACB;<code>res/values/attrs.xml</code>&#xFF0C;demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">&quot;PieChart&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">&quot;showText&quot;</span> <span class="attr">format</span>=<span class="string">&quot;boolean&quot;</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">&quot;labelPosition&quot;</span> <span class="attr">format</span>=<span class="string">&quot;enum&quot;</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">&quot;left&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">&quot;right&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attr</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>2.</strong> &#x5E03;&#x5C40;&#x6587;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x65F6;&#xFF0C;Gradle&#x5EFA;&#x8BAE;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7EDF;&#x4E00;&#x4F7F;&#x7528;<code>&quot;http://schemas.android.com/apk/res-auto&quot;</code><br><strong>3.</strong> &#x5B98;&#x65B9;&#x5EFA;&#x8BAE;&#x901A;&#x8FC7;<code>TypedArray</code>&#x5728;&#x7A0B;&#x5E8F;&#x4E2D;&#x8BFB;&#x53D6;&#x5B9A;&#x4E49;&#x7684;&#x5C5E;&#x6027;&#xFF0C;demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">PieChart</span><span class="params">(Context context, AttributeSet attrs)</span> </span>{</span><br><span class="line">   <span class="keyword">super</span>(context, attrs);</span><br><span class="line">   TypedArray a = context.getTheme().obtainStyledAttributes(</span><br><span class="line">        attrs,</span><br><span class="line">        R.styleable.PieChart,</span><br><span class="line">        <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">try</span> {</span><br><span class="line">       mShowText = a.getBoolean(R.styleable.PieChart_showText, <span class="keyword">false</span>);</span><br><span class="line">       mTextPos = a.getInteger(R.styleable.PieChart_labelPosition, <span class="number">0</span>);</span><br><span class="line">   } <span class="keyword">finally</span> {</span><br><span class="line">       a.recycle();</span><br><span class="line">   }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="onmeasure"><a href="#onMeasure" class="headerlink" title="onMeasure()"></a>onMeasure()</h3><p>&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;LinearLayout&#x7B49;ViewGroup&#x7EC4;&#x4EF6;&#x4F1A;&#x7EE7;&#x627F;&#x5E76;&#x91CD;&#x5199; <strong>View#onMeasure()</strong> &#x65B9;&#x6CD5;&#xFF0C;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#x662F;&#x904D;&#x5386;&#x6BCF;&#x4E2A;&#x5B50;View&#x5E76;&#x8C03;&#x7528;&#x5B50;View&#x7684; <strong>View#onMeasure()</strong> &#x65B9;&#x6CD5;&#x3002;&#x603B;&#x4E4B;&#xFF0C;&#x8BE5;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x5F97;&#x5230;View&#x6D4B;&#x91CF;&#x8FC7;&#x7684;width&#x548C;height&#xFF0C;&#x6240;&#x4EE5;override&#x65F6;&#x4E00;&#x5B9A;&#x8981;&#x8C03;&#x7528; <strong>View#setMeasuredDimension(int measuredWidth, int measuredHeight)</strong> &#x65B9;&#x6CD5;&#x8BBE;&#x7F6E;&#x5BBD;&#x9AD8;&#xFF0C;<strong>View#getMeasuredWidth()</strong> &#x548C; <strong>View#getMeasuredHeight()</strong> &#x5C31;&#x662F;&#x53D6;&#x5F97;&#x4E0A;&#x8FF0;&#x51FD;&#x6570;&#x8BBE;&#x7F6E;&#x7684;&#x5BBD;&#x5EA6;&#x548C;&#x9AD8;&#x5EA6;&#x3002;<strong>View#onMeasure()</strong> &#x51FD;&#x6570;&#x539F;&#x578B;&#x4EE5;&#x53CA;&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>{</span><br><span class="line">    setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),</span><br><span class="line">            getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5176;&#x53C2;&#x6570;&#x542B;&#x4E49;&#x53C2;&#x89C1;<code>View.MeasureSpec</code>&#x7C7B;&#xFF0C;&#x5176;&#x9AD8;2&#x4F4D;&#x8868;&#x793A;SpecMode&#xFF0C;&#x4F4E;30&#x4F4D;&#x8868;&#x793A;SpecSize&#xFF0C;&#x524D;&#x8005;&#x8868;&#x793A;&#x6D4B;&#x91CF;&#x6A21;&#x5F0F;&#xFF0C;&#x540E;&#x8005;&#x8868;&#x793A;&#x5176;&#x89C4;&#x683C;&#x5927;&#x5C0F;&#x3002;&#x5176;&#x4E2D;SpecMode&#x5B9A;&#x4E49;&#x4E09;&#x79CD;&#x53D6;&#x503C;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Mode</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AT_MOST</code></td>
+<td style="text-align:left">&#x7236;&#x5BB9;&#x5668;&#x6307;&#x5B9A;&#x53EF;&#x7528;&#x7684;&#x6700;&#x5927;&#x503C;&#xFF0C;&#x5177;&#x4F53;View&#x5BF9;&#x5176;&#x5B9E;&#x73B0;&#x4E0D;&#x540C;&#xFF0C;&#x901A;&#x5E38;&#x5BF9;&#x5E94;LayoutParams&#x4E2D;&#x7684;wrap_content</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>EXACTLY</code></td>
+<td style="text-align:left">&#x7236;&#x5BB9;&#x5668;&#x6307;&#x5B9A;&#x8BE5;View&#x6D4B;&#x91CF;&#x7684;&#x7CBE;&#x786E;&#x503C;&#xFF0C;&#x5C31;&#x662F;SpecSize&#xFF0C;&#x901A;&#x5E38;&#x5BF9;&#x5E94;LayoutParams&#x4E2D;&#x7684;match_parent&#x548C;&#x5177;&#x4F53;&#x6570;&#x503C;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UNSPECIFIED</code></td>
+<td style="text-align:left">&#x7236;&#x5BB9;&#x5668;&#x6CA1;&#x6709;&#x9650;&#x5236;&#xFF0C;&#x901A;&#x5E38;&#x7CFB;&#x7EDF;&#x5185;&#x90E8;&#x4F7F;&#x7528;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x6574;&#x4E2A;measure&#x8FC7;&#x7A0B;&#x4ECE;&#x9876;&#x5C42;View(DecorView)&#x5F00;&#x59CB;&#xFF0C;&#x5176;&#x957F;&#x5EA6;&#x548C;&#x9AD8;&#x5EA6;&#x7684;MeasureSpec&#x751F;&#x6210;&#x53C2;&#x8003; <strong>ViewRootImp#getRootMeasureSpec()</strong>&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Figures out the measure spec for the root view in a window based on it&apos;s</span><br><span class="line"> * layout params.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@param</span> windowSize</span><br><span class="line"> *            The available width or height of the window</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@param</span> rootDimension</span><br><span class="line"> *            The layout params for one dimension (width or height) of the</span><br><span class="line"> *            window.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@return</span> The measure spec to use to measure the root view.</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getRootMeasureSpec</span><span class="params">(<span class="keyword">int</span> windowSize, <span class="keyword">int</span> rootDimension)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> measureSpec;</span><br><span class="line">    <span class="keyword">switch</span> (rootDimension) {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> ViewGroup.LayoutParams.MATCH_PARENT:</span><br><span class="line">        <span class="comment">// Window can&apos;t resize. Force root view to be windowSize.</span></span><br><span class="line">        measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.EXACTLY);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> ViewGroup.LayoutParams.WRAP_CONTENT:</span><br><span class="line">        <span class="comment">// Window can resize. Set max size for root view.</span></span><br><span class="line">        measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.AT_MOST);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="comment">// Window wants to be an exact size. Force root view to be that size.</span></span><br><span class="line">        measureSpec = MeasureSpec.makeMeasureSpec(rootDimension, MeasureSpec.EXACTLY);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> measureSpec;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x7136;&#x540E;&#x8FDB;&#x884C;DecorView&#x7684;measure&#xFF0C;DecorView&#x672C;&#x8D28;&#x662F;FrameLayout&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x5173;&#x6CE8; <strong>ViewGroup#onMeasure()</strong>&#x3002;&#x4E0D;&#x540C;&#x7684;Layout&#x5BF9;onMeasure()&#x5B9E;&#x73B0;&#x4E0D;&#x540C;&#xFF0C;&#x4F46;&#x90FD;&#x4F1A;&#x904D;&#x5386;&#x5176;&#x5B50;View&#x8C03;&#x7528;measure()&#x65B9;&#x6CD5;&#xFF0C;&#x6700;&#x7EC8;&#x6267;&#x884C;&#x81F3; <strong>View#onMeasure()</strong>&#xFF1B;&#x4EE5;FrameLayout&#x4E3A;&#x4F8B;&#xFF0C;&#x770B; <strong>View#onMeasure()</strong> &#x7684;&#x53C2;&#x6570;&#x662F;&#x5982;&#x4F55;&#x751F;&#x6210;&#x7684;&#x3002;&#x5176;&#x5173;&#x952E;&#x4EE3;&#x7801;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrameLayout</span></span>{</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>{</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) {</span><br><span class="line">            <span class="keyword">final</span> View child = mMatchParentChildren.get(i);</span><br><span class="line">            <span class="keyword">final</span> MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> childWidthMeasureSpec;</span><br><span class="line">            <span class="keyword">if</span> (lp.width == LayoutParams.MATCH_PARENT) {</span><br><span class="line">                <span class="keyword">final</span> <span class="keyword">int</span> width = Math.max(<span class="number">0</span>, getMeasuredWidth()</span><br><span class="line">                        - getPaddingLeftWithForeground() - getPaddingRightWithForeground()</span><br><span class="line">                        - lp.leftMargin - lp.rightMargin);</span><br><span class="line">                childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(</span><br><span class="line">                        width, MeasureSpec.EXACTLY);</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec,</span><br><span class="line">                        getPaddingLeftWithForeground() + getPaddingRightWithForeground() +</span><br><span class="line">                        lp.leftMargin + lp.rightMargin,</span><br><span class="line">                        lp.width);</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> childHeightMeasureSpec;</span><br><span class="line">            <span class="keyword">if</span> (lp.height == LayoutParams.MATCH_PARENT) {</span><br><span class="line">                <span class="keyword">final</span> <span class="keyword">int</span> height = Math.max(<span class="number">0</span>, getMeasuredHeight()</span><br><span class="line">                        - getPaddingTopWithForeground() - getPaddingBottomWithForeground()</span><br><span class="line">                        - lp.topMargin - lp.bottomMargin);</span><br><span class="line">                childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(</span><br><span class="line">                        height, MeasureSpec.EXACTLY);</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                childHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec,</span><br><span class="line">                        getPaddingTopWithForeground() + getPaddingBottomWithForeground() +</span><br><span class="line">                        lp.topMargin + lp.bottomMargin,</span><br><span class="line">                        lp.height);</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            child.measure(childWidthMeasureSpec, childHeightMeasureSpec);</span><br><span class="line">        }</span><br><span class="line">        ...</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewGroup</span> </span>{</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getChildMeasureSpec</span><span class="params">(<span class="keyword">int</span> spec, <span class="keyword">int</span> padding, <span class="keyword">int</span> childDimension)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> specMode = MeasureSpec.getMode(spec);</span><br><span class="line">        <span class="keyword">int</span> specSize = MeasureSpec.getSize(spec);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> size = Math.max(<span class="number">0</span>, specSize - padding);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> resultSize = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> resultMode = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (specMode) {</span><br><span class="line">            <span class="comment">// Parent has imposed an exact size on us</span></span><br><span class="line">            <span class="keyword">case</span> MeasureSpec.EXACTLY:</span><br><span class="line">                <span class="keyword">if</span> (childDimension &gt;= <span class="number">0</span>) {</span><br><span class="line">                    resultSize = childDimension;</span><br><span class="line">                    resultMode = MeasureSpec.EXACTLY;</span><br><span class="line">                } <span class="keyword">else</span> <span class="keyword">if</span> (childDimension == LayoutParams.MATCH_PARENT) {</span><br><span class="line">                    <span class="comment">// Child wants to be our size. So be it.</span></span><br><span class="line">                    resultSize = size;</span><br><span class="line">                    resultMode = MeasureSpec.EXACTLY;</span><br><span class="line">                } <span class="keyword">else</span> <span class="keyword">if</span> (childDimension == LayoutParams.WRAP_CONTENT) {</span><br><span class="line">                    <span class="comment">// Child wants to determine its own size. It can&apos;t be</span></span><br><span class="line">                    <span class="comment">// bigger than us.</span></span><br><span class="line">                    resultSize = size;</span><br><span class="line">                    resultMode = MeasureSpec.AT_MOST;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Parent has imposed a maximum size on us</span></span><br><span class="line">            <span class="keyword">case</span> MeasureSpec.AT_MOST:</span><br><span class="line">                <span class="keyword">if</span> (childDimension &gt;= <span class="number">0</span>) {</span><br><span class="line">                    <span class="comment">// Child wants a specific size... so be it</span></span><br><span class="line">                    resultSize = childDimension;</span><br><span class="line">                    resultMode = MeasureSpec.EXACTLY;</span><br><span class="line">                } <span class="keyword">else</span> <span class="keyword">if</span> (childDimension == LayoutParams.MATCH_PARENT) {</span><br><span class="line">                    <span class="comment">// Child wants to be our size, but our size is not fixed.</span></span><br><span class="line">                    <span class="comment">// Constrain child to not be bigger than us.</span></span><br><span class="line">                    resultSize = size;</span><br><span class="line">                    resultMode = MeasureSpec.AT_MOST;</span><br><span class="line">                } <span class="keyword">else</span> <span class="keyword">if</span> (childDimension == LayoutParams.WRAP_CONTENT) {</span><br><span class="line">                    <span class="comment">// Child wants to determine its own size. It can&apos;t be</span></span><br><span class="line">                    <span class="comment">// bigger than us.</span></span><br><span class="line">                    resultSize = size;</span><br><span class="line">                    resultMode = MeasureSpec.AT_MOST;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Parent asked to see how big we want to be</span></span><br><span class="line">            <span class="keyword">case</span> MeasureSpec.UNSPECIFIED:</span><br><span class="line">                <span class="keyword">if</span> (childDimension &gt;= <span class="number">0</span>) {</span><br><span class="line">                    <span class="comment">// Child wants a specific size... let him have it</span></span><br><span class="line">                    resultSize = childDimension;</span><br><span class="line">                    resultMode = MeasureSpec.EXACTLY;</span><br><span class="line">                } <span class="keyword">else</span> <span class="keyword">if</span> (childDimension == LayoutParams.MATCH_PARENT) {</span><br><span class="line">                    <span class="comment">// Child wants to be our size... find out how big it should</span></span><br><span class="line">                    <span class="comment">// be</span></span><br><span class="line">                    resultSize = View.sUseZeroUnspecifiedMeasureSpec ? <span class="number">0</span> : size;</span><br><span class="line">                    resultMode = MeasureSpec.UNSPECIFIED;</span><br><span class="line">                } <span class="keyword">else</span> <span class="keyword">if</span> (childDimension == LayoutParams.WRAP_CONTENT) {</span><br><span class="line">                    <span class="comment">// Child wants to determine its own size.... find out how</span></span><br><span class="line">                    <span class="comment">// big it should be</span></span><br><span class="line">                    resultSize = View.sUseZeroUnspecifiedMeasureSpec ? <span class="number">0</span> : size;</span><br><span class="line">                    resultMode = MeasureSpec.UNSPECIFIED;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> MeasureSpec.makeMeasureSpec(resultSize, resultMode);</span><br><span class="line">    }</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x901A;&#x8FC7;&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x5F97;&#x51FA;&#x7ED3;&#x8BBA; <strong>View#onMeasure()</strong> &#x53C2;&#x6570;&#x4E0E; <strong>&#x7236;&#x5BB9;&#x5668;&#x7684;MeasureSpec</strong> &#x548C; <strong>&#x81EA;&#x8EAB;&#x7684;LayoutParams</strong> &#x90FD;&#x6709;&#x5173;&#x7CFB;&#x3002;&#x6700;&#x540E;&#x770B;&#x4E00;&#x4E0B; <strong>View#onMeasure()</strong> &#x7684;&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;&#xFF0C;&#x4EE5;width&#x4E3A;&#x4F8B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">View</span></span>{</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>{</span><br><span class="line">        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),</span><br><span class="line">                getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getDefaultSize</span><span class="params">(<span class="keyword">int</span> size, <span class="keyword">int</span> measureSpec)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> result = size;</span><br><span class="line">        <span class="keyword">int</span> specMode = MeasureSpec.getMode(measureSpec);</span><br><span class="line">        <span class="keyword">int</span> specSize = MeasureSpec.getSize(measureSpec);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (specMode) {</span><br><span class="line">            <span class="keyword">case</span> MeasureSpec.UNSPECIFIED:</span><br><span class="line">                result = size;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MeasureSpec.AT_MOST:</span><br><span class="line">            <span class="keyword">case</span> MeasureSpec.EXACTLY:</span><br><span class="line">                result = specSize;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getSuggestedMinimumWidth</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> (mBackground == <span class="keyword">null</span>) ? mMinWidth : max(mMinWidth, mBackground.getMinimumWidth());</span><br><span class="line">    }</span><br><span class="line">    ...</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">Drawable:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMinimumWidth</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> intrinsicWidth = getIntrinsicWidth();</span><br><span class="line">    <span class="keyword">return</span> intrinsicWidth &gt; <span class="number">0</span> ? intrinsicWidth : <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x5176;&#x4E2D; mMinWidth &#x5BF9;&#x5E94;<code>android:miandroid:minWidth</code>&#xFF0C;&#x6709;&#x4E9B;Drawable(&#x6BD4;&#x5982;BitmapDrawable)&#x662F;&#x6709;&#x539F;&#x59CB;&#x957F;&#x5EA6;&#x7684;&#xFF0C;&#x6709;&#x4E9B;(&#x6BD4;&#x5982;ShapeDrawable)&#x6CA1;&#x6709;&#x3002;<strong>View#onMeasure()</strong> &#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;&#x5E76;&#x6CA1;&#x6709;&#x533A;&#x5206;LayoutParams&#x4E2D;match_parent&#x548C;wrap_content&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;View&#x65F6;&#x5EFA;&#x8BAE;&#x5B9E;&#x73B0;&#x3002;&#x4E3A;&#x5B8C;&#x6574;&#x5B9E;&#x73B0;View&#x7684;&#x6D4B;&#x91CF;&#x8FC7;&#x7A0B;&#xFF0C;&#x52A1;&#x5FC5; <strong>View#onMeasure()</strong> &#x4E2D;&#x4E00;&#x5B9A;&#x8981;&#x6267;&#x884C;<strong> View#setMeasuredDimension(int measuredWidth, int measuredHeight)</strong> &#x65B9;&#x6CD5;&#x3002;<strong>ViewGroup#onMeasure()</strong> &#x5B9E;&#x73B0;&#x65F6;&#x9700;&#x8981;&#x5148;&#x5BF9;&#x5B50;View&#x904D;&#x5386;&#x8FDB;&#x884C;&#x6D4B;&#x91CF;&#xFF0C;&#x6700;&#x540E;&#x8BBE;&#x7F6E;ViewGroup&#x7684;measuredWidth&#x548C;measuredHeight&#xFF0C;&#x5EFA;&#x8BAE;&#x9605;&#x8BFB;FrameLayout&#x6E90;&#x7801;&#x8FDB;&#x884C;&#x7406;&#x89E3;&#x3002;</p>
+<h3 id="onlayout"><a href="#onLayout" class="headerlink" title="onLayout()"></a>onLayout()</h3><p>View&#x5B8C;&#x6210;&#x6D4B;&#x91CF;&#x540E;&#xFF0C;&#x6839;&#x636E; <strong>View#getMeasuredWidth()</strong> &#x548C; <strong>View#getMeasuredHeight()</strong> &#x5F97;&#x5230;View&#x6D4B;&#x91CF;&#x7684;&#x9AD8;&#x5EA6;&#x548C;&#x5BBD;&#x5EA6;&#xFF0C;&#x7136;&#x540E;&#x786E;&#x5B9A;View&#x5E03;&#x5C40;&#x5728;Window&#x4E2D;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5373;&#x786E;&#x5B9A;mLeft&#xFF0C;mRight&#xFF0C;mTop&#x548C;mBottom&#x503C;&#x3002;&#x51FD;&#x6570;&#x539F;&#x578B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> left, <span class="keyword">int</span> top, <span class="keyword">int</span> right, <span class="keyword">int</span> bottom)</span> </span>{}</span><br></pre></td></tr></table></figure></p>
+<p>&#x901A;&#x5E38;View&#x4E0D;&#x9700;&#x8981;&#x989D;&#x5916;&#x5B9E;&#x73B0;&#xFF0C;ViewGroup&#x4F1A;&#x5B9E;&#x73B0;&#x8BE5;&#x65B9;&#x6CD5;&#xFF0C;&#x6839;&#x636E;&#x5E03;&#x5C40;&#x7279;&#x6027;&#x8BA1;&#x7B97;&#x6BCF;&#x4E2A;&#x5B50;View&#x4E0A;&#x8FF0;&#x56DB;&#x4E2A;&#x503C;&#xFF0C;&#x8C03;&#x7528; <strong>View#setFrame(int left, int top, int right, int bottom)</strong> &#x8FDB;&#x884C;&#x8BBE;&#x7F6E;&#x3002;View&#x5E03;&#x5C40;&#x5B8C;&#x6210;&#x540E;&#x624D;&#x53EF;&#x4EE5;&#x8C03;&#x7528; <strong>View#getWidth()</strong> &#x548C; <strong>View#getHeight()</strong> &#x65B9;&#x6CD5;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Return the width of the your view.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@return</span> The width of your view, in pixels.</span><br><span class="line"> */</span></span><br><span class="line"><span class="meta">@ViewDebug</span>.ExportedProperty(category = <span class="string">&quot;layout&quot;</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getWidth</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> mRight - mLeft;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Return the height of your view.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@return</span> The height of your view, in pixels.</span><br><span class="line"> */</span></span><br><span class="line"><span class="meta">@ViewDebug</span>.ExportedProperty(category = <span class="string">&quot;layout&quot;</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getHeight</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> mBottom - mTop;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p><strong> Tips: </strong><br>Activity&#x5728;onResume()&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x540E;&#x624D;&#x4F1A;&#x6267;&#x884C; <strong>ViewRootImpl#performTraversals()</strong> &#xFF0C;&#x6240;&#x4EE5;&#x83B7;&#x5F97;View&#x7684;&#x957F;&#x5EA6;&#x548C;&#x5BBD;&#x5EA6;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528; <strong>View#post()</strong>&#xFF0C;&#x76F8;&#x6BD4;ViewTreeObserver&#x7B80;&#x5355;&#x6027;&#x80FD;&#x597D;&#x3002;demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">view.post(<span class="keyword">new</span> Runnable() {</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> width = view.getMeasuredWidth()</span><br><span class="line">        <span class="keyword">int</span> height = view.getMeasuredHeight();</span><br><span class="line">    }</span><br><span class="line">});</span><br></pre></td></tr></table></figure></p>
+<h3 id="ondraw"><a href="#onDraw" class="headerlink" title="onDraw()"></a>onDraw()</h3><p><strong>View#draw()</strong> &#x65B9;&#x6CD5;&#x660E;&#x786E;&#x4E86;View&#x7ED8;&#x5236;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. Draw the background</span><br><span class="line">2. If necessary, save the canvas&apos; layers to prepare for fading</span><br><span class="line">3. Draw view&apos;s content</span><br><span class="line">4. Draw children</span><br><span class="line">5. If necessary, draw the fading edges and restore layers</span><br><span class="line">6. Draw decorations (scrollbars for instance)</span><br></pre></td></tr></table></figure>
+<p><strong>View#onDraw()</strong> &#x5C5E;&#x4E8E;&#x7B2C;&#x4E09;&#x6B65;&#xFF0C;&#x6CE8;&#x610F;padding&#x5C5E;&#x6027;&#x5B9E;&#x73B0;&#xFF0C;&#x5176;&#x51FD;&#x6570;&#x539F;&#x578B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Implement this to do your drawing.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@param</span> canvas the canvas on which the background will be drawn</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>{}</span><br></pre></td></tr></table></figure>
+<h3 id="&#x4E00;&#x4E9B;tips"><a href="#&#x4E00;&#x4E9B;Tips&#xFF1A;" class="headerlink" title="&#x4E00;&#x4E9B;Tips&#xFF1A;"></a>&#x4E00;&#x4E9B;Tips&#xFF1A;</h3><ol>
+<li><strong>View#post()</strong> &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x66FF;&#x4EE3;Handler</li>
+<li><strong>View#onAttachedToWindow()</strong> &#x548C; <strong>View#onDetachedFromWindow()</strong> &#x6CE8;&#x610F;&#x8D44;&#x6E90;&#x7684;&#x56DE;&#x6536;&#xFF0C;&#x6BD4;&#x5982;&#x52A8;&#x753B;&#x6216;&#x7EBF;&#x7A0B;&#x3002;</li>
+<li><strong>View#onDraw()</strong> &#x4E2D;&#x4E0D;&#x8981;&#x6709;&#x5BF9;&#x8C61;&#x7684;&#x5206;&#x914D;&#x7B49;&#x5BB9;&#x6613;&#x5F15;&#x8D77;&#x5783;&#x573E;&#x56DE;&#x6536;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x6CE8;&#x610F;invalidate()&#x548C;requestLayout()&#x8C03;&#x7528;&#x6B21;&#x6570;&#x3002;</li>
+</ol>
+<h2 id="drawable&#x603B;&#x7ED3;"><a href="#Drawable&#x603B;&#x7ED3;" class="headerlink" title="Drawable&#x603B;&#x7ED3;"></a>Drawable&#x603B;&#x7ED3;</h2><p>Drawable&#x8868;&#x793A;&#x4E00;&#x79CD;&#x53EF;&#x4EE5;&#x753B;&#x5728;&#x5C4F;&#x5E55;&#x4E0A;&#x7684;&#x62BD;&#x8C61;&#x6982;&#x5FF5;&#xFF0C;&#x4E00;&#x822C;&#x901A;&#x8FC7;XML&#x8FDB;&#x884C;&#x5B9A;&#x4E49;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x521B;&#x5EFA;&#x5177;&#x4F53;&#x7684;Drawable&#x5BF9;&#x8C61;&#xFF1B;Drawable&#x662F;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x6BCF;&#x4E2A;&#x5177;&#x4F53;&#x7684;Drawable&#x90FD;&#x662F;&#x5176;&#x5B50;&#x7C7B;&#xFF1B;&#x6709;&#x4E9B;Drawable&#x4F1A;&#x6709;&#x5185;&#x90E8;&#x5BBD;/&#x9AD8;(<strong>Drawable#getIntrinsicWidth()</strong> &#x548C;<strong>Drawable#getIntrinsicHeight()</strong>)&#xFF0C;&#x6BD4;&#x5982;&#x4E00;&#x5F20;&#x56FE;&#x7247;&#x3002;&#x4EE5;&#x4E0B;&#x5BF9;&#x5E38;&#x89C1;Drawable&#x8FDB;&#x884C;&#x4ECB;&#x7ECD;&#xFF1A;</p>
+<h3 id="bitmapdrawable"><a href="#BitmapDrawable" class="headerlink" title="BitmapDrawable"></a>BitmapDrawable</h3><p>&#x4F4D;&#x56FE;&#x652F;&#x6301;&#x4E09;&#x79CD;&#x683C;&#x5F0F;&#xFF1A;.png&#xFF0C;.jpg&#xFF0C;.gif&#xFF0C;&#x63A8;&#x8350;.png&#x683C;&#x5F0F;&#x3002;&#x5B58;&#x5728;res/drawable/&#x8DEF;&#x5F84;&#x4E0B;&#xFF0C;APK&#x6784;&#x5EFA;&#x671F;&#x95F4;&#x4F1A;&#x5BF9;&#x8BE5;&#x8DEF;&#x5F84;&#x4E0B;&#x7684;&#x4F4D;&#x56FE;&#x8FDB;&#x884C;&#x538B;&#x7F29;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x9700;&#x8981;&#x8BFB;&#x4F4D;&#x56FE;&#x7684;bit stream&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x628A;&#x4F4D;&#x56FE;&#x5B58;&#x4E8E;res/raw/&#x8DEF;&#x5F84;&#x4E0B;&#x3002;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;</span><br><span class="line">    res/drawable/filename.png (.png, .jpg, or .gif)</span><br><span class="line">&#x8D44;&#x6E90;&#x5F15;&#x7528;&#xFF1A;</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br></pre></td></tr></table></figure></p>
+<p>&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;XML&#x8FDB;&#x884C;&#x5B9A;&#x4E49;&#xFF0C;&#x597D;&#x5904;&#x662F;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x989D;&#x5916;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x8BED;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">bitmap</span></span><br><span class="line">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    <span class="attr">android:src</span>=<span class="string">&quot;@[package:]drawable/drawable_resource&quot;</span></span><br><span class="line">    <span class="attr">android:antialias</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">    <span class="attr">android:dither</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">    <span class="attr">android:filter</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">    <span class="attr">android:gravity</span>=<span class="string">[</span>&quot;<span class="attr">top</span>&quot;|&quot;<span class="attr">bottom</span>&quot;|&quot;<span class="attr">left</span>&quot;|&quot;<span class="attr">right</span>&quot;|&quot;<span class="attr">center_vertical</span>&quot;|</span><br><span class="line">                    &quot;<span class="attr">fill_vertical</span>&quot;|&quot;<span class="attr">center_horizontal</span>&quot;|&quot;<span class="attr">fill_horizontal</span>&quot;|</span><br><span class="line">                    &quot;<span class="attr">center</span>&quot;|&quot;<span class="attr">fill</span>&quot;|&quot;<span class="attr">clip_vertical</span>&quot;|&quot;<span class="attr">clip_horizontal</span>&quot;]</span><br><span class="line">    <span class="attr">android:mipMap</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">    <span class="attr">android:tileMode</span>=<span class="string">[</span>&quot;<span class="attr">disabled</span>&quot;|&quot;<span class="attr">clamp</span>&quot;|&quot;<span class="attr">repeat</span>&quot;|&quot;<span class="attr">mirror</span>&quot;] /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="ninepatchdrawable"><a href="#NinePatchDrawable" class="headerlink" title="NinePatchDrawable"></a>NinePatchDrawable</h3><p>.9&#x56FE;&#x5BF9;&#x5E94;&#x7684;Drawable&#x5B50;&#x7C7B;&#xFF0C;&#x6587;&#x4EF6;&#x4F4D;&#x4E8E;res/drawable/&#x4E0B;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;:</span><br><span class="line">    res/drawable/filename.9.png</span><br><span class="line">&#x8D44;&#x6E90;&#x4F7F;&#x7528;:</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br></pre></td></tr></table></figure></p>
+<p>&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;XML&#x8FDB;&#x884C;&#x5B9A;&#x4E49;&#xFF0C;&#x8BED;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">nine-patch</span></span><br><span class="line">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    <span class="attr">android:src</span>=<span class="string">&quot;@[package:]drawable/drawable_resource&quot;</span></span><br><span class="line">    <span class="attr">android:dither</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;] /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="layerdrawable"><a href="#LayerDrawable" class="headerlink" title="LayerDrawable"></a>LayerDrawable</h3><p>&#x8868;&#x793A;&#x4E00;&#x79CD;&#x5C42;&#x6B21;&#x5316;&#x7684;Drawable&#x96C6;&#x5408;&#xFF0C;&#x4E0B;&#x5C42;Item&#x4F1A;&#x8986;&#x76D6;&#x4E0A;&#x5C42;Item&#xFF0C;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;</span><br><span class="line">    res/drawable/filename.xml</span><br><span class="line">&#x8D44;&#x6E90;&#x5F15;&#x7528;&#xFF1A;</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br><span class="line">&#x8BED;&#x6CD5;&#xFF1A;</span><br><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">layer-list</span></span><br><span class="line">        <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span></span><br><span class="line">            <span class="attr">android:drawable</span>=<span class="string">&quot;@[package:]drawable/drawable_resource&quot;</span></span><br><span class="line">            <span class="attr">android:id</span>=<span class="string">&quot;@[+][package:]id/resource_name&quot;</span></span><br><span class="line">            <span class="attr">android:top</span>=<span class="string">&quot;dimension&quot;</span></span><br><span class="line">            <span class="attr">android:right</span>=<span class="string">&quot;dimension&quot;</span></span><br><span class="line">            <span class="attr">android:bottom</span>=<span class="string">&quot;dimension&quot;</span></span><br><span class="line">            <span class="attr">android:left</span>=<span class="string">&quot;dimension&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">layer-list</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x4E3A;&#x4E86;&#x9632;&#x6B62;Item&#x9ED8;&#x8BA4;scale&#x81F3;&#x7236;&#x5BB9;&#x5668;&#xFF0C;&#x901A;&#x5E38;<code>&lt;Item&gt;</code>&#x4E2D;&#x5D4C;&#x5957;<code>&lt;bitmap&gt;</code>&#x6807;&#x7B7E;&#x8FBE;&#x5230;&#x60F3;&#x8981;&#x7684;&#x5C42;&#x6B21;&#x6548;&#x679C;&#xFF0C;demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">layer-list</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bitmap</span> <span class="attr">android:src</span>=<span class="string">&quot;@drawable/android_red&quot;</span></span><br><span class="line">        <span class="attr">android:gravity</span>=<span class="string">&quot;center&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:top</span>=<span class="string">&quot;10dp&quot;</span> <span class="attr">android:left</span>=<span class="string">&quot;10dp&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bitmap</span> <span class="attr">android:src</span>=<span class="string">&quot;@drawable/android_green&quot;</span></span><br><span class="line">        <span class="attr">android:gravity</span>=<span class="string">&quot;center&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:top</span>=<span class="string">&quot;20dp&quot;</span> <span class="attr">android:left</span>=<span class="string">&quot;20dp&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bitmap</span> <span class="attr">android:src</span>=<span class="string">&quot;@drawable/android_blue&quot;</span></span><br><span class="line">        <span class="attr">android:gravity</span>=<span class="string">&quot;center&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">layer-list</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="statelistdrawable"><a href="#StateListDrawable" class="headerlink" title="StateListDrawable"></a>StateListDrawable</h3><p>&#x5BF9;&#x5E94;<code>&lt;selector&gt;</code>&#x6807;&#x7B7E;&#xFF0C;&#x8868;&#x793A;View&#x5404;&#x79CD;&#x72B6;&#x6001;&#x7684;Drawable&#x96C6;&#x5408;&#xFF0C;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;</span><br><span class="line">    res/drawable/filename.xml</span><br><span class="line">&#x8D44;&#x6E90;&#x5F15;&#x7528;&#xFF1A;</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br><span class="line">&#x8BED;&#x6CD5;&#xFF1A;</span><br><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">selector</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">        <span class="attr">android:constantSize</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">        <span class="attr">android:dither</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">        <span class="attr">android:variablePadding</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;] &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span></span><br><span class="line">            <span class="attr">android:drawable</span>=<span class="string">&quot;@[package:]drawable/drawable_resource&quot;</span></span><br><span class="line">            <span class="attr">android:state_pressed</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">            <span class="attr">android:state_focused</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">            <span class="attr">android:state_hovered</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">            <span class="attr">android:state_selected</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">            <span class="attr">android:state_checkable</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">            <span class="attr">android:state_checked</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">            <span class="attr">android:state_enabled</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">            <span class="attr">android:state_activated</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;]</span><br><span class="line">            <span class="attr">android:state_window_focused</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;] /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">selector</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x5176;&#x4E2D;&#xFF0C;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### LevelListDrawable</span><br><span class="line">Drawable&#x96C6;&#x5408;&#x4E2D;&#x6BCF;&#x4E2A;Drawable&#x90FD;&#x6709;Level&#xFF0C;Level&#x53D6;&#x503C;&#x4ECE;0&#x5230;10000&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;Drawable#setLevel()&#x548C;ImageView#setImageLevel()&#x6539;&#x53D8;Level&#xFF0C;&#x4ECE;&#x800C;&#x6539;&#x53D8;&#x5BF9;&#x5E94;&#x7684;Drawable&#xFF0C;&#x5339;&#x914D;&#x89C4;&#x5219;&#x662F;&#x4ECE;&#x4E0A;&#x5230;&#x4E0B;&#x5BFB;&#x627E;&#x7B2C;&#x4E00;&#x4E2A;&#x4F7F;&#x5F97;Level&#x5904;&#x4E8E;minLevel&#x548C;maxLevel&#x4E4B;&#x4E2D;&#x7684;Item&#x3002;</span><br><span class="line">``` xml</span><br><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;</span><br><span class="line">    res/drawable/filename.xml</span><br><span class="line">&#x8D44;&#x6E90;&#x5F15;&#x7528;&#xFF1A;</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br><span class="line">&#x8BED;&#x6CD5;&#xFF1A;</span><br><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">    &lt;level-list</span><br><span class="line">        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; &gt;</span><br><span class="line">        &lt;item</span><br><span class="line">            android:drawable=&quot;@drawable/drawable_resource&quot;</span><br><span class="line">            android:maxLevel=&quot;integer&quot;</span><br><span class="line">            android:minLevel=&quot;integer&quot; /&gt;</span><br><span class="line">    &lt;/level-list&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="transitiondrawable"><a href="#TransitionDrawable" class="headerlink" title="TransitionDrawable"></a>TransitionDrawable</h3><p>&#x5B9E;&#x73B0;&#x4E24;&#x4E2A;Drawable&#x4E4B;&#x95F4;&#x7684;&#x6DE1;&#x5165;&#x6DE1;&#x51FA;&#x6548;&#x679C;&#xFF0C;&#x5411;&#x524D;&#x542F;&#x52A8;&#x65F6;&#x8C03;&#x7528; <strong>Drawable#startTransition()</strong>&#xFF0C;&#x5411;&#x540E;&#x8C03;&#x7528; <strong>Drawable#reverseTransition()</strong>&#x3002;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;</span><br><span class="line">    res/drawable/filename.xml</span><br><span class="line">&#x8D44;&#x6E90;&#x5F15;&#x7528;&#xFF1A;</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br><span class="line">&#x8BED;&#x6CD5;&#xFF1A;</span><br><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">transition</span></span><br><span class="line">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span></span><br><span class="line">            <span class="attr">android:drawable</span>=<span class="string">&quot;@[package:]drawable/drawable_resource&quot;</span></span><br><span class="line">            <span class="attr">android:id</span>=<span class="string">&quot;@[+][package:]id/resource_name&quot;</span></span><br><span class="line">            <span class="attr">android:top</span>=<span class="string">&quot;dimension&quot;</span></span><br><span class="line">            <span class="attr">android:right</span>=<span class="string">&quot;dimension&quot;</span></span><br><span class="line">            <span class="attr">android:bottom</span>=<span class="string">&quot;dimension&quot;</span></span><br><span class="line">            <span class="attr">android:left</span>=<span class="string">&quot;dimension&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="insertdrawable"><a href="#InsertDrawable" class="headerlink" title="InsertDrawable"></a>InsertDrawable</h3><p>&#x7528;&#x4E8E;&#x5D4C;&#x5165;&#x5176;&#x4ED6;Drawable&#x5E76;&#x80FD;&#x7559;&#x51FA;&#x4E00;&#x5B9A;&#x95F4;&#x8DDD;&#x7684;&#x573A;&#x666F;&#x3002;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;</span><br><span class="line">    res/drawable/filename.xml</span><br><span class="line">&#x8D44;&#x6E90;&#x5F15;&#x7528;&#xFF1A;</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br><span class="line">&#x8BED;&#x6CD5;&#xFF1A;</span><br><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">inset</span></span><br><span class="line">        <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">        <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/drawable_resource&quot;</span></span><br><span class="line">        <span class="attr">android:insetTop</span>=<span class="string">&quot;dimension&quot;</span></span><br><span class="line">        <span class="attr">android:insetRight</span>=<span class="string">&quot;dimension&quot;</span></span><br><span class="line">        <span class="attr">android:insetBottom</span>=<span class="string">&quot;dimension&quot;</span></span><br><span class="line">        <span class="attr">android:insetLeft</span>=<span class="string">&quot;dimension&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="clipdrawable"><a href="#ClipDrawable" class="headerlink" title="ClipDrawable"></a>ClipDrawable</h3><p>&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6839;&#x636E;Level&#x88C1;&#x526A;Drawable&#x800C;&#x751F;&#x6210;&#x7684;Drawable&#xFF0C;&#x901A;&#x5E38;&#x7528;&#x4E8E;&#x8FDB;&#x5EA6;&#x6761;&#x7684;&#x5B9E;&#x73B0;&#x3002;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;</span><br><span class="line">    res/drawable/filename.xml</span><br><span class="line">&#x8D44;&#x6E90;&#x5F15;&#x7528;&#xFF1A;</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br><span class="line">&#x8BED;&#x6CD5;&#xFF1A;</span><br><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">clip</span></span><br><span class="line">        <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">        <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/drawable_resource&quot;</span></span><br><span class="line">        <span class="attr">android:clipOrientation</span>=<span class="string">[</span>&quot;<span class="attr">horizontal</span>&quot;|&quot;<span class="attr">vertical</span>&quot;]</span><br><span class="line">        <span class="attr">android:gravity</span>=<span class="string">[</span>&quot;<span class="attr">top</span>&quot;|&quot;<span class="attr">bottom</span>&quot;|&quot;<span class="attr">left</span>&quot;|&quot;<span class="attr">right</span>&quot;|&quot;<span class="attr">center_vertical</span>&quot;|</span><br><span class="line">                        &quot;<span class="attr">fill_vertical</span>&quot;|&quot;<span class="attr">center_horizontal</span>&quot;|&quot;<span class="attr">fill_horizontal</span>&quot;|</span><br><span class="line">                        &quot;<span class="attr">center</span>&quot;|&quot;<span class="attr">fill</span>&quot;|&quot;<span class="attr">clip_vertical</span>&quot;|&quot;<span class="attr">clip_horizontal</span>&quot;] /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x9ED8;&#x8BA4;Level&#x4E3A;0&#xFF0C;&#x8868;&#x793A;&#x5168;&#x90E8;&#x88C1;&#x526A;&#xFF1B;level&#x6700;&#x5927;&#x503C;&#x4E3A;10000&#xFF0C;&#x8868;&#x793A;&#x4E0D;&#x88C1;&#x526A;&#x3002;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### ScaleDrawable</span><br><span class="line">&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6839;&#x636E;Level&#x7F29;&#x653E;Drawable&#x800C;&#x751F;&#x6210;&#x7684;Drawable&#xFF0C;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#xFF1A;</span><br><span class="line">``` xml</span><br><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;</span><br><span class="line">    res/drawable/filename.xml</span><br><span class="line">&#x8D44;&#x6E90;&#x5F15;&#x7528;&#xFF1A;</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br><span class="line">&#x8BED;&#x6CD5;&#xFF1A;</span><br><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">    &lt;scale</span><br><span class="line">        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">        android:drawable=&quot;@drawable/drawable_resource&quot;</span><br><span class="line">        android:scaleGravity=[&quot;top&quot;|&quot;bottom&quot;|&quot;left&quot;|&quot;right&quot;|&quot;center_vertical&quot;|</span><br><span class="line">                              &quot;fill_vertical&quot;|&quot;center_horizontal&quot;|&quot;fill_horizontal&quot;|</span><br><span class="line">                              &quot;center&quot;|&quot;fill&quot;|&quot;clip_vertical&quot;|&quot;clip_horizontal&quot;]</span><br><span class="line">        android:scaleHeight=&quot;percentage&quot;</span><br><span class="line">        android:scaleWidth=&quot;percentage&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### GradientDrawable</span><br><span class="line">&#x4F7F;&#x7528;XML&#x5B9A;&#x4E49;&#x7684;&#x901A;&#x7528;&#x56FE;&#x5F62;&#xFF0C;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#xFF1A;</span><br><span class="line">``` xml</span><br><span class="line">&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;</span><br><span class="line">    res/drawable/filename.xml</span><br><span class="line">&#x8D44;&#x6E90;&#x5F15;&#x7528;&#xFF1A;</span><br><span class="line">    In Java: R.drawable.filename</span><br><span class="line">    In XML: @[package:]drawable/filename</span><br><span class="line">&#x8BED;&#x6CD5;&#xFF1A;</span><br><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">    &lt;shape</span><br><span class="line">        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">        android:shape=[&quot;rectangle&quot;|&quot;oval&quot;|&quot;line&quot;|&quot;ring&quot;] &gt;</span><br><span class="line">        &lt;corners</span><br><span class="line">            android:radius=&quot;integer&quot;</span><br><span class="line">            android:topLeftRadius=&quot;integer&quot;</span><br><span class="line">            android:topRightRadius=&quot;integer&quot;</span><br><span class="line">            android:bottomLeftRadius=&quot;integer&quot;</span><br><span class="line">            android:bottomRightRadius=&quot;integer&quot; /&gt;</span><br><span class="line">        &lt;gradient</span><br><span class="line">            android:angle=&quot;integer&quot;</span><br><span class="line">            android:centerX=&quot;float&quot;</span><br><span class="line">            android:centerY=&quot;float&quot;</span><br><span class="line">            android:centerColor=&quot;integer&quot;</span><br><span class="line">            android:endColor=&quot;color&quot;</span><br><span class="line">            android:gradientRadius=&quot;integer&quot;</span><br><span class="line">            android:startColor=&quot;color&quot;</span><br><span class="line">            android:type=[&quot;linear&quot;|&quot;radial&quot;|&quot;sweep&quot;]</span><br><span class="line">            android:useLevel=[&quot;true&quot;|&quot;false&quot;] /&gt;</span><br><span class="line">        &lt;padding</span><br><span class="line">            android:left=&quot;integer&quot;</span><br><span class="line">            android:top=&quot;integer&quot;</span><br><span class="line">            android:right=&quot;integer&quot;</span><br><span class="line">            android:bottom=&quot;integer&quot; /&gt;</span><br><span class="line">        &lt;size</span><br><span class="line">            android:width=&quot;integer&quot;</span><br><span class="line">            android:height=&quot;integer&quot; /&gt;</span><br><span class="line">        &lt;solid</span><br><span class="line">            android:color=&quot;color&quot; /&gt;</span><br><span class="line">        &lt;stroke</span><br><span class="line">            android:width=&quot;integer&quot;</span><br><span class="line">            android:color=&quot;color&quot;</span><br><span class="line">            android:dashWidth=&quot;integer&quot;</span><br><span class="line">            android:dashGap=&quot;integer&quot; /&gt;</span><br><span class="line">    &lt;/shape&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>Tips:</strong>  </p>
+<p><strong>1.</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**2.** &#x4EE5;&#x4E0B;&#x5C5E;&#x6027;&#x4EC5;&#x5BF9;```android:shape=&quot;ring&quot;```&#x6709;&#x6548;&#xFF1A;</span><br><span class="line"></span><br><span class="line">|Attribute|Description|</span><br><span class="line">|:-|:-|</span><br><span class="line">|```android:innerRadius```|&#x5185;&#x534A;&#x5F84;|</span><br><span class="line">|```android:innerRadiusRatio```|&#x5185;&#x534A;&#x5F84;&#x6BD4;&#x7387;&#xFF0C;&#x6700;&#x7EC8;&#x503C;&#x4E3A;&#x73AF;&#x5BBD;&#x5EA6;/n&#xFF0C;&#x9ED8;&#x8BA4;n=9&#xFF1B;&#x53EF;&#x88AB;innerRadius&#x8986;&#x76D6;|</span><br><span class="line">|```android:thickness```|&#x73AF;&#x7684;&#x539A;&#x5EA6;|</span><br><span class="line">|```android:thicknessRatio```|&#x73AF;&#x539A;&#x5EA6;&#x6BD4;&#x7387;&#xFF0C;&#x6700;&#x7EC8;&#x503C;&#x4E3A;&#x73AF;&#x5BBD;&#x5EA6;/n&#xFF0C;&#x9ED8;&#x8BA4;n=3&#xFF1B;&#x53EF;&#x88AB;thickness&#x8986;&#x76D6;|</span><br><span class="line">|```android:useLevel```|true&#x8868;&#x793A;&#x7528;&#x4E8E;LevelListDrawable&#xFF0C;&#x901A;&#x5E38;&#x5E94;&#x8BE5;&#x662F;false|</span><br><span class="line"></span><br><span class="line">**3.** &#x6E10;&#x53D8;&#x8272;```&lt;gradient&gt;</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attribute</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>android:angle</code></td>
+<td style="text-align:left">&#x6E10;&#x53D8;&#x89D2;&#x5EA6;&#xFF0C;0&#x8868;&#x793A;&#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#xFF0C;90&#x8868;&#x793A;&#x4ECE;&#x4E0B;&#x5F80;&#x4E0A;&#xFF0C;&#x5FC5;&#x987B;&#x662F;45&#x500D;&#x6570;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;0</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:centerX</code></td>
+<td style="text-align:left">&#x6E10;&#x53D8;&#x4E2D;&#x5FC3;X&#x5750;&#x6807;&#xFF0C;&#x53D6;&#x503C;[0-1]&#xFF0C;&#x9ED8;&#x8BA4;0.5</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:centerY</code></td>
+<td style="text-align:left">&#x6E10;&#x53D8;&#x4E2D;&#x5FC3;Y&#x5750;&#x6807;&#xFF0C;&#x53D6;&#x503C;[0-1]&#xFF0C;&#x9ED8;&#x8BA4;0.5</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:startColor</code></td>
+<td style="text-align:left">&#x6E10;&#x53D8;&#x5F00;&#x59CB;&#x989C;&#x8272;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:endColor</code></td>
+<td style="text-align:left">&#x6E10;&#x53D8;&#x7ED3;&#x675F;&#x989C;&#x8272;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:centerColor</code></td>
+<td style="text-align:left">&#x6E10;&#x53D8;&#x4E2D;&#x95F4;&#x989C;&#x8272;&#xFF0C;&#x53EF;&#x9009;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:type</code></td>
+<td style="text-align:left">&#x7C7B;&#x578B;&#xFF1A;linear&#xFF0C;radial&#xFF0C;sweep</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:gradientRadius</code></td>
+<td style="text-align:left">&#x4EC5;&#x5BF9;type=radial&#x6709;&#x6548;&#xFF0C;&#x6E10;&#x53D8;&#x534A;&#x5F84;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:useLevel</code></td>
+<td style="text-align:left">true&#x8868;&#x793A;&#x7528;&#x4E8E;LevelListDrawable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>4.</strong> <code>&lt;padding&gt;</code>&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#xFF0C;&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x751F;&#x6548;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;InsertDrawable&#x6216;&#x8005;LayerDrawable&#x5D4C;&#x5957;&#x5B9E;&#x73B0;&#x5BF9;&#x5E94;&#x6548;&#x679C;&#x3002;</p>
+<p><strong>5.</strong> <code>&lt;size&gt;</code> &#x4E0E; <strong>Drawable#getIntrinsicWidth()</strong> &#x548C; <strong>Drawable#getIntrinsicHeight()</strong> &#x5BF9;&#x5E94;&#xFF1B;Drawable&#x5B9E;&#x9645;&#x5927;&#x5C0F;&#x901A;&#x8FC7; <strong>Drawable#getBounds()</strong> &#x83B7;&#x5F97;</p>
+<p><strong>6.</strong> <code>&lt;solid&gt;</code> &#x8868;&#x793A;&#x586B;&#x5145;&#x7EAF;&#x8272;</p>
+<p><strong>7.</strong> <code>&lt;stroke&gt;</code>  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attribute</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>android:width</code></td>
+<td style="text-align:left">&#x7EBF;&#x5BBD;&#x5EA6;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:color</code></td>
+<td style="text-align:left">&#x7EBF;&#x989C;&#x8272;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:dashGap</code></td>
+<td style="text-align:left">&#x7EBF;&#x95F4;&#x9694;&#x957F;&#x5EA6;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>android:dashWidth</code></td>
+<td style="text-align:left">&#x5982;&#x679C;&#x5B58;&#x5728;&#x95F4;&#x9694;&#xFF0C;&#x95F4;&#x9694;&#x7EBF;&#x7684;&#x5BBD;&#x5EA6;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><p>[1] <a href="https://developer.android.com/training/custom-views/create-view.html" target="_blank" rel="external">https://developer.android.com/training/custom-views/create-view.html</a><br>[2] <a href="https://developer.android.com/guide/topics/resources/drawable-resource.html" target="_blank" rel="external">https://developer.android.com/guide/topics/resources/drawable-resource.html</a><br>[3] &#x300A;Android&#x5F00;&#x53D1;&#x827A;&#x672F;&#x63A2;&#x7D22;&#x300B; &#x4EFB;&#x7389;&#x521A; &#x8457;</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/13/android-studio-plugin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android Studio 常用插件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/31/Android-multiThread-summary/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android 多线程使用总结</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="android-custom-view-and-drawable" data-title="Android自定义View和Drawable总结" data-url="http://yoursite.com/2016/09/13/android-custom-view-and-drawable/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andrewlcgu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 andrewlcgu
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

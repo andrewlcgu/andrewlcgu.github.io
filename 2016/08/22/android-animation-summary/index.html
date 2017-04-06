@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Android 动画总结 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="View Animation
+1. Tween Animation
+2. Drawable Animation
+
+
+Property Animation
+系统提供的应用场景
+Activity切换动画
+Fragment切换动画
+Layout Changes Animation
+使用SVG动画
+
+
+参考
+
+
+View Animation1. Tween Animation针对View的动画，其相关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 动画总结">
+<meta property="og:url" content="http://yoursite.com/2016/08/22/android-animation-summary/index.html">
+<meta property="og:site_name" content="Andrewlcgu's Blog">
+<meta property="og:description" content="View Animation
+1. Tween Animation
+2. Drawable Animation
+
+
+Property Animation
+系统提供的应用场景
+Activity切换动画
+Fragment切换动画
+Layout Changes Animation
+使用SVG动画
+
+
+参考
+
+
+View Animation1. Tween Animation针对View的动画，其相关">
+<meta property="og:image" content="http://yoursite.com/pic_0.png">
+<meta property="og:updated_time" content="2016-08-22T07:59:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 动画总结">
+<meta name="twitter:description" content="View Animation
+1. Tween Animation
+2. Drawable Animation
+
+
+Property Animation
+系统提供的应用场景
+Activity切换动画
+Fragment切换动画
+Layout Changes Animation
+使用SVG动画
+
+
+参考
+
+
+View Animation1. Tween Animation针对View的动画，其相关">
+<meta name="twitter:image" content="http://yoursite.com/pic_0.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-android-animation-summary" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/22/android-animation-summary/" class="article-date">
+  	<time datetime="2016-08-22T07:17:33.000Z" itemprop="datePublished">2016-08-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android 动画总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#view-animation"><span class="toc-text">View Animation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-tween-animation"><span class="toc-text">1. Tween Animation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-drawable-animation"><span class="toc-text">2. Drawable Animation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#property-animation"><span class="toc-text">Property Animation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统提供的应用场景"><span class="toc-text">系统提供的应用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#activity切换动画"><span class="toc-text">Activity切换动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fragment切换动画"><span class="toc-text">Fragment切换动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#layout-changes-animation"><span class="toc-text">Layout Changes Animation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用svg动画"><span class="toc-text">使用SVG动画</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <!-- toc -->
+<ul>
+<li><a href="#view-animation">View Animation</a><ul>
+<li><a href="#1-tween-animation">1. Tween Animation</a></li>
+<li><a href="#2-drawable-animation">2. Drawable Animation</a></li>
+</ul>
+</li>
+<li><a href="#property-animation">Property Animation</a></li>
+<li><a href="#&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;">&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;</a><ul>
+<li><a href="#activity&#x5207;&#x6362;&#x52A8;&#x753B;">Activity&#x5207;&#x6362;&#x52A8;&#x753B;</a></li>
+<li><a href="#fragment&#x5207;&#x6362;&#x52A8;&#x753B;">Fragment&#x5207;&#x6362;&#x52A8;&#x753B;</a></li>
+<li><a href="#layout-changes-animation">Layout Changes Animation</a></li>
+<li><a href="#&#x4F7F;&#x7528;svg&#x52A8;&#x753B;">&#x4F7F;&#x7528;SVG&#x52A8;&#x753B;</a></li>
+</ul>
+</li>
+<li><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="view-animation"><a href="#View-Animation" class="headerlink" title="View Animation"></a>View Animation</h2><h3 id="1-tween-animation"><a href="#1-Tween-Animation" class="headerlink" title="1. Tween Animation"></a>1. Tween Animation</h3><p>&#x9488;&#x5BF9;View&#x7684;&#x52A8;&#x753B;&#xFF0C;&#x5176;&#x76F8;&#x5173;&#x7C7B;&#x5728;<code>android.view.animation</code>&#x4E2D;&#xFF0C;<br>&#x7531;&#x56DB;&#x79CD;&#x52A8;&#x753B;&#x7EC4;&#x6210;&#xFF1A;&#x5E73;&#x79FB;&#x52A8;&#x753B;&#x3001;&#x7F29;&#x653E;&#x52A8;&#x753B;&#x3001;&#x65CB;&#x8F6C;&#x52A8;&#x753B;&#x548C;&#x900F;&#x660E;&#x5EA6;&#x52A8;&#x753B;&#xFF0C;&#x5206;&#x522B;&#x5BF9;&#x5E94;<code>Animation</code>&#x56DB;&#x4E2A;&#x5B50;&#x7C7B;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x540D;&#x79F0;</th>
+<th style="text-align:left">&#x5B50;&#x7C7B;</th>
+<th style="text-align:left">&#x6807;&#x7B7E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&#x5E73;&#x79FB;&#x52A8;&#x753B;</td>
+<td style="text-align:left"><code>&lt;translate&gt;</code></td>
+<td style="text-align:left"><code>TranslateAnimation</code></td>
+</tr>
+<tr>
+<td style="text-align:left">&#x7F29;&#x653E;&#x52A8;&#x753B;</td>
+<td style="text-align:left"><code>&lt;scale&gt;</code></td>
+<td style="text-align:left"><code>ScaleAnimation</code></td>
+</tr>
+<tr>
+<td style="text-align:left">&#x65CB;&#x8F6C;&#x52A8;&#x753B;</td>
+<td style="text-align:left"><code>&lt;rotate&gt;</code></td>
+<td style="text-align:left"><code>RotateAnimation</code></td>
+</tr>
+<tr>
+<td style="text-align:left">&#x900F;&#x660E;&#x5EA6;&#x52A8;&#x753B;</td>
+<td style="text-align:left"><code>&lt;alpha&gt;</code></td>
+<td style="text-align:left"><code>AlphaAnimation</code></td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p>&#x591A;&#x79CD;&#x52A8;&#x753B;&#x7EC4;&#x5408;&#x4F7F;&#x7528;<code>AnimationSet</code>&#xFF0C;&#x5BF9;&#x5E94;<code>&lt;set&gt;</code>&#x6807;&#x7B7E;&#xFF1B;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;XML&#x5B9A;&#x4E49;&#x52A8;&#x753B;&#xFF0C;&#x6587;&#x4EF6;&#x653E;&#x5728;<code>res/anim/</code>&#x4E0B;&#x3002;XML&#x5E38;&#x7528;&#x8BED;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">set</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    <span class="attr">android:interpolator</span>=<span class="string">&quot;@[package:]anim/interpolator_resource&quot;</span></span><br><span class="line">    <span class="attr">android:shareInterpolator</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;] &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">alpha</span></span><br><span class="line">        <span class="attr">android:fromAlpha</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:toAlpha</span>=<span class="string">&quot;float&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scale</span></span><br><span class="line">        <span class="attr">android:fromXScale</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:toXScale</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:fromYScale</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:toYScale</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:pivotX</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:pivotY</span>=<span class="string">&quot;float&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">translate</span></span><br><span class="line">        <span class="attr">android:fromXDelta</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:toXDelta</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:fromYDelta</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:toYDelta</span>=<span class="string">&quot;float&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rotate</span></span><br><span class="line">        <span class="attr">android:fromDegrees</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:toDegrees</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:pivotX</span>=<span class="string">&quot;float&quot;</span></span><br><span class="line">        <span class="attr">android:pivotY</span>=<span class="string">&quot;float&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Tips:</strong><br><strong>0.</strong> Tween Animation&#x6700;&#x5927;&#x7684;&#x7F3A;&#x9677;&#x662F;&#x4E0D;&#x5177;&#x5907;&#x4EA4;&#x4E92;&#x6027;&#xFF0C;&#x5176;&#x54CD;&#x5E94;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x5728;&#x52A8;&#x753B;&#x53D1;&#x751F;&#x524D;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x8FD9;&#x4E0E;&#x5176;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x76F8;&#x5173;&#x3002;<br><strong>1.</strong> &#x6839;&#x6807;&#x7B7E;&#x5FC5;&#x987B;&#x662F;<code>&lt;alpha&gt;</code>,<code>&lt;scale&gt;</code>,<code>&lt;translate&gt;</code>,<code>&lt;rotate&gt;</code>&#x6216;<code>&lt;set&gt;</code><br><strong>2.</strong> <code>android:interpolator</code>&#x9ED8;&#x8BA4;&#x503C;&#x662F;@android:anim/accelerate_decelerate_interpolator&#xFF1B;<code>android:shareInterpolator</code>&#x8868;&#x793A;&#x52A8;&#x753B;&#x96C6;&#x5408;&#x662F;&#x5426;&#x5171;&#x4EAB;&#x540C;&#x4E00;&#x63D2;&#x503C;&#x5668;&#xFF0C;&#x5B50;&#x52A8;&#x753B;&#x53EF;&#x4EE5;&#x5355;&#x72EC;&#x6307;&#x5B9A;&#x63D2;&#x503C;&#x5668;&#x3002;<br><strong>3.</strong> <code>&lt;alpha&gt;</code> &#x53D6;&#x503C;&#x8303;&#x56F4;[0.0,1.0]&#xFF0C;&#x5176;&#x4E2D;&#xFF0C;0.0&#x8868;&#x793A;&#x900F;&#x660E;&#xFF0C;1.0&#x8868;&#x793A;&#x5B8C;&#x5168;&#x4E0D;&#x900F;&#x660E;<br><strong>4.</strong> <code>&lt;scale&gt;</code> &#x9ED8;&#x8BA4;&#x7F29;&#x653E;&#x4E2D;&#x5FC3;&#x662F;View&#x4E2D;&#x5FC3;&#x70B9;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>android:pivotX</code>&#x548C;<code>android:pivotY</code>&#x8FDB;&#x884C;&#x8C03;&#x6574;&#xFF1B;fromXScale&#x7B49;&#x503C;&#x53D6;1.0&#x8868;&#x793A;&#x6CA1;&#x6709;&#x7F29;&#x653E;&#x3002;<br><strong>5.</strong> <code>&lt;translate&gt;</code> &#x53D6;&#x503C;&#x683C;&#x5F0F;&#x6709;&#x4E09;&#x79CD;&#xFF1A;&#x7EDD;&#x5BF9;&#x503C;&#x3001;[-100%, 100%] &#x548C; [-100%p, 100%p]&#xFF1B;&#x7B2C;&#x4E8C;&#x79CD;&#x662F;&#x76F8;&#x5BF9;&#x4E8E;&#x672C;&#x8EAB;width&#x8BA1;&#x7B97;&#x7684;&#xFF0C;&#x7B2C;&#x4E09;&#x79CD;&#x662F;&#x76F8;&#x5BF9;&#x4E8E;&#x7236;View&#x7684;width&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#x7684;&#x3002;<br><strong>6.</strong> <code>&lt;rotate&gt;</code> &#x9ED8;&#x8BA4;&#x65CB;&#x8F6C;&#x4E2D;&#x5FC3;&#x662F;View&#x4E2D;&#x5FC3;&#x70B9;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>android:pivotX</code>&#x548C;<code>android:pivotY</code>&#x8FDB;&#x884C;&#x8C03;&#x6574;&#xFF0C;&#x53D6;&#x503C;&#x6709;&#x4E09;&#x79CD;&#xFF1A;&#x6D6E;&#x70B9;&#x6570;&#x8868;&#x793A;&#x76F8;&#x5BF9;&#x4E8E;left&#x6216;&#x8005;top&#x7684;px&#x503C;&#xFF0C;x%&#x8868;&#x793A;&#x76F8;&#x5BF9;&#x4E8E;left&#x6216;&#x8005;top&#x7684;&#x76F8;&#x5BF9;&#x503C;&#xFF0C;x%p&#x8868;&#x793A;&#x76F8;&#x5BF9;&#x4E8E;&#x7236;&#x63A7;&#x4EF6;left&#x6216;&#x8005;top&#x7684;&#x76F8;&#x5BF9;&#x503C;<br><strong>7.</strong> &#x5176;&#x4ED6;&#x5E38;&#x7528;&#x6807;&#x7B7E;&#xFF1A; <code>android:repeatMode=[&quot;restart&quot;|&quot;reverse&quot;]</code>&#x5982;&#x679C;&#x52A8;&#x753B;&#x91CD;&#x590D;&#x65F6;&#x7684;&#x6A21;&#x5F0F;&#xFF1B;<code>android:repeatCount=[infinite|int]</code>&#x52A8;&#x753B;&#x91CD;&#x590D;&#x6B21;&#x6570;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;0&#xFF0C;&#x8868;&#x793A;&#x4E0D;&#x91CD;&#x590D;&#xFF1B;<code>android:duration</code>&#x8868;&#x793A;&#x6301;&#x7EED;&#x65F6;&#x95F4;&#xFF0C;&#x5355;&#x4F4D;ms&#xFF1B;<code>android:startOffset</code>&#x52A8;&#x753B;&#x5EF6;&#x8FDF;&#x591A;&#x5C11;&#x65F6;&#x95F4;&#x6267;&#x884C;&#xFF1B;<code>android:fillAfter=&quot;true&quot; android:fillBefore=&quot;false&quot;</code>&#x8868;&#x793A;&#x52A8;&#x753B;&#x7ED3;&#x675F;&#x65F6;&#xFF0C;&#x505C;&#x7559;&#x5728;&#x6700;&#x540E;&#x4E00;&#x5E27;&#xFF1B;<code>android:fillAfter=&quot;false&quot; android:fillBefore=&quot;true&quot;</code>&#x8868;&#x793A;&#x52A8;&#x753B;&#x7ED3;&#x675F;&#x65F6;&#xFF0C;&#x505C;&#x7559;&#x5728;&#x7B2C;&#x4E00;&#x5E27;&#x3002;<br><strong>8.</strong> &#x4F7F;&#x7528;Demo<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ImageView image = (ImageView) findViewById(R.id.image);</span><br><span class="line">Animation hyperspaceJump = AnimationUtils.loadAnimation(<span class="keyword">this</span>, R.anim.hyperspace_jump);</span><br><span class="line">image.startAnimation(hyperspaceJump);</span><br></pre></td></tr></table></figure></p>
+<p><strong>9.</strong> &#x76D1;&#x542C;&#x52A8;&#x753B;&#x4E8B;&#x4EF6;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">animation.setAnimationListener(<span class="keyword">new</span> Animation.AnimationListener() {</span><br><span class="line">                  <span class="meta">@Override</span></span><br><span class="line">                  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animation animation)</span> </span>{</span><br><span class="line">                  }</span><br><span class="line"></span><br><span class="line">                  <span class="meta">@Override</span></span><br><span class="line">                  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animation animation)</span> </span>{</span><br><span class="line">                  }</span><br><span class="line"></span><br><span class="line">                  <span class="meta">@Override</span></span><br><span class="line">                  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animation animation)</span> </span>{</span><br><span class="line">                  }</span><br><span class="line">              });</span><br></pre></td></tr></table></figure></p>
+<p><strong>10.</strong> &#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;Interpolators&#x548C;&#x81EA;&#x5B9A;&#x4E49;&#x53C2;&#x6570;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Interpolator class</th>
+<th style="text-align:left">Resource ID</th>
+<th style="text-align:left">&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x53C2;&#x6570;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AccelerateDecelerateInterpolator</td>
+<td style="text-align:left">@android:anim/accelerate_decelerate_interpolator</td>
+<td style="text-align:left">No</td>
+</tr>
+<tr>
+<td style="text-align:left">AccelerateInterpolator</td>
+<td style="text-align:left">@android:anim/accelerate_interpolator</td>
+<td style="text-align:left"><code>android:factor=[float]</code>,&#x9ED8;&#x8BA4;&#x503C;1</td>
+</tr>
+<tr>
+<td style="text-align:left">AnticipateInterpolator</td>
+<td style="text-align:left">@android:anim/anticipate_interpolator</td>
+<td style="text-align:left"><code>android:tension=[float]</code>,&#x9ED8;&#x8BA4;&#x503C;2</td>
+</tr>
+<tr>
+<td style="text-align:left">AnticipateOvershootInterpolator</td>
+<td style="text-align:left">@android:anim/anticipate_overshoot_interpolator</td>
+<td style="text-align:left"><code>android:tension=[float]</code>,&#x9ED8;&#x8BA4;&#x503C;2;  <code>android:extraTension=[float]</code>,&#x9ED8;&#x8BA4;&#x503C;1.5</td>
+</tr>
+<tr>
+<td style="text-align:left">BounceInterpolator</td>
+<td style="text-align:left">@android:anim/bounce_interpolator</td>
+<td style="text-align:left">No</td>
+</tr>
+<tr>
+<td style="text-align:left">CycleInterpolator</td>
+<td style="text-align:left">@android:anim/cycle_interpolator</td>
+<td style="text-align:left"><code>android:cycles=[int]</code>,&#x9ED8;&#x8BA4;&#x503C;1</td>
+</tr>
+<tr>
+<td style="text-align:left">DecelerateInterpolator</td>
+<td style="text-align:left">@android:anim/decelerate_interpolator</td>
+<td style="text-align:left"><code>android:factor=[float]</code>,&#x9ED8;&#x8BA4;&#x503C;1</td>
+</tr>
+<tr>
+<td style="text-align:left">LinearInterpolator</td>
+<td style="text-align:left">@android:anim/linear_interpolator</td>
+<td style="text-align:left">No</td>
+</tr>
+<tr>
+<td style="text-align:left">OvershootInterpolator</td>
+<td style="text-align:left">@android:anim/overshoot_interpolator</td>
+<td style="text-align:left"><code>android:tension=[float]</code>,&#x9ED8;&#x8BA4;&#x503C;2</td>
+</tr>
+</tbody>
+</table>
+<p>Demo:</p>
+<p>XML file saved at res/anim/my_overshoot_interpolator.xml:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">overshootInterpolator</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    <span class="attr">android:tension</span>=<span class="string">&quot;7.0&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>This animation XML will apply the interpolator:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">scale</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    <span class="attr">android:interpolator</span>=<span class="string">&quot;@anim/my_overshoot_interpolator&quot;</span></span><br><span class="line">    <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-drawable-animation"><a href="#2-Drawable-Animation" class="headerlink" title="2. Drawable Animation"></a>2. Drawable Animation</h3><p>&#x50CF;&#x7535;&#x5F71;&#x76F8;&#x4F3C;&#x7684;&#x5E27;&#x52A8;&#x753B;&#xFF0C;&#x6CE8;&#x610F;&#x5BB9;&#x6613;OOM&#x3002;<br>&#x5EFA;&#x8BAE;XML&#x5B9A;&#x4E49;&#xFF0C;&#x6587;&#x4EF6;&#x4F4D;&#x4E8E;<code>res/drawable/</code>&#x4E0B;&#xFF0C;&#x5BF9;&#x5E94;AnimationDrawable&#x7C7B;&#x3002;&#x8BED;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">animation-list</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    <span class="attr">android:oneshot</span>=<span class="string">[</span>&quot;<span class="attr">true</span>&quot;|&quot;<span class="attr">false</span>&quot;] &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span><br><span class="line">        <span class="attr">android:drawable</span>=<span class="string">&quot;@[package:]drawable/drawable_resource_name&quot;</span></span><br><span class="line">        <span class="attr">android:duration</span>=<span class="string">&quot;integer&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">animation-list</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Tips:</strong><br><strong>0.</strong> &#x6839;&#x6807;&#x7B7E;&#x5FC5;&#x987B;&#x662F;<code>&lt;animation-list&gt;</code>&#xFF0C;<code>android:oneshot</code>true&#x8868;&#x793A;&#x6267;&#x884C;&#x4E00;&#x6B21;&#xFF0C;false&#x8868;&#x793A;&#x5FAA;&#x73AF;<br><strong>1.</strong> Demo:<br>XML file saved at res/anim/rocket.xml:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">animation-list</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    <span class="attr">android:oneshot</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/rocket_thrust1&quot;</span> <span class="attr">android:duration</span>=<span class="string">&quot;200&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/rocket_thrust2&quot;</span> <span class="attr">android:duration</span>=<span class="string">&quot;200&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/rocket_thrust3&quot;</span> <span class="attr">android:duration</span>=<span class="string">&quot;200&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">animation-list</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>This application code will set the animation as the background for a View, then play the animation:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ImageView rocketImage = (ImageView) findViewById(R.id.rocket_image);</span><br><span class="line">rocketImage.setBackgroundResource(R.drawable.rocket_thrust);</span><br><span class="line"></span><br><span class="line">rocketAnimation = (AnimationDrawable) rocketImage.getBackground();</span><br><span class="line">rocketAnimation.start();</span><br></pre></td></tr></table></figure></p>
+<p><strong>2.</strong> AnimationDrawable&#x4E0D;&#x80FD;&#x5728;onCreate()&#x4E2D;&#x8C03;&#x7528;start()&#xFF0C;&#x56E0;&#x4E3A;&#x6709;&#x53EF;&#x80FD;&#x6CA1;&#x6709;&#x5B8C;&#x5168;attached to window&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x4EA4;&#x4E92;&#x8981;&#x6C42;&#xFF0C;&#x5EFA;&#x8BAE;&#x5728;onWindowFocusChanged()&#x4E2D;&#x8FDB;&#x884C;&#x8C03;&#x7528;&#x3002;</p>
+<h2 id="property-animation"><a href="#Property-Animation" class="headerlink" title="Property Animation"></a>Property Animation</h2><p>Android 3.0&#x5F15;&#x5165;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#xFF0C;&#x5BF9;&#x4E8E;&#x4EFB;&#x4F55;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x90FD;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x52A8;&#x753B;&#xFF0C;&#x76F8;&#x5BF9;Tween Animation&#x4F18;&#x70B9;&#x662F;&#x771F;&#x6B63;&#x6539;&#x53D8;View&#x5C5E;&#x6027;&#xFF0C;&#x5177;&#x6709;&#x4EA4;&#x4E92;&#x6027;&#xFF1B;&#x4F46;&#x662F;Tween Animation&#x6548;&#x7387;&#x597D;&#xFF0C;&#x5EFA;&#x8BAE;&#x80FD;&#x7528;Tween Animation&#x5B9E;&#x73B0;&#x7684;&#x5C31;&#x7528;Tween Animation&#x5B9E;&#x73B0;&#xFF0C;&#x4EE3;&#x7801;&#x91CF;&#x5C0F;&#x3002;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#xFF0C;&#x5176;&#x76F8;&#x5173;API&#x4E3B;&#x8981;&#x5728;<code>android.animation</code>&#x4E0B;&#x3002;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x9ED8;&#x8BA4;duration&#x662F;300ms&#xFF0C;&#x5E27;&#x7387;&#x9ED8;&#x8BA4;10ms&#xFF0C;&#x53EF;&#x4EE5;&#x8C03;&#x6574;&#x3002;&#x5176;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x53EF;&#x4EE5;&#x53C2;&#x8003;&#x5B98;&#x65B9;&#x793A;&#x610F;&#x56FE;&#xFF1A;</p>
+<p><img src="pic_0.png" alt=""></p>
+<p>ValueAnimator&#x8BB0;&#x5F55;&#x52A8;&#x753B;&#x65F6;&#x95F4;&#xFF0C;&#x8BA1;&#x7B97;&#x51FA;elapsed fraction(&#x5DF2;&#x52A8;&#x753B;&#x7684;&#x65F6;&#x95F4;/&#x52A8;&#x753B;&#x603B;&#x65F6;&#x95F4;)&#xFF1B;&#x7136;&#x540E;&#x8C03;&#x7528;TimeInterpolator&#x8BA1;&#x7B97;interpolated fraction&#xFF0C;&#x518D;&#x901A;&#x8FC7;TypeEvaluator&#x8BA1;&#x7B97;&#x51FA;&#x5C5E;&#x6027;&#x53D8;&#x5316;&#x503C;&#x5E76;&#x8FDB;&#x884C;&#x6539;&#x53D8;&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x76F4;&#x5FAA;&#x73AF;&#x81F3;&#x52A8;&#x753B;&#x7ED3;&#x675F;&#x3002;&#x5176;&#x4E2D;&#xFF0C;TimeInterpolator&#x5B9E;&#x73B0;&#x7C7B;&#x662F;Tween Animation&#x4E2D;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;Interpolators&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;TimeInterpolator&#x63A5;&#x53E3;&#x8FDB;&#x884C;&#x81EA;&#x5B9A;&#x4E49;&#xFF1B;TypeEvaluator&#x5B9E;&#x73B0;&#x7C7B;&#x6709;IntEvaluator&#x3001;FloatEvaluator&#x548C;ArgbEvaluator&#xFF0C;&#x5206;&#x522B;&#x5BF9;&#x5E94;int&#x3001;float&#x548C;&#x8868;&#x793A;&#x989C;&#x8272;&#x7684;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x5C5E;&#x6027;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;TypeEvaluator&#x63A5;&#x53E3;&#x8FDB;&#x884C;&#x81EA;&#x5B9A;&#x4E49;&#x3002;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x5173;&#x952E;&#x7C7B;&#x662F;Animator&#x7684;&#x4E09;&#x4E2A;&#x5B50;&#x7C7B;ValueAnimator&#x3001;ObjectAnimator&#x548C;AnimatorSet&#xFF0C;&#x5176;&#x4E2D;ObjectAnimator&#x7EE7;&#x627F;&#x81EA;ValueAnimator&#x3002;  </p>
+<p><strong>0.</strong> ValueAnimator &#x901A;&#x5E38;&#x914D;&#x5408;ValueAnimator.AnimatorUpdateListener&#x624D;&#x80FD;&#x5B9E;&#x73B0;&#x52A8;&#x753B;&#xFF0C;Demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ValueAnimator animation = ValueAnimator.ofFloat(<span class="number">0f</span>, <span class="number">1f</span>);</span><br><span class="line">animation.setDuration(<span class="number">1000</span>);</span><br><span class="line">animation.start();</span><br><span class="line">animation.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>{</span><br><span class="line">                Float value = animation.getAnimatedValue();</span><br><span class="line">                ...</span><br><span class="line">            }</span><br><span class="line">        });</span><br></pre></td></tr></table></figure></p>
+<p>&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;Animator.AnimatorListener&#x5B9E;&#x73B0;&#x5BF9;&#x52A8;&#x753B;&#x8FC7;&#x7A0B;&#x76D1;&#x542C;&#xFF0C;&#x5176;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#xFF1A;onAnimationStart()&#x3001;onAnimationEnd()&#x3001;onAnimationRepeat() &#x548C;onAnimationCancel()&#xFF0C;&#x5176;&#x4E2D;&#xFF0C;onAnimationCancel()&#x8C03;&#x7528;&#x65F6;&#x4E00;&#x5B9A;&#x4F1A;&#x8C03;&#x7528;onAnimationEnd()&#xFF0C;&#x7CFB;&#x7EDF;&#x4E5F;&#x63D0;&#x4F9B;&#x4E86;&#x9002;&#x914D;&#x7C7B;AnimatorListenerAdapter&#x3002;  </p>
+<p><strong>1.</strong> ObjectAnimator &#x7B80;&#x5316;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x521B;&#x5EFA;&#x8FC7;&#x7A0B;&#xFF0C;Demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ObjectAnimator anim = ObjectAnimator.ofFloat(foo, <span class="string">&quot;alpha&quot;</span>, <span class="number">0f</span>, <span class="number">1f</span>);</span><br><span class="line">anim.setDuration(<span class="number">1000</span>);</span><br><span class="line">anim.start();</span><br></pre></td></tr></table></figure></p>
+<p>&#x6709;&#x51E0;&#x70B9;&#x6CE8;&#x610F;&#xFF1A;<br>a.&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x5BF9;&#x8C61;&#x5FC5;&#x987B;&#x63D0;&#x4F9B;&#x5C5E;&#x6027;&#x7684;setter&#x65B9;&#x6CD5;(in camel case)&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#x5219;&#x9700;&#x8981;&#x589E;&#x52A0;&#x8BE5;&#x65B9;&#x6CD5;&#xFF0C;&#x6216;&#x8005;&#x8FDB;&#x884C;&#x5305;&#x88C5;(wrapper)&#x3002;<br>b.&#x5982;&#x679C;&#x5C5E;&#x6027;values&#x53EA;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x6BD4;&#x5982;Demo&#x4E2D;&#x53EA;&#x4F20;1f&#xFF0C;&#x5219;&#x8868;&#x793A;&#x7ED3;&#x675F;&#x503C;&#xFF0C;&#x6B64;&#x65F6;&#x5FC5;&#x987B;&#x9700;&#x8981;getter&#x65B9;&#x6CD5;&#x3002;<br>c.getter&#x548C;setter&#x65B9;&#x6CD5;&#x5FC5;&#x987B;&#x9488;&#x5BF9;&#x52A8;&#x753B;&#x64CD;&#x4F5C;&#x7684;&#x5C5E;&#x6027;&#x3002;<br>d.&#x5FC5;&#x8981;&#x65F6;&#x9700;&#x8981;&#x8C03;&#x7528;invalidate()&#x8FDB;&#x884C;&#x91CD;&#x7ED8;&#x3002;<br>e.PropertyValuesHolder&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x540C;&#x4E00;&#x5BF9;&#x8C61;&#x591A;&#x4E2A;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x7684;&#x6548;&#x679C;&#xFF0C;&#x76F8;&#x6BD4;&#x4E0B;&#x9762;AnimatorSet&#x6548;&#x7387;&#x8F83;&#x9AD8;&#xFF0C;Demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PropertyValuesHolder pvh1 = PropertyValuesHolder.ofFloat(<span class="string">&quot;translateX&quot;</span>,<span class="number">300f</span>);</span><br><span class="line">PropertyValuesHolder pvh2 = PropertyValuesHolder.ofFloat(<span class="string">&quot;alpha&quot;</span>, <span class="number">0f</span>, <span class="number">1f</span>);</span><br><span class="line">ObjectAnimator.ofPropertyValuesHolder(view,pvh1,pvh2).setDuration(<span class="number">1000</span>).start();</span><br></pre></td></tr></table></figure></p>
+<p><strong>2.</strong> AnimatorSet &#x628A;&#x591A;&#x4E2A;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x8FDB;&#x884C;&#x7EC4;&#x5408;&#xFF0C;&#x4F18;&#x52BF;&#x662F;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x76F8;&#x5E94;&#x52A8;&#x753B;&#x7684;&#x6267;&#x884C;&#x6B21;&#x5E8F;&#xFF0C;Demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">AnimatorSet bouncer = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">bouncer.play(bounceAnim).before(squashAnim1);</span><br><span class="line">bouncer.play(squashAnim1).with(squashAnim2);</span><br><span class="line">bouncer.play(squashAnim1).with(stretchAnim1);</span><br><span class="line">bouncer.play(squashAnim1).with(stretchAnim2);</span><br><span class="line">bouncer.play(bounceBackAnim).after(stretchAnim2);</span><br><span class="line">ValueAnimator fadeAnim = ObjectAnimator.ofFloat(newBall, <span class="string">&quot;alpha&quot;</span>, <span class="number">1f</span>, <span class="number">0f</span>);</span><br><span class="line">fadeAnim.setDuration(<span class="number">250</span>);</span><br><span class="line">AnimatorSet animatorSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">animatorSet.play(bouncer).before(fadeAnim);</span><br><span class="line">animatorSet.start();</span><br></pre></td></tr></table></figure></p>
+<p><strong>3.</strong> Keyframes&#x4F7F;&#x7528; keyframes&#x5BF9;&#x8C61;&#x5305;&#x542B;time/value&#x5BF9;&#xFF0C;&#x7528;&#x6765;&#x8868;&#x793A;&#x5728;&#x52A8;&#x753B;&#x6307;&#x5B9A;&#x65F6;&#x95F4;&#x7684;&#x7279;&#x6B8A;&#x503C;&#xFF0C;&#x6BCF;&#x4E2A;keyframe&#x4E5F;&#x53EF;&#x4EE5;&#x62E5;&#x6709;&#x524D;&#x4E00;&#x4E2A;keyframe&#x5230;&#x81EA;&#x8EAB;&#x7684;&#x63D2;&#x503C;&#x5668;&#xFF0C;Demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Keyframe kf0 = Keyframe.ofFloat(<span class="number">0f</span>, <span class="number">0f</span>);</span><br><span class="line">Keyframe kf1 = Keyframe.ofFloat(.<span class="number">5f</span>, <span class="number">360f</span>);</span><br><span class="line">Keyframe kf2 = Keyframe.ofFloat(<span class="number">1f</span>, <span class="number">0f</span>);</span><br><span class="line">PropertyValuesHolder pvhRotation = PropertyValuesHolder.ofKeyframe(<span class="string">&quot;rotation&quot;</span>, kf0, kf1, kf2);</span><br><span class="line">ObjectAnimator rotationAnim = ObjectAnimator.ofPropertyValuesHolder(target, pvhRotation)</span><br><span class="line">rotationAnim.setDuration(<span class="number">5000</span>ms);</span><br></pre></td></tr></table></figure></p>
+<p><strong>4.</strong> &#x9488;&#x5BF9;View&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x53EF;&#x4EE5;&#x64CD;&#x4F5C;&#x7684;&#x5C5E;&#x6027;&#x503C;&#x6709;&#xFF1A;translationX/translateY&#xFF0C;rotation/rotationX/rotationY&#xFF0C;scaleX/scaleY&#xFF0C;pivotX/pivotY&#xFF0C;x/y&#xFF0C;alpha&#xFF1B;View&#x672C;&#x8EAB;&#x589E;&#x52A0;animate()&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x9A71;&#x52A8;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x3002;</p>
+<p><strong>5.</strong> XML&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#xFF0C;&#x6587;&#x4EF6;&#x5728;<code>res/animator</code>&#x4E2D;&#x3002;&#x5BF9;&#x5E94;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Class</th>
+<th style="text-align:left">Tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ValueAnimator</td>
+<td style="text-align:left"><code>&lt;animator&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">ObjectAnimator</td>
+<td style="text-align:left"><code>&lt;objectAnimator&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">AnimatorSet</td>
+<td style="text-align:left"><code>&lt;set&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>&#x5E38;&#x7528;&#x6807;&#x7B7E;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">set</span> <span class="attr">android:ordering</span>=<span class="string">[</span>&quot;<span class="attr">sequentially</span>&quot;|&quot;<span class="attr">together</span>&quot;]&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">objectAnimator</span></span><br><span class="line">        <span class="attr">android:propertyName</span>=<span class="string">&quot;string&quot;</span></span><br><span class="line">        <span class="attr">android:duration</span>=<span class="string">&quot;int&quot;</span></span><br><span class="line">        <span class="attr">android:valueFrom</span>=<span class="string">&quot;float|int|color&quot;</span></span><br><span class="line">        <span class="attr">android:valueTo</span>=<span class="string">&quot;float|int|color&quot;</span></span><br><span class="line">        <span class="attr">android:repeatCount</span>=<span class="string">&quot;[infinite|int]&quot;</span></span><br><span class="line">        <span class="attr">android:repeatMode</span>=<span class="string">&quot;[restart|reverse]&quot;</span></span><br><span class="line">        <span class="attr">android:startOffset</span>=<span class="string">&quot;int&quot;</span></span><br><span class="line">        <span class="attr">android:valueType</span>=<span class="string">[</span>&quot;<span class="attr">intType</span>&quot;|&quot;<span class="attr">floatType</span>&quot;]/&gt;</span></span><br><span class="line">   ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x4F7F;&#x7528;Demo&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(myContext,R.anim.property_animator);</span><br><span class="line">set.setTarget(myObject);</span><br><span class="line">set.start();</span><br></pre></td></tr></table></figure></p>
+<h2 id="&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;"><a href="#&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;" class="headerlink" title="&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;"></a>&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;</h2><h3 id="activity&#x5207;&#x6362;&#x52A8;&#x753B;"><a href="#Activity&#x5207;&#x6362;&#x52A8;&#x753B;" class="headerlink" title="Activity&#x5207;&#x6362;&#x52A8;&#x753B;"></a>Activity&#x5207;&#x6362;&#x52A8;&#x753B;</h3><p><strong>0.</strong> public void overridePendingTransition (int enterAnim, int exitAnim)&#xFF0C;&#x5FC5;&#x987B;&#x5728;startActivity(Intent intent)&#x548C;finish()&#x4E4B;&#x540E;&#x8C03;&#x7528;&#x624D;&#x751F;&#x6548;&#x3002;<br><strong>1.</strong> &#x5B9A;&#x4E49;&#x5728;XML&#x4E2D;&#xFF0C;&#x901A;&#x8FC7;&#x4E3B;&#x9898;windowAnimationStyle&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x5B9A;&#x4E49;&#xFF0C;&#x6CE8;&#x610F;&#x662F;Tween Animation&#xFF0C;&#x5176;Demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;AnimActivityTheme&quot;</span>&gt;</span><span class="xml"></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:windowAnimationStyle&quot;</span>&gt;</span>@style/FeelyouWindowAnimTheme<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;FeelyouWindowAnimTheme&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;@android:style/Animation.Activity&quot;</span>&gt;</span><span class="xml"></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:activityOpenEnterAnimation&quot;</span>&gt;</span>@anim/in_from_left<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:activityOpenExitAnimation&quot;</span>&gt;</span>@anim/out_from_right<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:activityCloseEnterAnimation&quot;</span>&gt;</span>@anim/in_from_right<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:activityCloseExitAnimation&quot;</span>&gt;</span>@anim/out_from_left<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="fragment&#x5207;&#x6362;&#x52A8;&#x753B;"><a href="#Fragment&#x5207;&#x6362;&#x52A8;&#x753B;" class="headerlink" title="Fragment&#x5207;&#x6362;&#x52A8;&#x753B;"></a>Fragment&#x5207;&#x6362;&#x52A8;&#x753B;</h3><p>&#x73B0;&#x5728;App&#x57FA;&#x672C;&#x4E0A;&#x90FD;&#x662F;&#x652F;&#x6301;API 11&#x4EE5;&#x4E0A;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;Fragment&#x6307;android.app.Fragment&#xFF0C;&#x4F7F;&#x7528;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x3002;<br><strong>0.</strong> Fragment&#x6807;&#x51C6;&#x5207;&#x6362;&#x52A8;&#x753B;&#x53EF;&#x901A;&#x8FC7;FragmentTransaction.setTransition()&#x5B9E;&#x73B0;&#xFF0C;&#x5176;&#x53C2;&#x6570;&#x53D6;&#x503C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x53C2;&#x6570;</th>
+<th style="text-align:left">&#x610F;&#x4E49;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">TRANSIT_NONE</td>
+<td style="text-align:left">&#x65E0;&#x52A8;&#x753B;</td>
+</tr>
+<tr>
+<td style="text-align:left">TRANSIT_FRAGMENT_OPEN</td>
+<td style="text-align:left">&#x52A8;&#x753B;&#x6253;&#x5F00;</td>
+</tr>
+<tr>
+<td style="text-align:left">TRANSIT_FRAGMENT_CLOSE</td>
+<td style="text-align:left">&#x52A8;&#x753B;&#x5173;&#x95ED;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1.</strong> &#x81EA;&#x5B9A;&#x4E49;&#x52A8;&#x753B;&#x4F7F;&#x7528;setCustomAnimations(int enter, int exit, int popEnter, int popExit)&#x65B9;&#x6CD5;&#xFF0C;API 11&#x65F6;&#x8BE5;&#x65B9;&#x6CD5;&#x53EA;&#x6709;&#x524D;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;API 13&#x540E;&#x624D;&#x5F15;&#x5165;&#x540E;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x6807;&#x8BC6;Fragment&#x8FDB;&#x6808;&#x548C;&#x51FA;&#x6808;&#x52A8;&#x753B;&#x3002;&#x8BE5;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x987B;&#x5728;add()&#x3001;remove()&#x3001;replace()&#x8C03;&#x7528;&#x4E4B;&#x524D;&#xFF0C;&#x5426;&#x5219;&#x4E0D;&#x751F;&#x6548;&#x3002;</p>
+<p><strong>2.</strong> &#x53EF;&#x4EE5;&#x4F7F;&#x7528;ViewAnimator&#x53CA;&#x5176;&#x5B50;&#x7C7B;&#x5B9E;&#x73B0;Fragment&#x52A8;&#x753B;&#x5207;&#x6362;&#xFF0C;&#x540C;&#x6837;&#x9488;&#x5BF9;ViewGroup&#x548C;View&#x5207;&#x6362;&#x52A8;&#x753B;&#x4E5F;&#x53EF;&#x4F7F;&#x7528;&#x3002;</p>
+<p><strong>3.</strong> ViewPager&#x63D0;&#x4F9B;&#x81EA;&#x5B9A;&#x4E49;View&#x4E4B;&#x95F4;&#x8F6C;&#x6362;&#x52A8;&#x753B;&#x529F;&#x80FD;&#xFF0C;&#x4F7F;&#x7528;ViewPager.setPageTransformer()&#x65B9;&#x6CD5;&#xFF0C;&#x53C2;&#x8003;&#x5B98;&#x7F51;Demo&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">ViewPager mPager = (ViewPager) findViewById(R.id.pager);</span><br><span class="line">...</span><br><span class="line">mPager.setPageTransformer(<span class="keyword">true</span>, <span class="keyword">new</span> ZoomOutPageTransformer());</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZoomOutPageTransformer</span> <span class="keyword">implements</span> <span class="title">ViewPager</span>.<span class="title">PageTransformer</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> MIN_SCALE = <span class="number">0.85f</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> MIN_ALPHA = <span class="number">0.5f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transformPage</span><span class="params">(View view, <span class="keyword">float</span> position)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> pageWidth = view.getWidth();</span><br><span class="line">        <span class="keyword">int</span> pageHeight = view.getHeight();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (position &lt; -<span class="number">1</span>) { <span class="comment">// [-Infinity,-1)</span></span><br><span class="line">            <span class="comment">// This page is way off-screen to the left.</span></span><br><span class="line">            view.setAlpha(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (position &lt;= <span class="number">1</span>) { <span class="comment">// [-1,1]</span></span><br><span class="line">            <span class="comment">// Modify the default slide transition to shrink the page as well</span></span><br><span class="line">            <span class="keyword">float</span> scaleFactor = Math.max(MIN_SCALE, <span class="number">1</span> - Math.abs(position));</span><br><span class="line">            <span class="keyword">float</span> vertMargin = pageHeight * (<span class="number">1</span> - scaleFactor) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">float</span> horzMargin = pageWidth * (<span class="number">1</span> - scaleFactor) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (position &lt; <span class="number">0</span>) {</span><br><span class="line">                view.setTranslationX(horzMargin - vertMargin / <span class="number">2</span>);</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                view.setTranslationX(-horzMargin + vertMargin / <span class="number">2</span>);</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Scale the page down (between MIN_SCALE and 1)</span></span><br><span class="line">            view.setScaleX(scaleFactor);</span><br><span class="line">            view.setScaleY(scaleFactor);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Fade the page relative to its size.</span></span><br><span class="line">            view.setAlpha(MIN_ALPHA +</span><br><span class="line">                    (scaleFactor - MIN_SCALE) /</span><br><span class="line">                    (<span class="number">1</span> - MIN_SCALE) * (<span class="number">1</span> - MIN_ALPHA));</span><br><span class="line"></span><br><span class="line">        } <span class="keyword">else</span> { <span class="comment">// (1,+Infinity]</span></span><br><span class="line">            <span class="comment">// This page is way off-screen to the right.</span></span><br><span class="line">            view.setAlpha(<span class="number">0</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<h3 id="layout-changes-animation"><a href="#Layout-Changes-Animation" class="headerlink" title="Layout Changes Animation"></a>Layout Changes Animation</h3><p><strong>0.</strong> &#x5B98;&#x65B9;&#x5EFA;&#x8BAE;API&gt;=14&#x65F6;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>android:animateLayoutChanges=&quot;true&quot;</code>&#x5F00;&#x542F;&#x9ED8;&#x8BA4;&#x52A8;&#x753B;&#xFF1A;&#x589E;&#x52A0;&#x6216;&#x8005;&#x5220;&#x9664;View&#x65F6;&#x4F1A;&#x4EA7;&#x751F;&#x52A8;&#x753B;&#xFF1B;&#x8FD8;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;LayoutTransition&#x8FDB;&#x884C;&#x81EA;&#x5B9A;&#x4E49;&#x52A8;&#x753B;&#xFF0C;&#x5176;&#x5B9E;API 11&#x5DF2;&#x7ECF;&#x5F15;&#x5165;&#x8BE5;API&#x4E86;&#x3002;&#x800C;ViewGroup.setLayoutAnimation()&#x65B9;&#x6CD5;&#x53EA;&#x662F;&#x8BBE;&#x7F6E;View&#x7B2C;&#x4E00;&#x6B21;layout&#x65F6;&#x7684;&#x52A8;&#x753B;&#xFF0C;API 1&#x5C31;&#x5B58;&#x5728;&#x8BE5;&#x65B9;&#x6CD5;&#x3002;</p>
+<p><strong>1.</strong> API&gt;=19&#x65F6;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;Transitions Framework&#x5B9E;&#x73B0;&#xFF0C;&#x6709;&#x4EE5;&#x4E0B;&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#xFF1A;<br>a) SurfaceView&#x3001;TextureView&#x548C;AdapterView&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;<br>b) &#x542B;&#x6709;text&#x7684;View&#x4E0D;&#x5EFA;&#x8BAE;&#x6267;&#x884C;resize&#x52A8;&#x753B;  </p>
+<p>####Scene&#x6982;&#x5FF5;&#xFF1A;<br>&#x4FDD;&#x5B58;View hierarchy&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x901A;&#x8FC7;Scene.getSceneForLayout()&#x83B7;&#x5F97;&#x5BF9;&#x8C61;&#xFF0C;&#x5176;&#x4E2D;scene root&#x5FC5;&#x987B;&#x662F;ViewGroup&#x3002;  </p>
+<p>####Transition&#x6982;&#x5FF5;&#xFF1A;<br>&#x5B9A;&#x4E49;start scene&#x5230;end scene&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x5316;&#x52A8;&#x753B;&#xFF0C;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x5185;&#x7F6E;&#x4E09;&#x79CD;&#x7C7B;&#x578B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Class</th>
+<th style="text-align:left">Tag</th>
+<th style="text-align:left">Attributes</th>
+<th style="text-align:left">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AutoTransition</td>
+<td style="text-align:left"><code>&lt;autoTransition/&gt;</code></td>
+<td style="text-align:left">&#x65E0;</td>
+<td style="text-align:left">&#x9ED8;&#x8BA4;</td>
+</tr>
+<tr>
+<td style="text-align:left">Fade</td>
+<td style="text-align:left"><code>&lt;fade/&gt;</code></td>
+<td style="text-align:left">android:fadingMode=&#x201D;[fade_in | fade_out | fade_in_out]&#x201D;</td>
+<td style="text-align:left">&#x9ED8;&#x8BA4;fade_in_out</td>
+</tr>
+<tr>
+<td style="text-align:left">ChangeBounds</td>
+<td style="text-align:left"><code>&lt;changeBounds/&gt;</code></td>
+<td style="text-align:left">&#x65E0;</td>
+<td style="text-align:left">Moves and resizes views</td>
+</tr>
+</tbody>
+</table>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;XMl&#x6216;&#x8005;&#x4EE3;&#x7801;&#x6784;&#x5EFA;&#x5B9E;&#x4F8B;&#xFF0C;xml&#x7684;demo&#x5982;&#x4E0B;&#xFF1A;<br>res/transition/fade_transition.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">fade</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>The following code snippet shows how to inflate a Transition instance inside your activity from a resource file:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Transition mFadeTransition =</span><br><span class="line">        TransitionInflater.from(<span class="keyword">this</span>).</span><br><span class="line">        inflateTransition(R.transition.fade_transition);</span><br></pre></td></tr></table></figure></p>
+<p>&#x4E0A;&#x8FF0;&#x4F7F;&#x7528;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x7684;Demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Transition mFadeTransition = <span class="keyword">new</span> Fade();</span><br></pre></td></tr></table></figure></p>
+<p>&#x4F7F;&#x7528;&#x65F6;:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TransitionManager.go(mEndingScene, mFadeTransition);</span><br></pre></td></tr></table></figure></p>
+<p>&#x901A;&#x8FC7;removeTarget()&#x3001;addTarget()&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x52A8;&#x753B;&#x76EE;&#x6807;&#xFF1B;&#x540C;&#x65F6;&#x63D0;&#x4F9B;Transition.TransitionListener&#x76D1;&#x542C;&#x52A8;&#x753B;&#x8FC7;&#x7A0B;&#x3002;&#x5982;&#x679C;&#x9700;&#x8981;&#x7EC4;&#x5408;&#x5219;&#x4F7F;&#x7528;TransitionSet&#xFF0C;&#x5176;xml&#x4F4D;&#x4E8E;<code>res/transitions/</code>&#x4E0B;&#xFF0C;&#x4F7F;&#x7528;TransitionInflater.from()&#x8BFB;&#x53D6;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x4EE5;&#x4E0B;Demo&#x5B9E;&#x73B0;AutoTransition&#x7684;&#x6548;&#x679C;:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transitionSet</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    <span class="attr">android:transitionOrdering</span>=<span class="string">&quot;sequential&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fade</span> <span class="attr">android:fadingMode</span>=<span class="string">&quot;fade_out&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">changeBounds</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fade</span> <span class="attr">android:fadingMode</span>=<span class="string">&quot;fade_in&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transitionSet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528; TransitionManager.beginDelayedTransition() &#x66FF;&#x4EE3;Scene  </p>
+<p>&#x81EA;&#x5B9A;&#x4E49;Transitions&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomTransition</span> <span class="keyword">extends</span> <span class="title">Transition</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">captureStartValues</span><span class="params">(TransitionValues values)</span> </span>{}</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">captureEndValues</span><span class="params">(TransitionValues values)</span> </span>{}</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animator <span class="title">createAnimator</span><span class="params">(ViewGroup sceneRoot,</span><br><span class="line">                                   TransitionValues startValues,</span><br><span class="line">                                   TransitionValues endValues)</span> </span>{}</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x5176;&#x4E2D;&#xFF0C;captureStartValues()&#x548C;captureEndValues()&#x9700;&#x8981;&#x628A;&#x5C5E;&#x6027;&#x4FDD;&#x5B58;&#x5728;values&#x4E2D;&#xFF0C;values&#x672C;&#x8D28;&#x662F;Map&#xFF0C;Key&#x5EFA;&#x8BAE;&#x683C;&#x5F0F;&#x4E3A;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">package_name:transition_name:property_name</span><br></pre></td></tr></table></figure></p>
+<p>createAnimator&#x8FD4;&#x56DE;&#x6839;&#x636E;startValues&#x548C;endValues&#x521B;&#x5EFA;&#x7684;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x5BF9;&#x8C61;&#x3002;&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x7684;Demo&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChangeColor</span> <span class="keyword">extends</span> <span class="title">Transition</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Key to store a color value in TransitionValues object */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String PROPNAME_BACKGROUND = <span class="string">&quot;customtransition:change_color:background&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// BEGIN_INCLUDE (capture_values)</span></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Convenience method: Add the background Drawable property value</span><br><span class="line">     * to the TransitionsValues.value Map for a target.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">captureValues</span><span class="params">(TransitionValues values)</span> </span>{</span><br><span class="line">        <span class="comment">// Capture the property values of views for later use</span></span><br><span class="line">        values.values.put(PROPNAME_BACKGROUND, values.view.getBackground());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">captureStartValues</span><span class="params">(TransitionValues transitionValues)</span> </span>{</span><br><span class="line">        captureValues(transitionValues);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Capture the value of the background drawable property for a target in the ending Scene.</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">captureEndValues</span><span class="params">(TransitionValues transitionValues)</span> </span>{</span><br><span class="line">        captureValues(transitionValues);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// END_INCLUDE (capture_values)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// BEGIN_INCLUDE (create_animator)</span></span><br><span class="line">    <span class="comment">// Create an animation for each target that is in both the starting and ending Scene. For each</span></span><br><span class="line">    <span class="comment">// pair of targets, if their background property value is a color (rather than a graphic),</span></span><br><span class="line">    <span class="comment">// create a ValueAnimator based on an ArgbEvaluator that interpolates between the starting and</span></span><br><span class="line">    <span class="comment">// ending color. Also create an update listener that sets the View background color for each</span></span><br><span class="line">    <span class="comment">// animation frame</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animator <span class="title">createAnimator</span><span class="params">(ViewGroup sceneRoot,</span><br><span class="line">                                   TransitionValues startValues, TransitionValues endValues)</span> </span>{</span><br><span class="line">        <span class="comment">// This transition can only be applied to views that are on both starting and ending scenes.</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == startValues || <span class="keyword">null</span> == endValues) {</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// Store a convenient reference to the target. Both the starting and ending layout have the</span></span><br><span class="line">        <span class="comment">// same target.</span></span><br><span class="line">        <span class="keyword">final</span> View view = endValues.view;</span><br><span class="line">        <span class="comment">// Store the object containing the background property for both the starting and ending</span></span><br><span class="line">        <span class="comment">// layouts.</span></span><br><span class="line">        Drawable startBackground = (Drawable) startValues.values.get(PROPNAME_BACKGROUND);</span><br><span class="line">        Drawable endBackground = (Drawable) endValues.values.get(PROPNAME_BACKGROUND);</span><br><span class="line">        <span class="comment">// This transition changes background colors for a target. It doesn&apos;t animate any other</span></span><br><span class="line">        <span class="comment">// background changes. If the property isn&apos;t a ColorDrawable, ignore the target.</span></span><br><span class="line">        <span class="keyword">if</span> (startBackground <span class="keyword">instanceof</span> ColorDrawable &amp;&amp; endBackground <span class="keyword">instanceof</span> ColorDrawable) {</span><br><span class="line">            ColorDrawable startColor = (ColorDrawable) startBackground;</span><br><span class="line">            ColorDrawable endColor = (ColorDrawable) endBackground;</span><br><span class="line">            <span class="comment">// If the background color for the target in the starting and ending layouts is</span></span><br><span class="line">            <span class="comment">// different, create an animation.</span></span><br><span class="line">            <span class="keyword">if</span> (startColor.getColor() != endColor.getColor()) {</span><br><span class="line">                <span class="comment">// Create a new Animator object to apply to the targets as the transitions framework</span></span><br><span class="line">                <span class="comment">// changes from the starting to the ending layout. Use the class ValueAnimator,</span></span><br><span class="line">                <span class="comment">// which provides a timing pulse to change property values provided to it. The</span></span><br><span class="line">                <span class="comment">// animation runs on the UI thread. The Evaluator controls what type of</span></span><br><span class="line">                <span class="comment">// interpolation is done. In this case, an ArgbEvaluator interpolates between two</span></span><br><span class="line">                <span class="comment">// #argb values, which are specified as the 2nd and 3rd input arguments.</span></span><br><span class="line">                ValueAnimator animator = ValueAnimator.ofObject(<span class="keyword">new</span> ArgbEvaluator(),</span><br><span class="line">                        startColor.getColor(), endColor.getColor());</span><br><span class="line">                <span class="comment">// Add an update listener to the Animator object.</span></span><br><span class="line">                animator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() {</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>{</span><br><span class="line">                        Object value = animation.getAnimatedValue();</span><br><span class="line">                        <span class="comment">// Each time the ValueAnimator produces a new frame in the animation, change</span></span><br><span class="line">                        <span class="comment">// the background color of the target. Ensure that the value isn&apos;t null.</span></span><br><span class="line">                        <span class="keyword">if</span> (<span class="keyword">null</span> != value) {</span><br><span class="line">                            view.setBackgroundColor((Integer) value);</span><br><span class="line">                        }</span><br><span class="line">                    }</span><br><span class="line">                });</span><br><span class="line">                <span class="comment">// Return the Animator object to the transitions framework. As the framework changes</span></span><br><span class="line">                <span class="comment">// between the starting and ending layouts, it applies the animation you&apos;ve created.</span></span><br><span class="line">                <span class="keyword">return</span> animator;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// For non-ColorDrawable backgrounds, we just return null, and no animation will take place.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// END_INCLUDE (create_animator)</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<h3 id="&#x4F7F;&#x7528;svg&#x52A8;&#x753B;"><a href="#&#x4F7F;&#x7528;SVG&#x52A8;&#x753B;" class="headerlink" title="&#x4F7F;&#x7528;SVG&#x52A8;&#x753B;"></a>&#x4F7F;&#x7528;SVG&#x52A8;&#x753B;</h3><p>Google&#x5B98;&#x65B9;&#x652F;&#x6301;&#x5305;&#x4E2D;&#x63D0;&#x4F9B;&#x4E86;AnimatedVectorDrawableCompat&#x5BF9;svg&#x52A8;&#x753B;&#x652F;&#x6301;&#xFF0C;&#x5411;&#x4E0B;&#x517C;&#x5BB9;&#x81F3;API 11&#xFF0C;&#x5177;&#x4F53;&#x4F7F;&#x7528;&#x53C2;&#x89C1;&#x5B98;&#x65B9;<a href="https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable.html" target="_blank" rel="external">https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable.html</a>&#x3002;</p>
+<h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><p>[1] <a href="https://developer.android.com/guide/topics/graphics/prop-animation.html" target="_blank" rel="external">https://developer.android.com/guide/topics/graphics/prop-animation.html</a><br>[2] <a href="https://developer.android.com/training/transitions/index.html" target="_blank" rel="external">https://developer.android.com/training/transitions/index.html</a><br>[3] <a href="https://developer.android.com/training/animation/index.html" target="_blank" rel="external">https://developer.android.com/training/animation/index.html</a><br>[4] &#x300A;Android&#x5F00;&#x53D1;&#x827A;&#x672F;&#x63A2;&#x7D22;&#x300B; &#x4EFB;&#x7389;&#x521A; &#x8457;<br>[5] &#x300A;Android&#x7FA4;&#x82F1;&#x4F20;&#x300B; &#x5F90;&#x5B9C;&#x751F; &#x8457;</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/31/Android-multiThread-summary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android 多线程使用总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/08/android-touch-research/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android关于Touch事件的相关研究</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="android-animation-summary" data-title="Android 动画总结" data-url="http://yoursite.com/2016/08/22/android-animation-summary/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andrewlcgu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 andrewlcgu
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

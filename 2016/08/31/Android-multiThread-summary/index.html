@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Android 多线程使用总结 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="AsyncTask类
+Loaders框架
+HandlerThread类
+IntentService类
+线程池ThreadPoolExecutor
+参考
+
+
+APK启动时会执行ActivityThread中main()方法，其中创建ActivityThread的线程作为主线程，由于该线程主要与UI交互相关，所以称为UI线程；UI线程中不能执行耗时操作，否则容易引起ANR，所以Google建议开启">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 多线程使用总结">
+<meta property="og:url" content="http://yoursite.com/2016/08/31/Android-multiThread-summary/index.html">
+<meta property="og:site_name" content="Andrewlcgu's Blog">
+<meta property="og:description" content="AsyncTask类
+Loaders框架
+HandlerThread类
+IntentService类
+线程池ThreadPoolExecutor
+参考
+
+
+APK启动时会执行ActivityThread中main()方法，其中创建ActivityThread的线程作为主线程，由于该线程主要与UI交互相关，所以称为UI线程；UI线程中不能执行耗时操作，否则容易引起ANR，所以Google建议开启">
+<meta property="og:image" content="http://yoursite.com/pic_0.png">
+<meta property="og:image" content="http://yoursite.com/pic_1.png">
+<meta property="og:updated_time" content="2016-08-31T12:30:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 多线程使用总结">
+<meta name="twitter:description" content="AsyncTask类
+Loaders框架
+HandlerThread类
+IntentService类
+线程池ThreadPoolExecutor
+参考
+
+
+APK启动时会执行ActivityThread中main()方法，其中创建ActivityThread的线程作为主线程，由于该线程主要与UI交互相关，所以称为UI线程；UI线程中不能执行耗时操作，否则容易引起ANR，所以Google建议开启">
+<meta name="twitter:image" content="http://yoursite.com/pic_0.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Android-multiThread-summary" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/31/Android-multiThread-summary/" class="article-date">
+  	<time datetime="2016-08-31T12:23:25.000Z" itemprop="datePublished">2016-08-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android 多线程使用总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#asynctask类"><span class="toc-text">AsyncTask类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loaders框架"><span class="toc-text">Loaders框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#handlerthread类"><span class="toc-text">HandlerThread类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#intentservice类"><span class="toc-text">IntentService类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程池threadpoolexecutor"><span class="toc-text">线程池ThreadPoolExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <!-- toc -->
+<ul>
+<li><a href="#asynctask&#x7C7B;">AsyncTask&#x7C7B;</a></li>
+<li><a href="#loaders&#x6846;&#x67B6;">Loaders&#x6846;&#x67B6;</a></li>
+<li><a href="#handlerthread&#x7C7B;">HandlerThread&#x7C7B;</a></li>
+<li><a href="#intentservice&#x7C7B;">IntentService&#x7C7B;</a></li>
+<li><a href="#&#x7EBF;&#x7A0B;&#x6C60;threadpoolexecutor">&#x7EBF;&#x7A0B;&#x6C60;ThreadPoolExecutor</a></li>
+<li><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a></li>
+</ul>
+<!-- tocstop -->
+<p>APK&#x542F;&#x52A8;&#x65F6;&#x4F1A;&#x6267;&#x884C;ActivityThread&#x4E2D;main()&#x65B9;&#x6CD5;&#xFF0C;&#x5176;&#x4E2D;&#x521B;&#x5EFA;ActivityThread&#x7684;&#x7EBF;&#x7A0B;&#x4F5C;&#x4E3A;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF0C;&#x7531;&#x4E8E;&#x8BE5;&#x7EBF;&#x7A0B;&#x4E3B;&#x8981;&#x4E0E;UI&#x4EA4;&#x4E92;&#x76F8;&#x5173;&#xFF0C;&#x6240;&#x4EE5;&#x79F0;&#x4E3A;UI&#x7EBF;&#x7A0B;&#xFF1B;UI&#x7EBF;&#x7A0B;&#x4E2D;&#x4E0D;&#x80FD;&#x6267;&#x884C;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#xFF0C;&#x5426;&#x5219;&#x5BB9;&#x6613;&#x5F15;&#x8D77;ANR&#xFF0C;&#x6240;&#x4EE5;Google&#x5EFA;&#x8BAE;&#x5F00;&#x542F;worker thread&#x6267;&#x884C;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;Handler&#x673A;&#x5236;&#x901A;&#x77E5;&#x4E3B;&#x7EBF;&#x7A0B;&#x5237;&#x65B0;UI&#x3002;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x4E09;&#x79CD;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ol>
+<li>Activity.runOnUiThread(Runnable)</li>
+<li>View.post(Runnable)</li>
+<li>View.postDelayed(Runnable,long)</li>
+</ol>
+<p>&#x4F7F;&#x5F97;worker thread&#x4E2D;&#x65B9;&#x4FBF;&#x7684;&#x5237;&#x65B0;View&#xFF0C;&#x4F46;&#x4E0A;&#x8FF0;&#x65B9;&#x6CD5;&#x4E0D;&#x4FBF;&#x4E8E;&#x7BA1;&#x7406;&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x79CD;&#x573A;&#x666F;&#xFF0C;&#x7CFB;&#x7EDF;&#x5BF9;Handler&#x673A;&#x5236;&#x8FDB;&#x884C;&#x4E00;&#x5B9A;&#x8F7B;&#x91CF;&#x7EA7;&#x5C01;&#x88C5;&#xFF0C;&#x65B9;&#x4FBF;worker thread&#x901A;&#x77E5;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF0C;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x5206;&#x6790;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x7C7B;&#xFF1A;</p>
+<a id="more"></a>
+<h3 id="asynctask&#x7C7B;"><a href="#AsyncTask&#x7C7B;" class="headerlink" title="AsyncTask&#x7C7B;"></a>AsyncTask&#x7C7B;</h3><p>AsyncTask&#x7C7B;&#x5BF9;Thread&#x548C;Handler&#x8FDB;&#x884C;&#x5C01;&#x88C5;&#xFF0C;&#x9002;&#x7528;&#x4E8E;&#x540E;&#x53F0;&#x6267;&#x884C;&#x77ED;&#x65F6;&#x95F4;&#x4EFB;&#x52A1;&#x5E76;&#x901A;&#x77E5;UI&#x7684;&#x573A;&#x666F;&#xFF0C;demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">DownloadFilesTask</span> <span class="keyword">extends</span> <span class="title">AsyncTask</span>&lt;<span class="title">URL</span>, <span class="title">Integer</span>, <span class="title">Long</span>&gt; </span>{</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Long <span class="title">doInBackground</span><span class="params">(URL... urls)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> count = urls.length;</span><br><span class="line">        <span class="keyword">long</span> totalSize = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) {</span><br><span class="line">            totalSize += Downloader.downloadFile(urls[i]);</span><br><span class="line">            publishProgress((<span class="keyword">int</span>) ((i / (<span class="keyword">float</span>) count) * <span class="number">100</span>));</span><br><span class="line">            <span class="comment">// Escape early if cancel() is called</span></span><br><span class="line">            <span class="keyword">if</span> (isCancelled()) <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> totalSize;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onProgressUpdate</span><span class="params">(Integer... progress)</span> </span>{</span><br><span class="line">        setProgressPercent(progress[<span class="number">0</span>]);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPostExecute</span><span class="params">(Long result)</span> </span>{</span><br><span class="line">        showDialog(<span class="string">&quot;Downloaded &quot;</span> + result + <span class="string">&quot; bytes&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> DownloadFilesTask().execute(url1, url2, url3);</span><br></pre></td></tr></table></figure></p>
+<p><strong>Tips&#xFF1A;</strong><br><strong>1.</strong> AsyncTask&#x4E09;&#x4E2A;&#x6CDB;&#x578B;&#x53C2;&#x6570;Params&#xFF0C;Progress&#x548C;Result(&#x5982;&#x679C;&#x4E0D;&#x9700;&#x8981;&#x5219;&#x4F20;Void)&#xFF0C;&#x5176;&#x610F;&#x4E49;&#x5982;&#x4E0B;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x53C2;&#x6570;</th>
+<th style="text-align:left">&#x610F;&#x4E49;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Params</td>
+<td style="text-align:left">&#x542F;&#x52A8;AsyncTask&#x65F6;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x4F20;&#x5165;doInBackground()</td>
+</tr>
+<tr>
+<td style="text-align:left">Progress</td>
+<td style="text-align:left">&#x6807;&#x8BC6;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#x8FDB;&#x5EA6;&#xFF0C;&#x901A;&#x5E38;&#x5728;doInBackground()&#x4E2D;&#x901A;&#x8FC7;&#x8C03;&#x7528;publishProgress()&#x65B9;&#x6CD5;&#x4F20;&#x9012;&#x7ED9;onProgressUpdate()</td>
+</tr>
+<tr>
+<td style="text-align:left">Result</td>
+<td style="text-align:left">doInBackground()&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x4F20;&#x7ED9;onPostExecute()</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2.</strong> AsyncTask&#x6267;&#x884C;&#x6D41;&#x7A0B;&#x793A;&#x610F;&#x56FE;&#xFF1A;</p>
+<p><img src="pic_0.png" alt=""></p>
+<p><strong>3.</strong> &#x5EFA;&#x8BAE;&#x770B;&#x6E90;&#x7801;&#x7406;&#x89E3;&#x5176;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#xFF0C;&#x4F7F;&#x7528;AsyncTask&#x9700;&#x8981;&#x9075;&#x5FAA;&#x4E0B;&#x5217;&#x89C4;&#x5219;&#xFF1A;<br>a. AsyncTask&#x7C7B;&#x5FC5;&#x987B;&#x5728;UI&#x7EBF;&#x7A0B;load&#xFF0C;Android4.3&#x540E;&#x7CFB;&#x7EDF;&#x81EA;&#x52A8;&#x63D0;&#x4F9B;&#x4FDD;&#x8BC1;<br>b. AsyncTask&#x5B9E;&#x4F8B;&#x5FC5;&#x987B;&#x5728;UI&#x7EBF;&#x7A0B;&#x521B;&#x5EFA;<br>c. execute(Params&#x2026;)&#x5FC5;&#x987B;&#x5728;UI&#x7EBF;&#x7A0B;&#x8C03;&#x7528;<br>d. &#x4E0D;&#x8981;&#x624B;&#x52A8;&#x8C03;&#x7528;onPreExecute()&#xFF0C;onPostExecute(Result)&#xFF0C;doInBackground(Params&#x2026;)&#x548C;onProgressUpdate(Progress&#x2026;)<br>e. AsyncTask&#x5B9E;&#x4F8B;&#x53EA;&#x80FD;&#x6267;&#x884C;&#x4E00;&#x6B21;  </p>
+<p><strong>4.</strong> &#x4ECE;Andorid 3.0&#x8D77;&#xFF0C;AsyncTask&#x5B9E;&#x4F8B;&#x662F;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7684;&#xFF1B;&#x5982;&#x679C;&#x5E0C;&#x671B;&#x5E76;&#x53D1;&#x6267;&#x884C;&#xFF0C;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x51FD;&#x6570;executeOnExecutor(java.util.concurrent.Executor, Object[])<br>&#x5E76;&#x4F20;&#x5165;&#x53C2;&#x6570;AsyncTask#THREAD_POOL_EXECUTOR&#xFF0C;THREAD_POOL_EXECUTOR&#x5B9A;&#x4E49;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CPU_COUNT = Runtime.getRuntime().availableProcessors();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CORE_POOL_SIZE = CPU_COUNT + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_POOL_SIZE = CPU_COUNT * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> KEEP_ALIVE = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadFactory sThreadFactory = <span class="keyword">new</span> ThreadFactory() {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger mCount = <span class="keyword">new</span> AtomicInteger(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Thread <span class="title">newThread</span><span class="params">(Runnable r)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Thread(r, <span class="string">&quot;AsyncTask #&quot;</span> + mCount.getAndIncrement());</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> BlockingQueue&lt;Runnable&gt; sPoolWorkQueue =</span><br><span class="line">        <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;(<span class="number">128</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * An {<span class="doctag">@link</span> Executor} that can be used to execute tasks in parallel.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Executor THREAD_POOL_EXECUTOR</span><br><span class="line">        = <span class="keyword">new</span> ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,</span><br><span class="line">        TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);</span><br></pre></td></tr></table></figure>
+<p><strong>5.</strong> AsyncTask&#x672C;&#x8EAB;&#x8BBE;&#x8BA1;&#x5B58;&#x5728;&#x4E00;&#x4E9B;&#x95EE;&#x9898;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;&#xFF1A;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x63A7;&#x5236;&#xFF0C;Configuration&#x53D8;&#x5316;&#x5BB9;&#x6613;&#x5F15;&#x8D77;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x7B49;&#xFF0C;&#x53C2;&#x8003;blog(<a href="#reference_1">[1]</a>)&#x5173;&#x4E8E;AsyncTask&#x548C;Loaders&#x7684;&#x5BF9;&#x6BD4;&#xFF0C;&#x5EFA;&#x8BAE;Activity/Fragment&#x4E2D;&#x4F7F;&#x7528;Loaders&#x6846;&#x67B6;&#x4EE3;&#x66FF;AsyncTask&#x3002;</p>
+<h3 id="loaders&#x6846;&#x67B6;"><a href="#Loaders&#x6846;&#x67B6;" class="headerlink" title="Loaders&#x6846;&#x67B6;"></a>Loaders&#x6846;&#x67B6;</h3><p>&#x4E13;&#x95E8;&#x5728;Activity&#x548C;Fragment&#x4E2D;&#x5B9E;&#x73B0;&#x5F02;&#x6B65;&#x6570;&#x636E;&#x52A0;&#x8F7D;&#x529F;&#x80FD;&#xFF0C;&#x5185;&#x90E8;&#x5BF9;AsyncTask&#x8FDB;&#x884C;&#x5C01;&#x88C5;&#xFF0C;&#x6709;&#x4EE5;&#x4E0B;&#x7279;&#x5F81;&#xFF1A;</p>
+<ol>
+<li>Activity/Fragment&#x5929;&#x7136;&#x652F;&#x6301;&#xFF1B; </li>
+<li>&#x63D0;&#x4F9B;&#x5F02;&#x6B65;&#x52A0;&#x8F7D;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x4E14;&#x6570;&#x636E;&#x6E90;&#x53D8;&#x5316;&#x65F6;&#x8FDB;&#x884C;&#x901A;&#x77E5;&#xFF1B;</li>
+<li>Activity Configuration&#x53D8;&#x5316;&#x65F6;&#x4E0D;&#x9700;&#x8981;re-query&#x3002;</li>
+</ol>
+<p>Loaders&#x6846;&#x67B6;&#x4E3B;&#x8981;&#x6D89;&#x53CA;LoaderManager&#xFF0C;LoaderManager.LoaderCallbacks&#xFF0C;Loader&#xFF0C;AsyncTaskLoader&#x548C;CursorLoader&#x51E0;&#x4E2A;&#x7C7B;&#xFF0C;&#x5B98;&#x65B9;&#x53EA;&#x63D0;&#x4F9B;&#x5BF9;&#x6570;&#x636E;&#x6E90;&#x662F;Cursor&#x7684;&#x5C01;&#x88C5;&#xFF0C;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;Loader&#x5BF9;&#x4EFB;&#x610F;&#x6570;&#x636E;&#x6E90;&#x8FDB;&#x884C;&#x5C01;&#x88C5;&#x3002;&#x5177;&#x4F53;&#x7528;&#x6CD5;&#x53C2;&#x7167;<a href="#reference_2">[2]</a>&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x5173;&#x6CE8;&#x4E3B;&#x8981;&#x6267;&#x884C;&#x6D41;&#x7A0B;&#x4EE5;&#x53CA;&#x81EA;&#x5B9A;&#x4E49;Loader&#x65F6;&#x9700;&#x8981;Override&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x7ED9;&#x51FA;&#x81EA;&#x5B9A;&#x4E49;Loader&#x6A21;&#x677F;&#xFF1B;&#x5EFA;&#x8BAE;&#x53C2;&#x7167;&#x6E90;&#x7801;&#x7406;&#x89E3;&#x3002;</p>
+<p>Loaders&#x6846;&#x67B6;&#x5404;&#x4E2A;&#x7C7B;&#x7684;&#x5173;&#x7CFB;&#x4EE5;&#x53CA;&#x6D41;&#x7A0B;&#x56FE;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="pic_1.png" alt=""></p>
+<p>&#x901A;&#x5E38;&#x81EA;&#x5B9A;&#x4E49;Loader&#x65F6;&#x9700;&#x8981;Override&#x4E0A;&#x8FF0;&#x9EC4;&#x8272;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x53C2;&#x8003;<a href="#reference_3">[3]</a>&#x7ED9;&#x51FA;&#x8BE6;&#x7EC6;&#x7684;&#x89E3;&#x91CA;&#xFF0C;&#x5E76;&#x603B;&#x7ED3;&#x81EA;&#x5B9A;&#x4E49;Loader&#x7684;&#x6A21;&#x677F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleLoader</span> <span class="keyword">extends</span> <span class="title">AsyncTaskLoader</span>&lt;<span class="title">List</span>&lt;<span class="title">SampleItem</span>&gt;&gt; </span>{</span><br><span class="line"></span><br><span class="line">  <span class="comment">// We hold a reference to the Loader&#x2019;s data here.</span></span><br><span class="line">  <span class="keyword">private</span> List&lt;SampleItem&gt; mData;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">SampleLoader</span><span class="params">(Context ctx)</span> </span>{</span><br><span class="line">    <span class="comment">// Loaders may be used across multiple Activitys (assuming they aren&apos;t</span></span><br><span class="line">    <span class="comment">// bound to the LoaderManager), so NEVER hold a reference to the context</span></span><br><span class="line">    <span class="comment">// directly. Doing so will cause you to leak an entire Activity&apos;s context.</span></span><br><span class="line">    <span class="comment">// The superclass constructor will store a reference to the Application</span></span><br><span class="line">    <span class="comment">// Context instead, and can be retrieved with a call to getContext().</span></span><br><span class="line">    <span class="keyword">super</span>(ctx);</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">/****************************************************/</span></span><br><span class="line">  <span class="comment">/** (1) A task that performs the asynchronous load **/</span></span><br><span class="line">  <span class="comment">/****************************************************/</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> List&lt;SampleItem&gt; <span class="title">loadInBackground</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="comment">// This method is called on a background thread and should generate a</span></span><br><span class="line">    <span class="comment">// new set of data to be delivered back to the client.</span></span><br><span class="line">    List&lt;SampleItem&gt; data = <span class="keyword">new</span> ArrayList&lt;SampleItem&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> Perform the query here and add the results to &apos;data&apos;.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">/********************************************************/</span></span><br><span class="line">  <span class="comment">/** (2) Deliver the results to the registered listener **/</span></span><br><span class="line">  <span class="comment">/********************************************************/</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deliverResult</span><span class="params">(List&lt;SampleItem&gt; data)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (isReset()) {</span><br><span class="line">      <span class="comment">// The Loader has been reset; ignore the result and invalidate the data.</span></span><br><span class="line">      releaseResources(data);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Hold a reference to the old data so it doesn&apos;t get garbage collected.</span></span><br><span class="line">    <span class="comment">// We must protect it until the new data has been delivered.</span></span><br><span class="line">    List&lt;SampleItem&gt; oldData = mData;</span><br><span class="line">    mData = data;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isStarted()) {</span><br><span class="line">      <span class="comment">// If the Loader is in a started state, deliver the results to the</span></span><br><span class="line">      <span class="comment">// client. The superclass method does this for us.</span></span><br><span class="line">      <span class="keyword">super</span>.deliverResult(data);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Invalidate the old data as we don&apos;t need it any more.</span></span><br><span class="line">    <span class="keyword">if</span> (oldData != <span class="keyword">null</span> &amp;&amp; oldData != data) {</span><br><span class="line">      releaseResources(oldData);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">/*********************************************************/</span></span><br><span class="line">  <span class="comment">/** (3) Implement the Loader&#x2019;s state-dependent behavior **/</span></span><br><span class="line">  <span class="comment">/*********************************************************/</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onStartLoading</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (mData != <span class="keyword">null</span>) {</span><br><span class="line">      <span class="comment">// Deliver any previously loaded data immediately.</span></span><br><span class="line">      deliverResult(mData);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Begin monitoring the underlying data source.</span></span><br><span class="line">    <span class="keyword">if</span> (mObserver == <span class="keyword">null</span>) {</span><br><span class="line">      mObserver = <span class="keyword">new</span> SampleObserver();</span><br><span class="line">      <span class="comment">// <span class="doctag">TODO:</span> register the observer</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (takeContentChanged() || mData == <span class="keyword">null</span>) {</span><br><span class="line">      <span class="comment">// When the observer detects a change, it should call onContentChanged()</span></span><br><span class="line">      <span class="comment">// on the Loader, which will cause the next call to takeContentChanged()</span></span><br><span class="line">      <span class="comment">// to return true. If this is ever the case (or if the current data is</span></span><br><span class="line">      <span class="comment">// null), we force a new load.</span></span><br><span class="line">      forceLoad();</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onStopLoading</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="comment">// The Loader is in a stopped state, so we should attempt to cancel the </span></span><br><span class="line">    <span class="comment">// current load (if there is one).</span></span><br><span class="line">    cancelLoad();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Note that we leave the observer as is. Loaders in a stopped state</span></span><br><span class="line">    <span class="comment">// should still monitor the data source for changes so that the Loader</span></span><br><span class="line">    <span class="comment">// will know to force a new load if it is ever started again.</span></span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onReset</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="comment">// Ensure the loader has been stopped.</span></span><br><span class="line">    onStopLoading();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// At this point we can release the resources associated with &apos;mData&apos;.</span></span><br><span class="line">    <span class="keyword">if</span> (mData != <span class="keyword">null</span>) {</span><br><span class="line">      releaseResources(mData);</span><br><span class="line">      mData = <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The Loader is being reset, so we should stop monitoring for changes.</span></span><br><span class="line">    <span class="keyword">if</span> (mObserver != <span class="keyword">null</span>) {</span><br><span class="line">      <span class="comment">// <span class="doctag">TODO:</span> unregister the observer</span></span><br><span class="line">      mObserver = <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCanceled</span><span class="params">(List&lt;SampleItem&gt; data)</span> </span>{</span><br><span class="line">    <span class="comment">// Attempt to cancel the current asynchronous load.</span></span><br><span class="line">    <span class="keyword">super</span>.onCanceled(data);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The load has been canceled, so we should release the resources</span></span><br><span class="line">    <span class="comment">// associated with &apos;data&apos;.</span></span><br><span class="line">    releaseResources(data);</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">releaseResources</span><span class="params">(List&lt;SampleItem&gt; data)</span> </span>{</span><br><span class="line">    <span class="comment">// For a simple List, there is nothing to do. For something like a Cursor, we </span></span><br><span class="line">    <span class="comment">// would close it in this method. All resources associated with the Loader</span></span><br><span class="line">    <span class="comment">// should be released here.</span></span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">/*********************************************************************/</span></span><br><span class="line">  <span class="comment">/** (4) Observer which receives notifications when the data changes **/</span></span><br><span class="line">  <span class="comment">/*********************************************************************/</span></span><br><span class="line"> </span><br><span class="line">  <span class="comment">// <span class="doctag">NOTE:</span> Implementing an observer is outside the scope of this post (this example</span></span><br><span class="line">  <span class="comment">// uses a made-up &quot;SampleObserver&quot; to illustrate when/where the observer should </span></span><br><span class="line">  <span class="comment">// be initialized). </span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// The observer could be anything so long as it is able to detect content changes</span></span><br><span class="line">  <span class="comment">// and report them to the loader with a call to onContentChanged(). For example,</span></span><br><span class="line">  <span class="comment">// if you were writing a Loader which loads a list of all installed applications</span></span><br><span class="line">  <span class="comment">// on the device, the observer could be a BroadcastReceiver that listens for the</span></span><br><span class="line">  <span class="comment">// ACTION_PACKAGE_ADDED intent, and calls onContentChanged() on the particular </span></span><br><span class="line">  <span class="comment">// Loader whenever the receiver detects that a new application has been installed.</span></span><br><span class="line">  <span class="comment">// Please don&#x2019;t hesitate to leave a comment if you still find this confusing! :)</span></span><br><span class="line">  <span class="keyword">private</span> SampleObserver mObserver;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="handlerthread&#x7C7B;"><a href="#HandlerThread&#x7C7B;" class="headerlink" title="HandlerThread&#x7C7B;"></a>HandlerThread&#x7C7B;</h3><p>&#x8BE5;Thread&#x5185;&#x81EA;&#x52A8;&#x521B;&#x5EFA;Handler&#xFF0C;&#x7531;&#x4E8E;&#x5176;run()&#x662F;&#x4E00;&#x4E2A;&#x65E0;&#x9650;&#x5FAA;&#x73AF;&#x65B9;&#x6CD5;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x624B;&#x52A8;&#x4F7F;&#x7528;quit()&#x6216;quitSafely()&#x65B9;&#x6CD5;&#x7EC8;&#x6B62;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#xFF0C;&#x5176;&#x6E90;&#x7801;HandlerThread#run&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">    mTid = Process.myTid();</span><br><span class="line">    Looper.prepare();</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) {</span><br><span class="line">        mLooper = Looper.myLooper();</span><br><span class="line">        notifyAll();</span><br><span class="line">    }</span><br><span class="line">    Process.setThreadPriority(mPriority);</span><br><span class="line">    onLooperPrepared();</span><br><span class="line">    Looper.loop();</span><br><span class="line">    mTid = -<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="intentservice&#x7C7B;"><a href="#IntentService&#x7C7B;" class="headerlink" title="IntentService&#x7C7B;"></a>IntentService&#x7C7B;</h3><p>IntentService&#x5185;&#x90E8;&#x4F7F;&#x7528;HandlerThread&#x5B9E;&#x73B0;&#x4E86;&#x957F;&#x8017;&#x65F6;&#x4EFB;&#x52A1;&#x5728;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x8FD0;&#x884C;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x4F7F;&#x7528;&#x65F6;&#x53EA;&#x9700;Override&#x5176;<figure class="highlight plain"><figcaption><span>intent)```&#x5373;&#x53EF;&#xFF0C;&#x4F7F;&#x7528;&#x65F6;&#x6CE8;&#x610F;&#x4EE5;&#x4E0B;&#x51E0;&#x70B9;&#xFF1A;  </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. &#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x4E0E;UI&#x4EA4;&#x4E92;&#xFF0C;&#x901A;&#x5E38;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;broadcast&#x5B9E;&#x73B0;</span><br><span class="line">2. &#x4EFB;&#x52A1;&#x662F;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7684;&#xFF0C;&#x6240;&#x6709;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#x81EA;&#x52A8;&#x5173;&#x95ED;service</span><br><span class="line">3. &#x4EFB;&#x52A1;&#x65E0;&#x6CD5;&#x4E2D;&#x65AD;</span><br><span class="line"></span><br><span class="line">&#x5176;&#x5173;&#x952E;&#x6E90;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</span><br><span class="line"></span><br><span class="line">``` java</span><br><span class="line">    public abstract class IntentService extends Service {</span><br><span class="line">        ...</span><br><span class="line">        @Override</span><br><span class="line">        public void onCreate() {</span><br><span class="line">            ...</span><br><span class="line">            HandlerThread thread = new HandlerThread(&quot;IntentService[&quot; + mName + &quot;]&quot;);</span><br><span class="line">            thread.start();</span><br><span class="line"></span><br><span class="line">            mServiceLooper = thread.getLooper();</span><br><span class="line">            mServiceHandler = new ServiceHandler(mServiceLooper);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onStart(Intent intent, int startId) {</span><br><span class="line">            Message msg = mServiceHandler.obtainMessage();</span><br><span class="line">            msg.arg1 = startId;</span><br><span class="line">            msg.obj = intent;</span><br><span class="line">            mServiceHandler.sendMessage(msg);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        private final class ServiceHandler extends Handler {</span><br><span class="line">            public ServiceHandler(Looper looper) {</span><br><span class="line">                super(looper);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void handleMessage(Message msg) {</span><br><span class="line">            onHandleIntent((Intent)msg.obj);</span><br><span class="line">            stopSelf(msg.arg1);</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        @Override</span><br><span class="line">        public void onDestroy() {</span><br><span class="line">            mServiceLooper.quit();</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * This method is invoked on the worker thread with a request to process.</span><br><span class="line">         * Only one Intent is processed at a time, but the processing happens on a</span><br><span class="line">         * worker thread that runs independently from other application logic.</span><br><span class="line">         * So, if this code takes a long time, it will hold up other requests to</span><br><span class="line">         * the same IntentService, but it will not hold up anything else.</span><br><span class="line">         * When all requests have been handled, the IntentService stops itself,</span><br><span class="line">         * so you should not call {@link #stopSelf}.</span><br><span class="line">         *</span><br><span class="line">         * @param intent The value passed to {@link</span><br><span class="line">         *               android.content.Context#startService(Intent)}.</span><br><span class="line">         */</span><br><span class="line">        @WorkerThread</span><br><span class="line">        protected abstract void onHandleIntent(Intent intent);</span><br><span class="line">        ...</span><br><span class="line">    }</span><br></pre></td></tr></table></figure></p>
+<h3 id="&#x7EBF;&#x7A0B;&#x6C60;threadpoolexecutor"><a href="#&#x7EBF;&#x7A0B;&#x6C60;ThreadPoolExecutor" class="headerlink" title="&#x7EBF;&#x7A0B;&#x6C60;ThreadPoolExecutor"></a>&#x7EBF;&#x7A0B;&#x6C60;ThreadPoolExecutor</h3><p>&#x5BF9;Java&#x63D0;&#x4F9B;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#x603B;&#x7ED3;&#xFF0C;&#x5177;&#x4F53;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x53C2;&#x89C1;Oracle&#x6587;&#x6863;(<a href="#reference_4">&#x53C2;&#x8003;[4]</a>)&#x3002;</p>
+<p>&#x5176;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor(<span class="keyword">int</span> corePoolSize, <span class="keyword">int</span> maximumPoolSize, <span class="keyword">long</span> keepAliveTime, TimeUnit unit,</span><br><span class="line">BlockingQueue&lt;Runnable&gt; workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler)</span><br></pre></td></tr></table></figure></p>
+<p>&#x5176;&#x4E2D;&#xFF0C;workQueue&#x6709;&#x4E09;&#x4E2D;&#x7B56;&#x7565;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">strategy</th>
+<th style="text-align:left">example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Direct handoffs</td>
+<td style="text-align:left">SynchronousQueue</td>
+</tr>
+<tr>
+<td style="text-align:left">Unbounded queues</td>
+<td style="text-align:left">LinkedBlockingQueue</td>
+</tr>
+<tr>
+<td style="text-align:left">Bounded queues</td>
+<td style="text-align:left">ArrayBlockingQueue</td>
+</tr>
+</tbody>
+</table>
+<p>Rejected tasks strategy&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">strategy</th>
+<th style="text-align:left">explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ThreadPoolExecutor.AbortPolicy</td>
+<td style="text-align:left">default&#xFF0C;throw RejectedExecutionException upon</td>
+</tr>
+<tr>
+<td style="text-align:left">ThreadPoolExecutor.CallerRunsPolicy</td>
+<td style="text-align:left">the thread that invokes execute itself runs the task</td>
+</tr>
+<tr>
+<td style="text-align:left">ThreadPoolExecutor.DiscardPolicy</td>
+<td style="text-align:left">a task that cannot be executed is simply dropped</td>
+</tr>
+<tr>
+<td style="text-align:left">ThreadPoolExecutor.DiscardOldestPolicy</td>
+<td style="text-align:left">discards the oldest unhandled request and then retries execute</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7EBF;&#x7A0B;&#x6570;&#x5C0F;&#x4E8E;corePoolSize&#x65F6;&#xFF0C;&#x76F4;&#x63A5;&#x542F;&#x52A8;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x4EFB;&#x52A1;</li>
+<li>&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7EBF;&#x7A0B;&#x6570;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;corePoolSize&#x65F6;&#xFF0C;&#x4EFB;&#x52A1;&#x63D2;&#x5165;&#x4EFB;&#x52A1;&#x961F;&#x5217;</li>
+<li>&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#x5DF2;&#x6EE1;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7EBF;&#x7A0B;&#x6570;&#x5C0F;&#x4E8E;maximumPoolSize&#x65F6;&#xFF0C;&#x542F;&#x52A8;&#x975E;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x4EFB;&#x52A1;</li>
+<li>&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#x5DF2;&#x6EE1;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7EBF;&#x7A0B;&#x6570;&#x7B49;&#x4E8E;maximumPoolSize&#x65F6;&#xFF0C;&#x8C03;&#x7528;RejectedExecutionHandler&#x8FDB;&#x884C;&#x901A;&#x77E5;</li>
+</ol>
+<p><strong>&#x56DB;&#x79CD;&#x5E38;&#x7528;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6784;&#x9020;&#x53C2;&#x6570;&#xFF1A;</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">corePoolSize</th>
+<th style="text-align:left">maximumPoolSize</th>
+<th style="text-align:left">keepAliveTime</th>
+<th style="text-align:left">unit</th>
+<th style="text-align:left">workQueue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">newFixedThreadPool</td>
+<td style="text-align:left">nThreads</td>
+<td style="text-align:left">nThreads</td>
+<td style="text-align:left">0L</td>
+<td style="text-align:left">TimeUnit.MILLISECONDS</td>
+<td style="text-align:left">new LinkedBlockingQueue<runnable>()</runnable></td>
+</tr>
+<tr>
+<td style="text-align:left">newSingleThreadExecutor</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0L</td>
+<td style="text-align:left">TimeUnit.MILLISECONDS</td>
+<td style="text-align:left">new LinkedBlockingQueue<runnable>()</runnable></td>
+</tr>
+<tr>
+<td style="text-align:left">newCachedThreadPool</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">Integer.MAX_VALUE</td>
+<td style="text-align:left">60L</td>
+<td style="text-align:left">TimeUnit.SECONDS</td>
+<td style="text-align:left">new SynchronousQueue<runnable>()</runnable></td>
+</tr>
+<tr>
+<td style="text-align:left">newScheduledThreadPool</td>
+<td style="text-align:left">corePoolSize</td>
+<td style="text-align:left">Integer.MAX_VALUE</td>
+<td style="text-align:left">10L</td>
+<td style="text-align:left">MILLISECONDS</td>
+<td style="text-align:left">new DelayedWorkQueue()</td>
+</tr>
+</tbody>
+</table>
+<h3 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h3><p><a name="reference_1"></a>[1] <a href="http://saurabhsharma123k.blogspot.com/2013/11/android-loader-versus-asynctask.html" target="_blank" rel="external">http://saurabhsharma123k.blogspot.com/2013/11/android-loader-versus-asynctask.html</a><br><a name="reference_2"></a>[2] <a href="https://developer.android.com/guide/components/loaders.html" target="_blank" rel="external">https://developer.android.com/guide/components/loaders.html</a><br><a name="reference_3"></a>[3] <a href="http://www.androiddesignpatterns.com/2012/08/implementing-loaders.html" target="_blank" rel="external">http://www.androiddesignpatterns.com/2012/08/implementing-loaders.html</a><br><a name="reference_4"></a>[4] <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html" target="_blank" rel="external">http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html</a><br>[5] <a href="https://developer.android.com/guide/components/processes-and-threads.html" target="_blank" rel="external">https://developer.android.com/guide/components/processes-and-threads.html</a><br>[6] <a href="https://developer.android.com/training/run-background-service/index.html" target="_blank" rel="external">https://developer.android.com/training/run-background-service/index.html</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/09/13/android-custom-view-and-drawable/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android自定义View和Drawable总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/22/android-animation-summary/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android 动画总结</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Android-multiThread-summary" data-title="Android 多线程使用总结" data-url="http://yoursite.com/2016/08/31/Android-multiThread-summary/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andrewlcgu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 andrewlcgu
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

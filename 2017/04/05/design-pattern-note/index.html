@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>设计模式笔记 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="面向对象六大原则
+Single Responsibility Principle
+Open Close Principle
+Liskov Substitution Principle
+Dependence Inversion Principle
+Interface Segregation Principle
+Law of Demeter
+
+《设计模式:可复用面向对象软件的基础》23种设计模式：创建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式笔记">
+<meta property="og:url" content="http://yoursite.com/2017/04/05/design-pattern-note/index.html">
+<meta property="og:site_name" content="Andrewlcgu's Blog">
+<meta property="og:description" content="面向对象六大原则
+Single Responsibility Principle
+Open Close Principle
+Liskov Substitution Principle
+Dependence Inversion Principle
+Interface Segregation Principle
+Law of Demeter
+
+《设计模式:可复用面向对象软件的基础》23种设计模式：创建">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_0.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_1.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_2.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_3.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_4.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_5.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_6.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_7.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_8.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_9.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_10.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_11.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_12.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_13.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_14.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_15.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_16.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_17.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_18.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_19.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_20.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_21.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_22.png">
+<meta property="og:updated_time" content="2017-04-05T13:57:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式笔记">
+<meta name="twitter:description" content="面向对象六大原则
+Single Responsibility Principle
+Open Close Principle
+Liskov Substitution Principle
+Dependence Inversion Principle
+Interface Segregation Principle
+Law of Demeter
+
+《设计模式:可复用面向对象软件的基础》23种设计模式：创建">
+<meta name="twitter:image" content="http://yoursite.com/2017/04/05/design-pattern-note/pic_0.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-design-pattern-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/05/design-pattern-note/" class="article-date">
+  	<time datetime="2017-04-05T12:26:30.000Z" itemprop="datePublished">2017-04-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论知识/">理论知识</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#面向对象六大原则"><span class="toc-text">面向对象六大原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式可复用面向对象软件的基础23种设计模式"><span class="toc-text">《设计模式:可复用面向对象软件的基础》23种设计模式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建型模式"><span class="toc-text">创建型模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式singleton"><span class="toc-text">单例模式(Singleton)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建者模式builder"><span class="toc-text">构建者模式(Builder)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式prototype"><span class="toc-text">原型模式(Prototype)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工厂方法模式factory-method"><span class="toc-text">工厂方法模式(Factory Method)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象工厂模式abstract-factory"><span class="toc-text">抽象工厂模式(Abstract Factory)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#行为设计模式"><span class="toc-text">行为设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#策略模式strategy"><span class="toc-text">策略模式(Strategy)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态模式state"><span class="toc-text">状态模式(State)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#责任链模式chain-of-responsibility"><span class="toc-text">责任链模式(Chain of Responsibility)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解释器模式interpreter"><span class="toc-text">解释器模式(Interpreter)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令模式command"><span class="toc-text">命令模式(Command)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#观察者模式observer"><span class="toc-text">观察者模式(Observer)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备忘录模式memento"><span class="toc-text">备忘录模式(Memento)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代器模式iterator"><span class="toc-text">迭代器模式(Iterator)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板方法模式template-method"><span class="toc-text">模板方法模式(Template Method)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问者模式visitor"><span class="toc-text">访问者模式(Visitor)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中介者模式mediator"><span class="toc-text">中介者模式(Mediator)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构型设计模式"><span class="toc-text">结构型设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代理模式proxy"><span class="toc-text">代理模式(Proxy)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合模式composite"><span class="toc-text">组合模式(Composite)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#适配器模式adapter"><span class="toc-text">适配器模式(Adapter)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰者模式decorator"><span class="toc-text">装饰者模式(Decorator)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#享元模式flyweight"><span class="toc-text">享元模式(Flyweight)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外观模式facade"><span class="toc-text">外观模式(Facade)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#桥连接模式bridge"><span class="toc-text">桥连接模式(Bridge)</span></a></li></ol></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <h2 id="&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x516D;&#x5927;&#x539F;&#x5219;"><a href="#&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x516D;&#x5927;&#x539F;&#x5219;" class="headerlink" title="&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x516D;&#x5927;&#x539F;&#x5219;"></a>&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x516D;&#x5927;&#x539F;&#x5219;</h2><ol>
+<li>Single Responsibility Principle</li>
+<li>Open Close Principle</li>
+<li>Liskov Substitution Principle</li>
+<li>Dependence Inversion Principle</li>
+<li>Interface Segregation Principle</li>
+<li>Law of Demeter</li>
+</ol>
+<h2 id="&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x53EF;&#x590D;&#x7528;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x8F6F;&#x4EF6;&#x7684;&#x57FA;&#x7840;23&#x79CD;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;"><a href="#&#x300A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;-&#x53EF;&#x590D;&#x7528;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x8F6F;&#x4EF6;&#x7684;&#x57FA;&#x7840;&#x300B;23&#x79CD;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF1A;" class="headerlink" title="&#x300A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;:&#x53EF;&#x590D;&#x7528;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x8F6F;&#x4EF6;&#x7684;&#x57FA;&#x7840;&#x300B;23&#x79CD;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF1A;"></a>&#x300A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;:&#x53EF;&#x590D;&#x7528;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x8F6F;&#x4EF6;&#x7684;&#x57FA;&#x7840;&#x300B;23&#x79CD;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF1A;</h2><h2 id="&#x521B;&#x5EFA;&#x578B;&#x6A21;&#x5F0F;"><a href="#&#x521B;&#x5EFA;&#x578B;&#x6A21;&#x5F0F;" class="headerlink" title="&#x521B;&#x5EFA;&#x578B;&#x6A21;&#x5F0F;"></a>&#x521B;&#x5EFA;&#x578B;&#x6A21;&#x5F0F;</h2><h3 id="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;singleton"><a href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;-Singleton" class="headerlink" title="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;(Singleton)"></a>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;(Singleton)</h3><img src="/2017/04/05/design-pattern-note/pic_0.png" alt="pic_0.png" title="">
+<a id="more"></a>
+<p><strong>Tips:</strong> &#x4E2A;&#x4EBA;&#x63A8;&#x8350;Java&#x4E2D;&#x4F7F;&#x7528;&#x679A;&#x4E3E;&#x5B9E;&#x73B0;</p>
+<h3 id="&#x6784;&#x5EFA;&#x8005;&#x6A21;&#x5F0F;builder"><a href="#&#x6784;&#x5EFA;&#x8005;&#x6A21;&#x5F0F;-Builder" class="headerlink" title="&#x6784;&#x5EFA;&#x8005;&#x6A21;&#x5F0F;(Builder)"></a>&#x6784;&#x5EFA;&#x8005;&#x6A21;&#x5F0F;(Builder)</h3><img src="/2017/04/05/design-pattern-note/pic_1.png" alt="pic_1.png" title="">
+<p><strong>Tips:</strong> &#x901A;&#x5E38;&#x4F5C;&#x4E3A;&#x914D;&#x7F6E;&#x7C7B;&#x7684;&#x6784;&#x5EFA;&#x5668;&#xFF0C;&#x907F;&#x514D;&#x8FC7;&#x591A;&#x7684;setter&#x65B9;&#x6CD5;&#xFF0C;&#x5B9E;&#x73B0;&#x94FE;&#x5F0F;&#x8C03;&#x7528;</p>
+<h3 id="&#x539F;&#x578B;&#x6A21;&#x5F0F;prototype"><a href="#&#x539F;&#x578B;&#x6A21;&#x5F0F;-Prototype" class="headerlink" title="&#x539F;&#x578B;&#x6A21;&#x5F0F;(Prototype)"></a>&#x539F;&#x578B;&#x6A21;&#x5F0F;(Prototype)</h3><img src="/2017/04/05/design-pattern-note/pic_2.png" alt="pic_2.png" title="">
+<p><strong>Tips:</strong> Java&#x7684;Object#clone()&#x5B9E;&#x73B0;&#x8BE5;&#x6A21;&#x5F0F;&#xFF0C;&#x6700;&#x7EC8;&#x4F7F;&#x7528;JNI&#x8FDB;&#x884C;&#x5B57;&#x8282;&#x590D;&#x5236;&#x53BB;&#x521B;&#x5EFA;&#x65B0;&#x5BF9;&#x8C61;</p>
+<h3 id="&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;factory-method"><a href="#&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;-Factory-Method" class="headerlink" title="&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;(Factory Method)"></a>&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;(Factory Method)</h3><img src="/2017/04/05/design-pattern-note/pic_3.png" alt="pic_3.png" title="">
+<p><strong>Tips:</strong> Java&#x4F7F;&#x7528;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x901A;&#x5E38;&#x4F34;&#x968F;&#x7740;&#x53CD;&#x5C04;&#x673A;&#x5236;</p>
+<h3 id="&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;abstract-factory"><a href="#&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;-Abstract-Factory" class="headerlink" title="&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;(Abstract Factory)"></a>&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;(Abstract Factory)</h3><img src="/2017/04/05/design-pattern-note/pic_4.png" alt="pic_4.png" title="">
+<p><strong>Tips:</strong> AbstractFactory&#x8981;&#x4FDD;&#x8BC1;&#x7ED3;&#x6784;&#x7A33;&#x5B9A;&#x6027;</p>
+<h2 id="&#x884C;&#x4E3A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;"><a href="#&#x884C;&#x4E3A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;" class="headerlink" title="&#x884C;&#x4E3A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;"></a>&#x884C;&#x4E3A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;</h2><h3 id="&#x7B56;&#x7565;&#x6A21;&#x5F0F;strategy"><a href="#&#x7B56;&#x7565;&#x6A21;&#x5F0F;-Strategy" class="headerlink" title="&#x7B56;&#x7565;&#x6A21;&#x5F0F;(Strategy)"></a>&#x7B56;&#x7565;&#x6A21;&#x5F0F;(Strategy)</h3><img src="/2017/04/05/design-pattern-note/pic_5.png" alt="pic_5.png" title="">
+<p><strong>Tips:</strong> &#x7CFB;&#x7EDF;&#x4E2D;&#x67D0;&#x4E2A;&#x7C7B;&#x7684;&#x67D0;&#x4E00;&#x884C;&#x4E3A;&#x5B58;&#x5728;&#x591A;&#x79CD;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#xFF0C;&#x800C;&#x4E14;&#x8FD9;&#x4E9B;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x4E92;&#x6362;&#x65F6;&#x4F7F;&#x7528;&#x7B56;&#x7565;&#x6A21;&#x5F0F;</p>
+<h3 id="&#x72B6;&#x6001;&#x6A21;&#x5F0F;state"><a href="#&#x72B6;&#x6001;&#x6A21;&#x5F0F;-State" class="headerlink" title="&#x72B6;&#x6001;&#x6A21;&#x5F0F;(State)"></a>&#x72B6;&#x6001;&#x6A21;&#x5F0F;(State)</h3><img src="/2017/04/05/design-pattern-note/pic_6.png" alt="pic_6.png" title="">
+<p><strong>Tips:</strong> &#x7CFB;&#x7EDF;&#x4E2D;&#x67D0;&#x4E2A;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;&#x5B58;&#x5728;&#x591A;&#x79CD;&#x72B6;&#x6001;&#xFF0C;&#x4E0D;&#x540C;&#x72B6;&#x6001;&#x4E0B;&#x884C;&#x4E3A;&#x6709;&#x5DEE;&#x5F02;&#xFF0C;&#x800C;&#x4E14;&#x8FD9;&#x4E9B;&#x72B6;&#x6001;&#x4E4B;&#x95F4;&#x53EF;&#x4EE5;&#x53D1;&#x751F;&#x8F6C;&#x6362;&#x65F6;&#x4F7F;&#x7528;&#x72B6;&#x6001;&#x6A21;&#x5F0F;</p>
+<h3 id="&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;chain-of-responsibility"><a href="#&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;-Chain-of-Responsibility" class="headerlink" title="&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;(Chain of Responsibility)"></a>&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;(Chain of Responsibility)</h3><img src="/2017/04/05/design-pattern-note/pic_7.png" alt="pic_7.png" title="">
+<h3 id="&#x89E3;&#x91CA;&#x5668;&#x6A21;&#x5F0F;interpreter"><a href="#&#x89E3;&#x91CA;&#x5668;&#x6A21;&#x5F0F;-Interpreter" class="headerlink" title="&#x89E3;&#x91CA;&#x5668;&#x6A21;&#x5F0F;(Interpreter)"></a>&#x89E3;&#x91CA;&#x5668;&#x6A21;&#x5F0F;(Interpreter)</h3><img src="/2017/04/05/design-pattern-note/pic_8.png" alt="pic_8.png" title="">
+<h3 id="&#x547D;&#x4EE4;&#x6A21;&#x5F0F;command"><a href="#&#x547D;&#x4EE4;&#x6A21;&#x5F0F;-Command" class="headerlink" title="&#x547D;&#x4EE4;&#x6A21;&#x5F0F;(Command)"></a>&#x547D;&#x4EE4;&#x6A21;&#x5F0F;(Command)</h3><img src="/2017/04/05/design-pattern-note/pic_9.png" alt="pic_9.png" title="">
+<p><strong>&#x4F18;&#x52BF;:</strong> &#x964D;&#x4F4E;&#x7CFB;&#x7EDF;&#x8026;&#x5408;&#x5EA6;&#xFF0C;&#x65B9;&#x4FBF;&#x589E;&#x52A0;&#x65B0;&#x7684;&#x547D;&#x4EE4;&#xFF0C;&#x53EF;&#x4EE5;&#x5BB9;&#x6613;&#x5730;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x961F;&#x5217;&#xFF0C;&#x65B9;&#x4FBF;&#x5B9E;&#x73B0;&#x5BF9;&#x8BF7;&#x6C42;&#x7684;&#x64A4;&#x9500;&#x548C;&#x6062;&#x590D;</p>
+<h3 id="&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;observer"><a href="#&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;-Observer" class="headerlink" title="&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;(Observer)"></a>&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;(Observer)</h3><img src="/2017/04/05/design-pattern-note/pic_10.png" alt="pic_10.png" title="">
+<h3 id="&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;memento"><a href="#&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;-Memento" class="headerlink" title="&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;(Memento)"></a>&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;(Memento)</h3><img src="/2017/04/05/design-pattern-note/pic_11.png" alt="pic_11.png" title="">
+<h3 id="&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;iterator"><a href="#&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;-Iterator" class="headerlink" title="&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;(Iterator)"></a>&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;(Iterator)</h3><img src="/2017/04/05/design-pattern-note/pic_12.png" alt="pic_12.png" title="">
+<h3 id="&#x6A21;&#x677F;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;template-method"><a href="#&#x6A21;&#x677F;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;-Template-Method" class="headerlink" title="&#x6A21;&#x677F;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;(Template Method)"></a>&#x6A21;&#x677F;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;(Template Method)</h3><img src="/2017/04/05/design-pattern-note/pic_13.png" alt="pic_13.png" title="">
+<h3 id="&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;visitor"><a href="#&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;-Visitor" class="headerlink" title="&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;(Visitor)"></a>&#x8BBF;&#x95EE;&#x8005;&#x6A21;&#x5F0F;(Visitor)</h3><img src="/2017/04/05/design-pattern-note/pic_14.png" alt="pic_14.png" title="">
+<p><strong>&#x6CE8;&#x610F;:</strong> &#x5BF9;&#x8C61;&#x7ED3;&#x6784;&#x8981;&#x7A33;&#x5B9A;</p>
+<h3 id="&#x4E2D;&#x4ECB;&#x8005;&#x6A21;&#x5F0F;mediator"><a href="#&#x4E2D;&#x4ECB;&#x8005;&#x6A21;&#x5F0F;-Mediator" class="headerlink" title="&#x4E2D;&#x4ECB;&#x8005;&#x6A21;&#x5F0F;(Mediator)"></a>&#x4E2D;&#x4ECB;&#x8005;&#x6A21;&#x5F0F;(Mediator)</h3><img src="/2017/04/05/design-pattern-note/pic_15.png" alt="pic_15.png" title="">
+<p><strong>&#x4F18;&#x52BF;:</strong> &#x7B80;&#x5316;&#x5BF9;&#x8C61;&#x95F4;&#x7684;&#x4EA4;&#x4E92;&#xFF0C;&#x65B9;&#x4FBF;&#x5BF9;&#x8C61;&#x95F4;&#x7684;&#x4EA4;&#x4E92;&#x8FDB;&#x884C;&#x8FDB;&#x4E00;&#x6B65;&#x63A7;&#x5236;</p>
+<h2 id="&#x7ED3;&#x6784;&#x578B;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;"><a href="#&#x7ED3;&#x6784;&#x578B;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;" class="headerlink" title="&#x7ED3;&#x6784;&#x578B;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;"></a>&#x7ED3;&#x6784;&#x578B;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;</h2><h3 id="&#x4EE3;&#x7406;&#x6A21;&#x5F0F;proxy"><a href="#&#x4EE3;&#x7406;&#x6A21;&#x5F0F;-Proxy" class="headerlink" title="&#x4EE3;&#x7406;&#x6A21;&#x5F0F;(Proxy)"></a>&#x4EE3;&#x7406;&#x6A21;&#x5F0F;(Proxy)</h3><img src="/2017/04/05/design-pattern-note/pic_16.png" alt="pic_16.png" title="">
+<h3 id="&#x7EC4;&#x5408;&#x6A21;&#x5F0F;composite"><a href="#&#x7EC4;&#x5408;&#x6A21;&#x5F0F;-Composite" class="headerlink" title="&#x7EC4;&#x5408;&#x6A21;&#x5F0F;(Composite)"></a>&#x7EC4;&#x5408;&#x6A21;&#x5F0F;(Composite)</h3><img src="/2017/04/05/design-pattern-note/pic_17.png" alt="pic_17.png" title="">
+<h3 id="&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;adapter"><a href="#&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;-Adapter" class="headerlink" title="&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;(Adapter)"></a>&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;(Adapter)</h3><img src="/2017/04/05/design-pattern-note/pic_18.png" alt="pic_18.png" title="">
+<h3 id="&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;decorator"><a href="#&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;-Decorator" class="headerlink" title="&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;(Decorator)"></a>&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;(Decorator)</h3><img src="/2017/04/05/design-pattern-note/pic_19.png" alt="pic_19.png" title="">
+<p><strong>&#x4F18;&#x52BF;:</strong> &#x63D0;&#x4F9B;&#x6BD4;&#x7EE7;&#x627F;&#x66F4;&#x591A;&#x7684;&#x7075;&#x6D3B;&#x6027;</p>
+<h3 id="&#x4EAB;&#x5143;&#x6A21;&#x5F0F;flyweight"><a href="#&#x4EAB;&#x5143;&#x6A21;&#x5F0F;-Flyweight" class="headerlink" title="&#x4EAB;&#x5143;&#x6A21;&#x5F0F;(Flyweight)"></a>&#x4EAB;&#x5143;&#x6A21;&#x5F0F;(Flyweight)</h3><img src="/2017/04/05/design-pattern-note/pic_20.png" alt="pic_20.png" title="">
+<p><strong>&#x89E3;&#x91CA;:</strong> &#x7C7B;&#x4F3C;&#x4E8E;&#x5BF9;&#x8C61;&#x7F13;&#x51B2;&#x6C60;,&#x901A;&#x5E38;&#x5355;&#x94FE;&#x8868;&#x5B9E;&#x73B0;,&#x628A;&#x5185;&#x90E8;&#x72B6;&#x6001;&#x548C;&#x5916;&#x90E8;&#x72B6;&#x6001;&#x5206;&#x79BB;,&#x4E3B;&#x8981;&#x662F;&#x4E3A;&#x4E86;&#x51CF;&#x5C11;&#x5185;&#x5B58;&#x4E2D;&#x5BF9;&#x8C61;&#x7684;&#x6570;&#x91CF;</p>
+<h3 id="&#x5916;&#x89C2;&#x6A21;&#x5F0F;facade"><a href="#&#x5916;&#x89C2;&#x6A21;&#x5F0F;-Facade" class="headerlink" title="&#x5916;&#x89C2;&#x6A21;&#x5F0F;(Facade)"></a>&#x5916;&#x89C2;&#x6A21;&#x5F0F;(Facade)</h3><img src="/2017/04/05/design-pattern-note/pic_21.png" alt="pic_21.png" title="">
+<h3 id="&#x6865;&#x8FDE;&#x63A5;&#x6A21;&#x5F0F;bridge"><a href="#&#x6865;&#x8FDE;&#x63A5;&#x6A21;&#x5F0F;-Bridge" class="headerlink" title="&#x6865;&#x8FDE;&#x63A5;&#x6A21;&#x5F0F;(Bridge)"></a>&#x6865;&#x8FDE;&#x63A5;&#x6A21;&#x5F0F;(Bridge)</h3><img src="/2017/04/05/design-pattern-note/pic_22.png" alt="pic_22.png" title="">
+<p><strong>&#x4F18;&#x52BF;:</strong> &#x6865;&#x63A5;&#x6A21;&#x5F0F;&#x63D0;&#x9AD8;&#x4E86;&#x7CFB;&#x7EDF;&#x7684;&#x53EF;&#x6269;&#x5145;&#x6027;&#xFF0C;&#x5728;&#x4E24;&#x4E2A;&#x53D8;&#x5316;&#x7EF4;&#x5EA6;&#x4E2D;&#x4EFB;&#x610F;&#x6269;&#x5C55;&#x4E00;&#x4E2A;&#x7EF4;&#x5EA6;&#xFF0C;&#x90FD;&#x4E0D;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x539F;&#x6709;&#x7CFB;&#x7EDF;</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/14/read-note/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">读书笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="design-pattern-note" data-title="设计模式笔记" data-url="http://yoursite.com/2017/04/05/design-pattern-note/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andrewlcgu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 andrewlcgu
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

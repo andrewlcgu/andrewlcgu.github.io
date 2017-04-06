@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Android 文件存储路径探究 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Internal Storage
+External Storage
+路径示意图
+解惑一个路径问题
+参考
+
+
+Android有两种文件存储空间：内部存储(internal storage)和外部存储(external storage)，这主要是因为早期Android设备存储主要由内置的非易失性内存和可插拔的存储(比如micro SD卡)两部分组成，而随着现在设备提供商把存储都内置到手机中，已经没">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 文件存储路径探究">
+<meta property="og:url" content="http://yoursite.com/2016/04/17/android-file-path/index.html">
+<meta property="og:site_name" content="Andrewlcgu's Blog">
+<meta property="og:description" content="Internal Storage
+External Storage
+路径示意图
+解惑一个路径问题
+参考
+
+
+Android有两种文件存储空间：内部存储(internal storage)和外部存储(external storage)，这主要是因为早期Android设备存储主要由内置的非易失性内存和可插拔的存储(比如micro SD卡)两部分组成，而随着现在设备提供商把存储都内置到手机中，已经没">
+<meta property="og:image" content="http://yoursite.com/2016/04/17/android-file-path/file_path.png">
+<meta property="og:image" content="http://yoursite.com/2016/04/17/android-file-path/pic_0.png">
+<meta property="og:image" content="http://yoursite.com/2016/04/17/android-file-path/pic_1.png">
+<meta property="og:updated_time" content="2016-04-17T08:35:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 文件存储路径探究">
+<meta name="twitter:description" content="Internal Storage
+External Storage
+路径示意图
+解惑一个路径问题
+参考
+
+
+Android有两种文件存储空间：内部存储(internal storage)和外部存储(external storage)，这主要是因为早期Android设备存储主要由内置的非易失性内存和可插拔的存储(比如micro SD卡)两部分组成，而随着现在设备提供商把存储都内置到手机中，已经没">
+<meta name="twitter:image" content="http://yoursite.com/2016/04/17/android-file-path/file_path.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-android-file-path" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/17/android-file-path/" class="article-date">
+  	<time datetime="2016-04-17T06:58:44.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android 文件存储路径探究
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#internal-storage"><span class="toc-text">Internal Storage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#external-storage"><span class="toc-text">External Storage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#路径示意图"><span class="toc-text">路径示意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解惑一个路径问题"><span class="toc-text">解惑一个路径问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <!-- toc -->
+<ul>
+<li><a href="#internal-storage">Internal Storage</a></li>
+<li><a href="#external-storage">External Storage</a></li>
+<li><a href="#&#x8DEF;&#x5F84;&#x793A;&#x610F;&#x56FE;">&#x8DEF;&#x5F84;&#x793A;&#x610F;&#x56FE;</a></li>
+<li><a href="#&#x89E3;&#x60D1;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x95EE;&#x9898;">&#x89E3;&#x60D1;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x95EE;&#x9898;</a></li>
+<li><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a></li>
+</ul>
+<!-- tocstop -->
+<p>Android&#x6709;&#x4E24;&#x79CD;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#xFF1A;&#x5185;&#x90E8;&#x5B58;&#x50A8;(<code>internal storage</code>)&#x548C;&#x5916;&#x90E8;&#x5B58;&#x50A8;(<code>external storage</code>)&#xFF0C;&#x8FD9;&#x4E3B;&#x8981;&#x662F;&#x56E0;&#x4E3A;&#x65E9;&#x671F;Android&#x8BBE;&#x5907;&#x5B58;&#x50A8;&#x4E3B;&#x8981;&#x7531;&#x5185;&#x7F6E;&#x7684;&#x975E;&#x6613;&#x5931;&#x6027;&#x5185;&#x5B58;&#x548C;&#x53EF;&#x63D2;&#x62D4;&#x7684;&#x5B58;&#x50A8;(&#x6BD4;&#x5982;<code>micro SD</code>&#x5361;)&#x4E24;&#x90E8;&#x5206;&#x7EC4;&#x6210;&#xFF0C;&#x800C;&#x968F;&#x7740;&#x73B0;&#x5728;&#x8BBE;&#x5907;&#x63D0;&#x4F9B;&#x5546;&#x628A;&#x5B58;&#x50A8;&#x90FD;&#x5185;&#x7F6E;&#x5230;&#x624B;&#x673A;&#x4E2D;&#xFF0C;&#x5DF2;&#x7ECF;&#x6CA1;&#x6709;&#x5916;&#x90E8;&#x5B58;&#x50A8;&#x4E00;&#x8BF4;&#x4E86;&#xFF0C;&#x4F46;&#x7CFB;&#x7EDF;&#x7EA7;&#x522B;&#x8FD8;&#x662F;&#x4FDD;&#x6301;&#x8FD9;&#x4E24;&#x79CD;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#x3002;</p>
+<h2 id="internal-storage"><a href="#Internal-Storage" class="headerlink" title="Internal Storage"></a>Internal Storage</h2><p><code>Internal storage</code>&#x603B;&#x662F;&#x53EF;&#x7528;&#x7684;&#xFF0C;&#x9ED8;&#x8BA4;&#x53EA;&#x5141;&#x8BB8;&#x4F60;&#x7684;App&#x8BBF;&#x95EE;&#xFF0C;&#x5F53;&#x7528;&#x6237;&#x5220;&#x9664;App&#x65F6;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x81EA;&#x52A8;&#x628A;<code>internal storage</code>&#x6570;&#x636E;&#x4E00;&#x5E76;&#x6E05;&#x9664;&#x3002;App&#x5B89;&#x88C5;&#x65F6;&#x9ED8;&#x8BA4;&#x5B89;&#x88C5;&#x5728;<code>internal storage</code>&#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x4EE5;&#x5728;<code>manifest</code>&#x6587;&#x4EF6;&#x4E2D;&#x6307;&#x5B9A;&#x5C5E;&#x6027;<code>android:installLocation</code>&#x8FDB;&#x884C;&#x6539;&#x53D8;&#x3002;&#x4ECE;&#x6280;&#x672F;&#x4E0A;&#x6765;&#x8BB2;&#x5982;&#x679C;&#x4F60;&#x5728;&#x521B;&#x5EFA;&#x5185;&#x90E8;&#x5B58;&#x50A8;&#x6587;&#x4EF6;&#x7684;&#x65F6;&#x5019;&#x5C06;&#x6587;&#x4EF6;&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;&#x6210;&#x53EF;&#x8BFB;&#xFF0C;&#x5176;&#x4ED6;App&#x80FD;&#x591F;&#x8BBF;&#x95EE;&#x81EA;&#x5DF1;&#x5E94;&#x7528;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x524D;&#x63D0;&#x662F;&#x4ED6;&#x77E5;&#x9053;&#x4F60;&#x8FD9;&#x4E2A;&#x5E94;&#x7528;&#x7684;&#x5305;&#x540D;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x5C5E;&#x6027;&#x662F;&#x79C1;&#x6709;(private)&#xFF0C;&#x90A3;&#x4E48;&#x5373;&#x4F7F;&#x77E5;&#x9053;&#x5305;&#x540D;&#x5176;&#x4ED6;&#x5E94;&#x7528;&#x4E5F;&#x65E0;&#x6CD5;&#x8BBF;&#x95EE;&#x3002;<code>Internal storage</code>&#x5927;&#x5C0F;&#x76F8;&#x5BF9;&#x6BD4;&#x8F83;&#x5B9D;&#x8D35;&#xFF0C;&#x5176;&#x5927;&#x5C0F;&#x7531;&#x8BBE;&#x5907;&#x63D0;&#x4F9B;&#x5546;&#x6839;&#x636E;&#x5B98;&#x65B9;&#x63A8;&#x8350;&#x7684;&#x6700;&#x5C0F;&#x503C;&#x8FDB;&#x884C;&#x8BBE;&#x5B9A;&#xFF0C;&#x53EF;&#x4EE5;&#x4ECE;&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x7684;<a href="http://static.googleusercontent.com/media/source.android.com/zh-CN//compatibility/android-cdd.pdf" target="_blank" rel="external">compatibility document</a> 7.6&#x8282;&#x67E5;&#x770B;&#xFF0C;&#x4F46;&#x5E76;&#x6CA1;&#x6709;&#x89C4;&#x5B9A;&#x5355;&#x4E2A;App&#x6700;&#x5927;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x591A;&#x5C11;&#x3002;<a id="more"></a><code>Internal storage</code>&#x662F;&#x7CFB;&#x7EDF;&#x672C;&#x8EAB;&#x548C;&#x7CFB;&#x7EDF;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E3B;&#x8981;&#x7684;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x6240;&#x5728;&#x5730;&#xFF0C;&#x4E00;&#x65E6;&#x5185;&#x90E8;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#x8017;&#x5C3D;&#xFF0C;&#x624B;&#x673A;&#x4E5F;&#x5C31;&#x65E0;&#x6CD5;&#x4F7F;&#x7528;&#xFF0C;&#x8981;&#x5C3D;&#x91CF;&#x907F;&#x514D;&#x4F7F;&#x7528;&#x3002;<code>SharedPreferences</code>&#xFF0C; <code>SQLite</code>&#x6570;&#x636E;&#x5E93;&#x4EE5;&#x53CA;<code>webview</code>&#x4E00;&#x4E9B;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x7B49;&#x90FD;&#x50A8;&#x5B58;&#x5728;<code>internal storage</code>&#x4E2D;&#x3002;&#x4E00;&#x822C;&#x7528;<code>Context</code>&#x6765;&#x83B7;&#x53D6;&#x548C;&#x64CD;&#x4F5C;&#x3002;<code>internal Storage</code>&#x8BFB;&#x5199;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x6743;&#x9650;&#x58F0;&#x660E;&#x7684;&#xFF0C;&#x5E94;&#x7528;&#x672C;&#x8EAB;&#x6709;&#x8BFB;&#x5199;<code>internal storage</code>&#x76EE;&#x5F55;&#x7684;&#x6743;&#x9650;&#x3002;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x4E24;&#x4E2A;api&#x83B7;&#x53D6;<code>internal storage</code>&#x7684;&#x5BF9;&#x5E94;<code>File</code>&#x5BF9;&#x8C61;&#xFF1A;<code>getFilesDir()</code>&#x548C;<code>getCacheDir()</code>&#xFF0C;&#x6CE8;&#x610F;&#x7CFB;&#x7EDF;&#x5904;&#x4E8E;<code>low storage</code>&#x65F6;&#x4F1A;&#x5220;&#x9664;&#x540E;&#x8005;&#x7684;&#x5E94;&#x7528;&#x6570;&#x636E;&#xFF0C;&#x4F46;&#x6CA1;&#x6709;warning&#x3002;&#x6839;&#x636E;&#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF0C;Android&#x63D0;&#x4F9B;&#x4E24;&#x4E2A;&#x5FEB;&#x6377;&#x65B9;&#x6CD5;&#x8BFB;&#x5199;<code>internal storage</code>&#x6587;&#x4EF6;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String filename = &quot;myfile&quot;;</span><br><span class="line">String string = &quot;Hello world!&quot;;</span><br><span class="line">FileOutputStream outputStream;</span><br><span class="line"></span><br><span class="line">try {</span><br><span class="line">  outputStream = openFileOutput(filename&#xFF0C; Context.MODE_PRIVATE);</span><br><span class="line">  outputStream.write(string.getBytes());</span><br><span class="line">  outputStream.close();</span><br><span class="line">} catch (Exception e) {</span><br><span class="line">  e.printStackTrace();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public File getTempFile(Context context&#xFF0C; String url) {</span><br><span class="line">    File file;</span><br><span class="line">    try {</span><br><span class="line">        String fileName = Uri.parse(url).getLastPathSegment();</span><br><span class="line">        file = File.createTempFile(fileName&#xFF0C; null&#xFF0C; context.getCacheDir());</span><br><span class="line">    catch (IOException e) {</span><br><span class="line">        // Error while creating file</span><br><span class="line">    }</span><br><span class="line">    return file;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="external-storage"><a href="#External-Storage" class="headerlink" title="External Storage"></a>External Storage</h2><p>&#x901A;&#x5E38;&#x6765;&#x8BF4;&#xFF0C;&#x624B;&#x673A;&#x8FDE;&#x63A5;&#x7535;&#x8111;&#xFF0C;&#x80FD;&#x88AB;&#x7535;&#x8111;&#x8BC6;&#x522B;&#x7684;&#x90E8;&#x5206;&#x4E00;&#x5B9A;&#x662F;<code>external storage</code>&#xFF0C;&#x5728;Mac&#x4E0B;&#x53EF;&#x4EE5;&#x5B89;&#x88C5;&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x7684;&#x5DE5;&#x5177;<a href="https://www.android.com/filetransfer/" target="_blank" rel="external">Android File Transfer</a>&#x67E5;&#x770B;&#x3002;&#x8BFB;&#x5199;<code>external storage</code>&#x9700;&#x8981;&#x58F0;&#x660E;&#x4EE5;&#x4E0B;&#x4E24;&#x4E2A;&#x6743;&#x9650;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;</span> /&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.READ_EXTERNAL_STORAGE&quot;</span> /&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x5B98;&#x65B9;&#x6587;&#x6863;&#x5BF9;&#x6B64;&#x6709;&#x5982;&#x4E0B;&#x89E3;&#x91CA;&#xFF1A;App&#x5FC5;&#x987B;&#x83B7;&#x5F97;<code>WRITE_EXTERNAL_STORAGE</code>&#x6743;&#x9650;&#x624D;&#x80FD;&#x5199;<code>external storage</code>&#xFF0C;&#x58F0;&#x660E;&#x8BE5;&#x6743;&#x9650;&#x9ED8;&#x8BA4;&#x4F1A;&#x8BA4;&#x4E3A;App&#x4E5F;&#x83B7;&#x5F97;<code>READ_EXTERNAL_STORAGE</code>&#x6743;&#x9650;&#xFF1B;&#x5F53;&#x524D;App&#x4E0D;&#x9700;&#x8981;&#x4E13;&#x95E8;&#x6307;&#x5B9A;<code>READ_EXTERNAL_STORAGE</code>&#x5C31;&#x53EF;&#x4EE5;&#x8BFB;<code>external storage</code>&#xFF0C;&#x4F46;&#x662F;&#x4E3A;&#x4E86;&#x517C;&#x5BB9;&#x6027;&#xFF0C;&#x5EFA;&#x8BAE;&#x6700;&#x597D;&#x663E;&#x793A;&#x58F0;&#x660E;&#x8BE5;&#x6743;&#x9650;&#x3002;&#x8BFB;&#x5199;<code>external storage</code>&#x81F3;&#x5C11;&#x8981;&#x4FDD;&#x8BC1;&#x5904;&#x4E8E;&#x53EF;&#x7528;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x5982;&#x4E0B;&#x65B9;&#x6CD5;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/* Checks if external storage is available for read and write */</span><br><span class="line">public boolean isExternalStorageWritable() {</span><br><span class="line">    String state = Environment.getExternalStorageState();</span><br><span class="line">    if (Environment.MEDIA_MOUNTED.equals(state)) {</span><br><span class="line">        return true;</span><br><span class="line">    }</span><br><span class="line">    return false;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">/* Checks if external storage is available to at least read */</span><br><span class="line">public boolean isExternalStorageReadable() {</span><br><span class="line">    String state = Environment.getExternalStorageState();</span><br><span class="line">    if (Environment.MEDIA_MOUNTED.equals(state) ||</span><br><span class="line">        Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {</span><br><span class="line">        return true;</span><br><span class="line">    }</span><br><span class="line">    return false;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p><code>External storage</code>&#x6709;&#x4E24;&#x79CD;&#x7C7B;&#x578B;&#x6587;&#x4EF6;&#xFF08;&#x76EE;&#x5F55;&#xFF09;&#xFF1A;<code>public files</code>&#x548C;<code>private files</code>&#x3002;&#x524D;&#x8005;&#x53EF;&#x4EE5;&#x5B58;&#x50A8;&#x5404;&#x4E2A;App&#x90FD;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#xFF0C;&#x4E14;&#x7528;&#x6237;&#x5220;&#x9664;&#x5E94;&#x7528;&#x540E;&#x4FDD;&#x7559;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;&#x7167;&#x76F8;&#x7684;&#x76F8;&#x7247;&#xFF1B;&#x540E;&#x8005;&#x6570;&#x636E;&#x7406;&#x8BBA;&#x4E0A;&#x53EA;&#x5C5E;&#x4E8E;&#x4F60;&#x7684;App&#x53BB;&#x4F7F;&#x7528;&#xFF0C;&#x800C;&#x4E14;uninstall App&#x540E;&#x4E5F;&#x4F1A;&#x968F;&#x7740;&#x88AB;&#x5220;&#x9664;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;App&#x4E0B;&#x8F7D;&#x7684;&#x4E00;&#x4E9B;&#x4E34;&#x65F6;&#x5A92;&#x4F53;&#x6587;&#x4EF6;&#x3002;&#x7CFB;&#x7EDF;&#x5206;&#x522B;&#x63D0;&#x4F9B;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x4F7F;&#x7528;Demo&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public File getAlbumStorageDir(String albumName) {</span><br><span class="line">    // Get the directory for the user&apos;s public pictures directory. </span><br><span class="line">    File file = new File(Environment.getExternalStoragePublicDirectory(</span><br><span class="line">            Environment.DIRECTORY_PICTURES)&#xFF0C; albumName);</span><br><span class="line">    if (!file.mkdirs()) {</span><br><span class="line">        Log.e(LOG_TAG&#xFF0C; &quot;Directory not created&quot;);</span><br><span class="line">    }</span><br><span class="line">    return file;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public File getAlbumStorageDir(Context context&#xFF0C; String albumName) {</span><br><span class="line">    // Get the directory for the app&apos;s private pictures directory. </span><br><span class="line">    File file = new File(context.getExternalFilesDir(</span><br><span class="line">            Environment.DIRECTORY_PICTURES)&#xFF0C; albumName);</span><br><span class="line">    if (!file.mkdirs()) {</span><br><span class="line">        Log.e(LOG_TAG&#xFF0C; &quot;Directory not created&quot;);</span><br><span class="line">    }</span><br><span class="line">    return file;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF1A;1. &#x5C3D;&#x91CF;&#x4F7F;&#x7528;&#x7CFB;&#x7EDF;&#x89C4;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#x7C7B;&#x578B;(<code>DIRECTORY_PICTURES</code>)&#x547D;&#x540D;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x53EF;&#x4EE5;&#x65B9;&#x4FBF;&#x7CFB;&#x7EDF;(&#x6BD4;&#x5982;<code>media scanner</code>)&#x8BC6;&#x522B;&#x6587;&#x4EF6;&#x7C7B;&#x578B;&#xFF1B;2. api 8&#x4EE5;&#x4E0B;&#x7684;&#x7248;&#x672C;&#x5728;&#x64CD;&#x4F5C;&#x6587;&#x4EF6;&#x7684;&#x65F6;&#x5019;&#x6CA1;&#x6709;&#x4E13;&#x95E8;&#x4E3A;&#x4EE5;&#x4E0A;&#x64CD;&#x4F5C;&#x63D0;&#x4F9B;api&#x652F;&#x6301;&#xFF0C;&#x53EA;&#x80FD;&#x4F7F;&#x7528;<code>Environment.getExternalStorageDirectory()</code>&#xFF0C;&#x4E0D;&#x5E26;&#x53C2;&#x6570;&#xFF0C;&#x4E5F;&#x5C31;&#x4E0D;&#x80FD;&#x81EA;&#x5DF1;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#xFF0C;&#x53EA;&#x662F;&#x8FD4;&#x56DE;&#x5916;&#x90E8;&#x5B58;&#x50A8;&#x7684;&#x6839;&#x8DEF;&#x5F84;&#xFF0C;&#x7136;&#x540E;&#x81EA;&#x884C;&#x64CD;&#x4F5C;&#x3002;</p>
+<h2 id="&#x8DEF;&#x5F84;&#x793A;&#x610F;&#x56FE;"><a href="#&#x8DEF;&#x5F84;&#x793A;&#x610F;&#x56FE;" class="headerlink" title="&#x8DEF;&#x5F84;&#x793A;&#x610F;&#x56FE;"></a>&#x8DEF;&#x5F84;&#x793A;&#x610F;&#x56FE;</h2><img src="/2016/04/17/android-file-path/file_path.png" alt="file_path.png" title="">
+<p>&#x6CE8;&#x610F;&#xFF1A;1. <code>Context.getExternalCacheDir()</code>&#x5F53;&#x7A7A;&#x95F4;&#x4E0D;&#x8DB3;&#x65F6;&#x4E0D;&#x4F1A;&#x5B9E;&#x65F6;&#x88AB;&#x5220;&#x9664;&#xFF0C;&#x53EF;&#x80FD;&#x8FD4;&#x56DE;&#x7A7A;&#x5BF9;&#x8C61;&#xFF1B;2. <code>Context.getExternalFilesDir()</code>&#x4ECE;Android4.4&#x4E4B;&#x540E;&#xFF0C;App&#x4E0D;&#x9700;&#x8981;&#x58F0;&#x660E;&#x8BFB;&#x5199;&#x6743;&#x9650;&#x5C31;&#x53EF;&#x8BBF;&#x95EE;&#xFF0C;&#x5E76;&#x4E14;<code>MediaStore</code>&#x4E0D;&#x4F1A;&#x626B;&#x63CF;&#x8BE5;&#x8DEF;&#x5F84;&#x3002;<code>File</code>&#x7C7B;&#x63D0;&#x4F9B;&#x4E24;&#x4E2A;API&#x7528;&#x4E8E;&#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#x5927;&#x5C0F;&#xFF0C;&#x5206;&#x522B;&#x662F;&#xFF1A;<code>getFreeSpace()</code>&#x548C;<code>getTotalSpace()</code>&#xFF1B;&#x56E0;&#x4E3A;&#x5728;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;90%&#x88AB;&#x5360;&#x7528;&#x65F6;&#xFF0C;&#x5373;&#x4F7F;&#x6240;&#x5B58;&#x6587;&#x4EF6;&#x5C0F;&#x4E8E;&#x5269;&#x4F59;&#x7A7A;&#x95F2;&#x7A7A;&#x95F4;&#x4E5F;&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x6B63;&#x786E;&#x6267;&#x884C;&#xFF0C;&#x56E0;&#x4E3A;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x4E2D;&#x6709;&#x53EF;&#x80FD;&#x4EA7;&#x751F;&#x5927;&#x91CF;&#x7684;&#x4E2D;&#x95F4;&#x6587;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x5B98;&#x65B9;&#x6587;&#x4EF6;&#x5EFA;&#x8BAE;&#x6CA1;&#x5FC5;&#x8981;&#x68C0;&#x6D4B;&#x5269;&#x4F59;&#x7A7A;&#x95F4;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x6355;&#x83B7;<code>IOException</code>&#x5E76;&#x5904;&#x7406;&#x5373;&#x53EF;&#x3002;</p>
+<h2 id="&#x89E3;&#x60D1;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x95EE;&#x9898;"><a href="#&#x89E3;&#x60D1;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x95EE;&#x9898;" class="headerlink" title="&#x89E3;&#x60D1;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x95EE;&#x9898;"></a>&#x89E3;&#x60D1;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x95EE;&#x9898;</h2><p>&#x7528;&#x4EE3;&#x7801;&#x67E5;&#x770B;&#x5404;&#x4E2A;&#x8DEF;&#x5F84;&#x540D;&#x65F6;&#x53D1;&#x73B0;&#x8F93;&#x51FA;&#x90FD;&#x6709;&#x4E2A;0&#x7684;&#x6587;&#x4EF6;&#x5C42;&#x7EA7;&#xFF0C;&#x800C;&#x4F7F;&#x7528;<code>adb shell</code>&#x5374;&#x770B;&#x4E0D;&#x5230;&#x8BE5;&#x8DEF;&#x5F84;&#x5C42;&#x7EA7;(&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x53C2;&#x7167;&#x7F51;&#x4E0A;&#x76F8;&#x5173;Blog&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x67E5;&#x770B;&#x5168;&#x90E8;&#x76F8;&#x5173;&#x6E90;&#x7801;)&#x3002;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;Android4.2&#x4E4B;&#x540E;&#xFF0C;Google&#x641E;&#x51FA;&#x4E86;&#x591A;&#x7528;&#x6237;&#x7684;&#x6982;&#x5FF5;&#xFF0C;0&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x4E3B;&#x7528;&#x6237;&#xFF0C;&#x7136;&#x540E;&#x4F9D;&#x6B21;&#x662F;10&#x3001;11&#x7B49;&#xFF0C;&#x5982;&#x56FE;&#x6240;&#x793A;&#xFF0C;<code>/data/media</code>&#x662F;&#x5185;&#x7F6E;SD&#x5361;&#x7684;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x4F4D;&#x7F6E;&#xFF0C;&#x4F7F;&#x7528;FUSE&#x6280;&#x672F;&#x5C06;&#x5176;&#x865A;&#x62DF;&#x6210;<code>/dev/fuse</code>&#x8BBE;&#x5907;&#xFF0C;&#x88AB;&#x540C;&#x65F6;&#x6302;&#x8F7D;&#x5728;<code>/mnt</code>&#x7279;&#x5B9A;&#x76EE;&#x5F55;&#x4E0B;&#x3002;</p>
+<img src="/2016/04/17/android-file-path/pic_0.png" alt="pic_0.png" title="">
+<p>&#x4EE5;&#x6211;&#x7684;&#x624B;&#x673A;Nexus 5&#x7B80;&#x5355;&#x67E5;&#x770B;SD&#x5361;<code>Mount</code>&#x7684;&#x8BBE;&#x7F6E;&#x3002;&#x9996;&#x5148;&#x770B;&#x4E00;&#x4E0B;<code>init.rc</code>&#x6587;&#x4EF6;&#xFF0C;&#x5176;&#x4E2D;<code>import /init.${ro.hardware}.rc</code>&#xFF1B;&#x7136;&#x540E;&#x6211;&#x4EEC;&#x5728;<code>/dev/socket</code>&#x8F93;&#x5165;<code>getprop</code>&#x770B;&#x5230;<code>[ro.boot.hardware]: [hammerhead]</code>&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x6E90;&#x7801;&#x4E2D;<code>ro.hardware</code>&#x6700;&#x540E;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>ro.boot.hardwawre</code>&#x503C;&#x3002;&#x67E5;&#x770B;<code>init.hammerhead.rc</code>&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<img src="/2016/04/17/android-file-path/pic_1.png" alt="pic_1.png" title="">
+<p>&#x521B;&#x5EFA;&#x4E24;&#x4E2A;&#x5B58;&#x50A8;&#x76EE;&#x5F55;&#xFF0C;&#x5176;&#x4E2D;&#xFF0C;<code>/mnt/shell/emulated</code>&#x662F;&#x5B9E;&#x9645;&#x6302;&#x8F7D;sdcard&#x7684;&#x76EE;&#x5F55;&#xFF0C;<code>/storage/emulated</code>&#x662F;&#x6BCF;&#x4E2A;&#x7528;&#x6237;&#x4E3A;&#x4ED6;&#x4EEC;&#x81EA;&#x5DF1;&#x6302;&#x8F7D;sdcard&#x7684;&#x76EE;&#x5F55;&#x3002;SD&#x5361;&#x5B9E;&#x9645;&#x6302;&#x8F7D;&#x5230;&#x7684;&#x662F;<code>/mnt/shell/emulated/0</code>&#xFF0C; &#x5176;&#x4ED6;&#x7684;<code>/storage/emulated/legacy/</code>&#xFF0C;<code>/sdcard/</code>&#xFF0C;<code>/mnt/sdcard/</code>&#x548C;<code>/storage/sdcard0/</code>&#x90FD;&#x662F;&#x5B83;&#x7684;&#x94FE;&#x63A5;&#x3002;Linux 2.6&#x4E4B;&#x540E;&#x5F15;&#x5165;&#x4E86;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6280;&#x672F;<code>unshare</code>&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x4F7F;&#x67D0;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x521B;&#x5EFA;&#x7684;&#x6302;&#x8F7D;&#x70B9;&#x7B49;&#x4E0D;&#x5171;&#x4EAB;&#xFF0C;&#x53EA;&#x6709;&#x81EA;&#x5DF1;&#x53EF;&#x89C1;&#x3002;<code>dalvik_system_Zygote.cpp</code>&#x4E2D;&#x7684;<code>mountEmulatedStorage()</code>&#x51FD;&#x6570;&#x4F1A;&#x5728;<code>Zygote</code>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;java&#x8FDB;&#x7A0B;&#x65F6;&#x8FD0;&#x884C;&#xFF0C;&#x5148;&#x5E94;&#x7528;<code>unshare</code>&#xFF0C;&#x7136;&#x540E;&#x518D;&#x4EE5;<code>MS_BIND</code>&#x53C2;&#x6570;&#x628A;<code>/mnt/shell/emulated/0</code>&#x518D;&#x6302;&#x8F7D;&#x5230;<code>/storage/emulated/0</code>&#x4E0B;&#xFF1B;&#x5176;&#x4E2D;0&#x662F;&#x7528;&#x6237;ID&#xFF0C;&#x65B0;&#x5EFA;&#x7528;&#x6237;&#x5F80;&#x540E;&#x6392;&#xFF0C;&#x6240;&#x4EE5;<code>Environment</code>&#x5F97;&#x5230;<code>external storage</code>&#x8DEF;&#x5F84;&#x4F1A;&#x6709;&#x7528;&#x6237;ID&#x8FD9;&#x4E2A;&#x5C42;&#x7EA7;&#x3002;<code>adb shell</code>&#x4E0D;&#x662F;&#x901A;&#x8FC7; <code>Zygote</code>&#x6765;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x6CA1;&#x6709;&#x6B64;&#x6302;&#x8F7D;&#x70B9;&#xFF0C;&#x6240;&#x4EE5;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;<code>/storage/emulated/0</code>&#x3002;</p>
+<h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><ol>
+<li><a href="http://developer.android.com/training/basics/data-storage/files.html" target="_blank" rel="external">http://developer.android.com/training/basics/data-storage/files.html</a></li>
+<li><a href="https://source.android.com/devices/storage/index.html" target="_blank" rel="external">https://source.android.com/devices/storage/index.html</a></li>
+<li><a href="http://developer.android.com/guide/topics/data/data-storage.html#filesInternal" target="_blank" rel="external">http://developer.android.com/guide/topics/data/data-storage.html#filesInternal</a></li>
+<li><a href="http://www.code06.com/mobile/xuhui_7810/78048.html" target="_blank" rel="external">http://www.code06.com/mobile/xuhui_7810/78048.html</a></li>
+<li><a href="http://zzqhost.com/?post=15" target="_blank" rel="external">http://zzqhost.com/?post=15</a></li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/17/eventbus/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          深入分析Android EventBus组件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/17/apk-sign-theroy/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">APK签名原理解析</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="android-file-path" data-title="Android 文件存储路径探究" data-url="http://yoursite.com/2016/04/17/android-file-path/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andrewlcgu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 andrewlcgu
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

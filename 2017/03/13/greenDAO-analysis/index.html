@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>greenDAO组件分析 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简介
+建模
+核心功能实现
+a. Master类
+b. DaoSession类
+c. 相应java POJO的Dao对象
+d. java POJO对象
+
+
+其他细节
+1. m:n关系
+2. 查询Query
+3. 线程安全
+
+
+总结
+参考
+
+
+简介greenDAO是一个开源的针对Android SQLite数据库的ORM组件，根据官方信息，其主要特点有性能好，包小(&amp;lt;100KB)等，本文主要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="greenDAO组件分析">
+<meta property="og:url" content="http://yoursite.com/2017/03/13/greenDAO-analysis/index.html">
+<meta property="og:site_name" content="Andrewlcgu's Blog">
+<meta property="og:description" content="简介
+建模
+核心功能实现
+a. Master类
+b. DaoSession类
+c. 相应java POJO的Dao对象
+d. java POJO对象
+
+
+其他细节
+1. m:n关系
+2. 查询Query
+3. 线程安全
+
+
+总结
+参考
+
+
+简介greenDAO是一个开源的针对Android SQLite数据库的ORM组件，根据官方信息，其主要特点有性能好，包小(&amp;lt;100KB)等，本文主要">
+<meta property="og:image" content="http://yoursite.com/2017/03/13/greenDAO-analysis/db.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/13/greenDAO-analysis/db-gen.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/13/greenDAO-analysis/db-insert.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/13/greenDAO-analysis/db-query.png">
+<meta property="og:updated_time" content="2017-03-13T07:48:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="greenDAO组件分析">
+<meta name="twitter:description" content="简介
+建模
+核心功能实现
+a. Master类
+b. DaoSession类
+c. 相应java POJO的Dao对象
+d. java POJO对象
+
+
+其他细节
+1. m:n关系
+2. 查询Query
+3. 线程安全
+
+
+总结
+参考
+
+
+简介greenDAO是一个开源的针对Android SQLite数据库的ORM组件，根据官方信息，其主要特点有性能好，包小(&amp;lt;100KB)等，本文主要">
+<meta name="twitter:image" content="http://yoursite.com/2017/03/13/greenDAO-analysis/db.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-greenDAO-analysis" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/13/greenDAO-analysis/" class="article-date">
+  	<time datetime="2017-03-13T07:32:14.000Z" itemprop="datePublished">2017-03-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      greenDAO组件分析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建模"><span class="toc-text">建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#核心功能实现"><span class="toc-text">核心功能实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-master类"><span class="toc-text">a. Master类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-daosession类"><span class="toc-text">b. DaoSession类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-相应java-pojo的dao对象"><span class="toc-text">c. 相应java POJO的Dao对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-java-pojo对象"><span class="toc-text">d. java POJO对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他细节"><span class="toc-text">其他细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-mn关系"><span class="toc-text">1. m:n关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-查询query"><span class="toc-text">2. 查询Query</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-线程安全"><span class="toc-text">3. 线程安全</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <!-- toc -->
+<ul>
+<li><a href="#&#x7B80;&#x4ECB;">&#x7B80;&#x4ECB;</a></li>
+<li><a href="#&#x5EFA;&#x6A21;">&#x5EFA;&#x6A21;</a></li>
+<li><a href="#&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x5B9E;&#x73B0;">&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x5B9E;&#x73B0;</a><ul>
+<li><a href="#a-master&#x7C7B;">a. Master&#x7C7B;</a></li>
+<li><a href="#b-daosession&#x7C7B;">b. DaoSession&#x7C7B;</a></li>
+<li><a href="#c-&#x76F8;&#x5E94;java-pojo&#x7684;dao&#x5BF9;&#x8C61;">c. &#x76F8;&#x5E94;java POJO&#x7684;Dao&#x5BF9;&#x8C61;</a></li>
+<li><a href="#d-java-pojo&#x5BF9;&#x8C61;">d. java POJO&#x5BF9;&#x8C61;</a></li>
+</ul>
+</li>
+<li><a href="#&#x5176;&#x4ED6;&#x7EC6;&#x8282;">&#x5176;&#x4ED6;&#x7EC6;&#x8282;</a><ul>
+<li><a href="#1-mn&#x5173;&#x7CFB;">1. m:n&#x5173;&#x7CFB;</a></li>
+<li><a href="#2-&#x67E5;&#x8BE2;query">2. &#x67E5;&#x8BE2;Query</a></li>
+<li><a href="#3-&#x7EBF;&#x7A0B;&#x5B89;&#x5168;">3. &#x7EBF;&#x7A0B;&#x5B89;&#x5168;</a></li>
+</ul>
+</li>
+<li><a href="#&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</a></li>
+<li><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p>greenDAO&#x662F;&#x4E00;&#x4E2A;&#x5F00;&#x6E90;&#x7684;&#x9488;&#x5BF9;Android SQLite&#x6570;&#x636E;&#x5E93;&#x7684;ORM&#x7EC4;&#x4EF6;&#xFF0C;&#x6839;&#x636E;&#x5B98;&#x65B9;&#x4FE1;&#x606F;&#xFF0C;&#x5176;&#x4E3B;&#x8981;&#x7279;&#x70B9;&#x6709;&#x6027;&#x80FD;&#x597D;&#xFF0C;&#x5305;&#x5C0F;(&lt;100KB)&#x7B49;&#xFF0C;&#x672C;&#x6587;&#x4E3B;&#x8981;&#x5206;&#x6790;greenDAO&#x8BBE;&#x8BA1;&#x539F;&#x7406;&#x548C;&#x601D;&#x60F3;&#xFF0C;&#x4E3A;&#x4ECA;&#x540E;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x4F7F;&#x7528;&#x548C;&#x5F00;&#x53D1;ORM&#x7EC4;&#x4EF6;&#x63D0;&#x4F9B;&#x6307;&#x5BFC;&#x3002;</p>
+<h2 id="&#x5EFA;&#x6A21;"><a href="#&#x5EFA;&#x6A21;" class="headerlink" title="&#x5EFA;&#x6A21;"></a>&#x5EFA;&#x6A21;</h2><p>ORM&#x7EC4;&#x4EF6;&#x53EF;&#x4EE5;&#x4F7F;&#x6211;&#x4EEC;&#x6446;&#x8131;&#x67AF;&#x71E5;&#x7684;&#x5404;&#x79CD;SQL&#x64CD;&#x4F5C;&#xFF0C;&#x4F7F;&#x6211;&#x4EEC;&#x4E13;&#x5FC3;&#x4E8E;&#x5BF9;&#x8C61;&#x64CD;&#x4F5C;&#x3002;&#x7B2C;&#x4E00;&#x6B65;&#x5C31;&#x662F;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x5EFA;&#x6A21;&#xFF0C;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x5982;&#x4E0B;&#x6570;&#x636E;&#x5E93;:</p>
+<img src="/2017/03/13/greenDAO-analysis/db.png" alt="db.png" title="">
+<p>&#x6309;&#x7167;greenDAO&#x89C4;&#x8303;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6839;&#x636E;&#x6570;&#x636E;&#x5E93;schema&#x521B;&#x5EFA;&#x5982;&#x4E0B;&#x4E24;&#x4E2A;&#x5B9E;&#x4F53;&#x7C7B;:<br><a id="more"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span>(active = <span class="keyword">true</span>, nameInDb = <span class="string">&quot;USER&quot;</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>{</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Long id; <span class="comment">// Long&#x8868;&#x793A;&#x8BE5;&#x503C;&#x53EF;&#x4EE5;&#x521D;&#x59CB;&#x4E3A;&#x7A7A;&#xFF0C;&#x7531;&#x6570;&#x636E;&#x5E93;&#x751F;&#x6210;&#xFF1B;long&#x8868;&#x793A;&#x5F00;&#x53D1;&#x8005;&#x6307;&#x5B9A;</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Property</span>(nameInDb = <span class="string">&quot;USER_NAME&quot;</span>)</span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>(active = <span class="keyword">true</span>, nameInDb = <span class="string">&quot;DIALOG&quot;</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dialog</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Property</span>(nameInDb = <span class="string">&quot;DIALOG_ID&quot;</span>)</span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> dialogId;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Property</span>(nameInDb = <span class="string">&quot;USER_ID&quot;</span>)</span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> userId;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ToOne</span>(joinProperty = <span class="string">&quot;userId&quot;</span>)</span><br><span class="line">    <span class="keyword">private</span> User user;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x7531;&#x6B64;&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x5176;&#x8BBE;&#x8BA1;&#x7406;&#x5FF5;&#xFF1A;&#x901A;&#x8FC7;java POJO&#x5BF9;&#x8C61;&#x6784;&#x5EFA;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#x8868;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x6BCF;&#x4E2A;&#x7C7B;&#x4EE3;&#x8868;&#x4E00;&#x5F20;&#x8868;&#xFF0C;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x8868;&#x793A;Column&#xFF0C;&#x6BCF;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x8868;&#x793A;Row&#xFF0C;&#x8F85;&#x52A9;&#x4E00;&#x4E9B;&#x81EA;&#x5B9A;&#x4E49;&#x6CE8;&#x89E3;&#x6765;&#x5B9A;&#x4E49;Column&#x3002;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5B9A;&#x4E49;java POJO&#x5C31;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5728;greendao-api&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x5B9A;&#x4E49;&#x4E86;&#x5F53;&#x524D;&#x6240;&#x6709;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x89E3;&#xFF0C;&#x57FA;&#x672C;&#x4E0A;&#x80FD;&#x6EE1;&#x8DB3;&#x6B63;&#x5E38;&#x4F7F;&#x7528;&#xFF0C;&#x5176;&#x8868;&#x73B0;&#x529B;&#x662F;&#x53EF;&#x4EE5;&#x7684;&#x3002;&#x4E0B;&#x8868;&#x5C55;&#x793A;&#x5E38;&#x7528;&#x6CE8;&#x89E3;&#x548C;&#x89E3;&#x91CA;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">annotation</th>
+<th style="text-align:left">&#x89E3;&#x91CA;</th>
+<th style="text-align:left">&#x5C5E;&#x6027;&#x503C;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>@Entity</code></td>
+<td style="text-align:left">&#x8868;&#x7684;&#x76F8;&#x5173;&#x5B9A;&#x4E49;</td>
+<td style="text-align:left">nameInDb:&#x8868;&#x540D;<br>indexes:&#x7EC4;&#x5408;&#x7D22;&#x5F15;<br>createInDB:&#x662F;&#x5426;&#x5728;&#x6570;&#x636E;&#x5E93;&#x521B;&#x5EFA;&#x5BF9;&#x5E94;&#x7269;&#x7406;&#x8868;<br>schema:&#x5C5E;&#x4E8E;&#x54EA;&#x4E2A;schema<br>active:update/delete/refresh&#x65B9;&#x6CD5;&#x662F;&#x5426;&#x751F;&#x6210;<br>generateGettersSetters:&#x662F;&#x5426;&#x751F;&#x6210;getter/setter<br>generateConstructors:&#x662F;&#x5426;&#x751F;&#x6210;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@Property</code></td>
+<td style="text-align:left">&#x8868;&#x7684;&#x5217;</td>
+<td style="text-align:left">nameInDb:&#x5217;&#x540D;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@Id</code></td>
+<td style="text-align:left">&#x4E3B;&#x952E;&#x58F0;&#x660E;</td>
+<td style="text-align:left">autoincrement:&#x662F;&#x5426;&#x81EA;&#x589E;&#xFF0C;&#x6839;&#x636E;sqlite3 ROWID&#x7279;&#x70B9;&#xFF0C;&#x5EFA;&#x8BAE;False</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@Index</code></td>
+<td style="text-align:left">&#x5217;&#x7684;&#x7D22;&#x5F15;</td>
+<td style="text-align:left">name:&#x540D;&#x5B57;<br>unique:&#x662F;&#x5426;&#x552F;&#x4E00;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@Unique</code><br><code>@NotNull</code></td>
+<td style="text-align:left">SQLite&#x7EA6;&#x675F;</td>
+<td style="text-align:left">UNIQUE&#x7EA6;&#x675F;<br>NOT NULL&#x7EA6;&#x675F;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@ToOne</code></td>
+<td style="text-align:left">&#x4E00;&#x5BF9;&#x4E00;&#x5173;&#x7CFB;</td>
+<td style="text-align:left">joinProperty:&#x6307;&#x5B9A;&#x5916;&#x952E;</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@ToMany</code></td>
+<td style="text-align:left">&#x4E00;&#x5BF9;&#x591A;&#x5173;&#x7CFB;</td>
+<td style="text-align:left">referencedJoinProperty/joinProperties(&#x6839;&#x636E;&#x662F;&#x4E0D;&#x662F;&#x5916;&#x952E;)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@JoinEntity</code></td>
+<td style="text-align:left">&#x591A;&#x5BF9;&#x591A;&#x5173;&#x7CFB;</td>
+<td style="text-align:left">entity/sourceProperty/targetProperty</td>
+</tr>
+</tbody>
+</table>
+<h2 id="&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x5B9E;&#x73B0;"><a href="#&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x5B9E;&#x73B0;" class="headerlink" title="&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x5B9E;&#x73B0;"></a>&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x5B9E;&#x73B0;</h2><p>&#x5EFA;&#x6A21;&#x5B8C;&#x6210;&#x540E;&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x5176;&#x4EE3;&#x7801;&#x751F;&#x6210;&#x8FC7;&#x7A0B;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#xFF1A;</p>
+<img src="/2017/03/13/greenDAO-analysis/db-gen.png" alt="db-gen.png" title="">
+<p>&#x4F7F;&#x7528;APT&#x5DE5;&#x5177;&#x6839;&#x636E;&#x4E0A;&#x8FF0;java POJO&#x7C7B;&#xFF0C;&#x7ED3;&#x5408;&#x4E00;&#x4E9B;Freemarker&#x6A21;&#x677F;&#x751F;&#x6210;&#x65B0;&#x7684;java POJO&#xFF0C;&#x5BF9;&#x5E94;&#x7684;DAO&#x7C7B;&#xFF0C;&#x7BA1;&#x7406;DAO&#x7C7B;&#x7684;DaoSession&#xFF0C;&#x4EE5;&#x53CA;&#x7BA1;&#x7406;&#x6570;&#x636E;&#x5E93;&#x548C;&#x751F;&#x6210;DaoSession&#x7684;DaoMaster&#x3002;&#x76F8;&#x6BD4;&#x5176;&#x4ED6;&#x5E02;&#x9762;&#x4E0A;&#x7EAF;Java&#x7684;ORM&#x7EC4;&#x4EF6;&#xFF0C;&#x5176;&#x6700;&#x5927;&#x7279;&#x8272;&#x662F;&#x4F7F;&#x7528;APT&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x95F4;&#x5C06;DAO&#x7C7B;&#x90FD;&#x751F;&#x6210;&#x5B8C;&#x6BD5;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x5728;&#x8FD0;&#x884C;&#x671F;&#x95F4;&#x52A8;&#x6001;&#x751F;&#x6210;SQL&#x8BED;&#x53E5;&#xFF0C;&#x56E0;&#x4E3A;&#x5176;&#x4ED6;&#x7EC4;&#x4EF6;&#x901A;&#x5E38;&#x4F7F;&#x7528;&#x6CE8;&#x89E3;&#x5728;&#x8FD0;&#x884C;&#x671F;&#x95F4;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x751F;&#x6210;SQL&#x8BED;&#x53E5;&#xFF0C;&#x8FD9;&#x6837;&#x6548;&#x7387;&#x63D0;&#x5347;&#x4E0D;&#x5C11;&#x3002;</p>
+<p>&#x7531;&#x4E8E;&#x5B98;&#x65B9;GitHub&#x4E2D;&#x5E76;&#x6CA1;&#x6709;&#x628A;&#x4F7F;&#x7528;&#x7684;&#x6CE8;&#x89E3;&#x5904;&#x7406;&#x5668;&#x5F00;&#x6E90;&#xFF0C;&#x800C;&#x4E14;&#x672C;&#x6587;&#x4E3B;&#x8981;&#x8BA8;&#x8BBA;greenDAO&#x8BBE;&#x8BA1;ORM&#x6846;&#x67B6;&#x7684;&#x601D;&#x60F3;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5173;&#x6CE8;&#x751F;&#x6210;&#x7C7B;&#x548C;&#x7EC4;&#x4EF6;&#x6E90;&#x7801;&#x4E2D;&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x60F3;&#x3002;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x901A;&#x8FC7;APT&#x5904;&#x7406;&#x540E;&#xFF0C;&#x6BCF;&#x4E2A;java POJO&#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x5176;&#x5143;&#x6570;&#x636E;&#x7684;Entity&#x7C7B;&#xFF0C;&#x63A5;&#x7740;&#x901A;&#x8FC7;&#x6E90;&#x7801;&#x4E2D;DaoGenerator&#x5DE5;&#x7A0B;&#x751F;&#x6210;&#x4E0A;&#x8FF0;app&#x5DE5;&#x7A0B;&#x9700;&#x8981;&#x7684;&#x7C7B;&#x3002;</p>
+<h3 id="a-master&#x7C7B;"><a href="#a-Master&#x7C7B;" class="headerlink" title="a. Master&#x7C7B;"></a>a. Master&#x7C7B;</h3><p>&#x7EE7;&#x627F;AbstractDaoMaster&#xFF0C;&#x4E3B;&#x8981;&#x529F;&#x80FD;&#x6709;&#xFF1A;</p>
+<ol>
+<li><p>&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x7684;&#x6570;&#x636E;&#x5E93;&#x5BF9;&#x8C61;SQLiteDatabase(greenDAO&#x4E3A;&#x652F;&#x6301;&#x52A0;&#x5BC6;&#x6570;&#x636E;&#x5E93;&#x589E;&#x52A0;&#x4E86;&#x4E00;&#x5C42;&#x4EE3;&#x7406;)&#xFF0C;&#x5185;&#x90E8;&#x63D0;&#x4F9B;SQLiteOpenHelper&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x5B9E;&#x73B0;SQLiteOpenHelper&#x5F53;&#x505A;&#x6784;&#x9020;&#x53C2;&#x6570;&#x4F20;&#x5165;&#x3002;</p>
+</li>
+<li><p>&#x751F;&#x6210;DaoSession&#xFF1A;<code>#newSession()</code>&#x548C;<code>#newSession(IdentityScopeType)</code>&#xFF0C;&#x8FD9;&#x5F88;&#x7C7B;&#x4F3C;&#x7F51;&#x7EDC;&#x9886;&#x57DF;&#x4E2D;&#x4F1A;&#x8BDD;&#x6982;&#x5FF5;&#xFF0C;&#x4E3B;&#x8981;&#x601D;&#x60F3;&#x662F;&#xFF1A;&#x5BF9;&#x4E00;&#x4E2A;session&#x4E2D;&#x8FDB;&#x884C;&#x67E5;&#x8BE2;&#x7684;&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x7F13;&#x5B58;&#xFF0C;&#x5982;&#x679C;&#x518D;&#x6B21;&#x83B7;&#x53D6;&#x76F8;&#x540C;&#x5BF9;&#x8C61;(&#x901A;&#x5E38;&#x6839;&#x636E;&#x4E3B;&#x952E;&#x5224;&#x65AD;)&#x53EF;&#x4EE5;&#x8282;&#x7701;&#x6784;&#x5EFA;&#x5BF9;&#x8C61;&#x8FC7;&#x7A0B;&#xFF0C;&#x5F53;&#x7136;&#x8C03;&#x7528;&#x8005;&#x53EF;&#x4EE5;&#x5173;&#x95ED;&#x7F13;&#x5B58;&#x529F;&#x80FD;&#x3002;&#x8FD9;&#x79CD;&#x7F13;&#x5B58;&#x529F;&#x80FD;&#x5E26;&#x6765;&#x6548;&#x7387;&#x63D0;&#x5347;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x4F1A;&#x9762;&#x4E34;&#x7F13;&#x5B58;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x6570;&#x636E;&#x4E0D;&#x4E00;&#x81F4;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
+</li>
+<li><p>&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x4E2D;&#x8C03;&#x7528;#registerDaoClass(Class&lt;? extends AbstractDao&lt;?, ?&gt;&gt; daoClass)&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x6BCF;&#x4E2A;DAO&#x7C7B;&#x7684;DaoConfig&#x5BF9;&#x8C61;&#x3002;DaoConfig&#x7C7B;&#x662F;&#x5305;&#x542B;java Bean&#x5143;&#x6570;&#x636E;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x5305;&#x62EC;&#x8868;&#x540D;&#xFF0C;&#x5217;&#x540D;&#xFF0C;&#x4E3B;&#x952E;&#x7B49;&#x7B49;&#xFF0C;&#x901A;&#x8FC7;&#x8BFB;&#x53D6;&#x6BCF;&#x4E2A;DAO&#x7C7B;&#x7684;&#x6210;&#x5458;&#x53D8;&#x91CF;TABLENAME&#x548C;&#x5185;&#x90E8;&#x7C7B;Properties&#x5C31;&#x53EF;&#x53D6;&#x5230;&#x3002;</p>
+</li>
+</ol>
+<p>&#x4E00;&#x4E2A;Master&#x5BF9;&#x8C61;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#xFF0C;&#x6240;&#x4EE5;&#x901A;&#x5E38;&#x6574;&#x4E2A;app&#x53EA;&#x9700;&#x6784;&#x5EFA;&#x4E00;&#x4E2A;Master&#x3002;</p>
+<h3 id="b-daosession&#x7C7B;"><a href="#b-DaoSession&#x7C7B;" class="headerlink" title="b. DaoSession&#x7C7B;"></a>b. DaoSession&#x7C7B;</h3><p>&#x8868;&#x793A;&#x4E00;&#x6B21;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;&#x7684;&#x4F1A;&#x8BDD;&#xFF0C;session&#x5B58;&#x5728;&#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x51CF;&#x5C11;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x6784;&#x5EFA;&#x5BF9;&#x8C61;&#x6B21;&#x6570;&#x3002;&#x7EE7;&#x627F;AbstractDaoSession&#xFF0C;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#x6709;:</p>
+<ol>
+<li><p>&#x521D;&#x59CB;&#x5316;&#x6240;&#x6709;DAO&#x5BF9;&#x8C61;&#x5E76;&#x63D0;&#x4F9B;get&#x65B9;&#x6CD5;&#xFF0C;&#x5BF9;&#x6240;&#x6709;DAO&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x7BA1;&#x7406;</p>
+</li>
+<li><p>&#x6BCF;&#x4E2A;DAO&#x5BF9;&#x8C61;&#x901A;&#x8FC7;&#x5BF9;&#x5E94;DaoConfig&#x7C7B;&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x6BCF;&#x4E2A;DaoConfig#IdentityScope&#x4F5C;&#x4E3A;&#x5BF9;&#x5E94;&#x5B9E;&#x4F53;&#x5BF9;&#x8C61;&#x7684;&#x7F13;&#x5B58;&#xFF0C;&#x7531;DaoSession#clear()&#x8D1F;&#x8D23;&#x6E05;&#x7A7A;&#xFF1B;&#x6BCF;&#x4E2A;DaoSession&#x521B;&#x5EFA;&#x5BF9;&#x5E94;DAO&#x5BF9;&#x8C61;&#x65F6;&#x4F1A;&#x514B;&#x9686;&#x4E00;&#x4EFD;DaoConfig&#x5BF9;&#x8C61;&#xFF0C;&#x4ECE;&#x800C;&#x4FDD;&#x8BC1;&#x6BCF;&#x4E2A;session&#x7F13;&#x5B58;&#x81EA;&#x8EAB;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+</li>
+<li><p>&#x63D0;&#x4F9B;&#x591A;&#x4E2A;DAO&#x4E4B;&#x95F4;&#x7684;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#xFF0C;&#x56E0;&#x4E3A;&#x5355;&#x4E2A;DAO&#x5BF9;&#x8C61;&#x53EA;&#x80FD;&#x9488;&#x5BF9;&#x5355;&#x4E2A;&#x8868;&#x8FDB;&#x884C;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#x3002;</p>
+</li>
+</ol>
+<p>&#x6839;&#x636E;app&#x4E1A;&#x52A1;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x591A;&#x4E2A;session&#x6216;&#x8005;&#x5355;&#x4E2A;session&#xFF0C;session&#x9700;&#x8981;&#x7F13;&#x5B58;&#x8FD8;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x7F13;&#x5B58;&#x3002;</p>
+<h3 id="c-&#x76F8;&#x5E94;java-pojo&#x7684;dao&#x5BF9;&#x8C61;"><a href="#c-&#x76F8;&#x5E94;java-POJO&#x7684;Dao&#x5BF9;&#x8C61;" class="headerlink" title="c. &#x76F8;&#x5E94;java POJO&#x7684;Dao&#x5BF9;&#x8C61;"></a>c. &#x76F8;&#x5E94;java POJO&#x7684;Dao&#x5BF9;&#x8C61;</h3><p>&#x8868;&#x793A;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x4E00;&#x5F20;&#x8868;&#x7684;&#x76F8;&#x5173;&#x64CD;&#x4F5C;&#xFF0C;&#x7EE7;&#x627F;AbstractDao&#x7C7B;&#xFF0C;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#x6709;&#xFF1A;</p>
+<ol>
+<li><p>Properties&#x7C7B;&#xFF0C;&#x5B58;&#x50A8;java POJO&#x7C7B;&#x4E2D;&#x6BCF;&#x4E2A;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x4E0E;&#x6570;&#x636E;&#x5E93;Column&#x5BF9;&#x5E94;&#x5173;&#x7CFB;&#xFF0C;&#x4EE5;User&#x4E3A;&#x4F8B;:</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TABLENAME = <span class="string">&quot;USER&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x7B2C;&#x56DB;&#x4E2A;&#x53D8;&#x91CF;&#x8868;&#x793A;&#x662F;&#x5426;&#x662F;&#x4E3B;&#x952E;</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Properties</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> Property Id = <span class="keyword">new</span> Property(<span class="number">0</span>, <span class="keyword">long</span>.class, <span class="string">&quot;id&quot;</span>, <span class="keyword">true</span>, <span class="string">&quot;_id&quot;</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> Property Name = <span class="keyword">new</span> Property(<span class="number">1</span>, String.class, <span class="string">&quot;name&quot;</span>, <span class="keyword">false</span>, <span class="string">&quot;USER_NAME&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&#x521B;&#x5EFA;&#x8868;/&#x5220;&#x9664;&#x8868;&#x7684;&#x51FD;&#x6570;</p>
+</li>
+<li><p>&#x63D0;&#x4F9B;&#x589E;(inset)&#xFF0C;&#x5220;(delete)&#xFF0C;&#x6539;(update)&#xFF0C;load(PrimaryKey)&#xFF0C;&#x67E5;(queryBuilder)&#x7B49;&#x4E00;&#x7CFB;&#x5217;&#x51FD;&#x6570;&#x64CD;&#x4F5C;&#x3002;&#x4EE5;&#x63D2;&#x5165;USER&#x8868;&#x4E3A;&#x4F8B;&#xFF0C;AbstractDao&#x4E3B;&#x8981;&#x8D1F;&#x8D23;&#x62FC;&#x63A5;SQL&#x6A21;&#x677F;&#xFF0C;&#x5BF9;&#x5E94;DAO&#x5BF9;&#x8C61;&#x8D1F;&#x8D23;bind&#x64CD;&#x4F5C;&#x3002;</p>
+ <img src="/2017/03/13/greenDAO-analysis/db-insert.png" alt="db-insert.png" title="">
+</li>
+<li><p>&#x63D0;&#x4F9B;attach\detach&#x65B9;&#x6CD5;&#xFF0C;&#x9488;&#x5BF9;&#x5355;&#x4E2A;&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x7F13;&#x5B58;&#x7BA1;&#x7406;</p>
+</li>
+</ol>
+<h3 id="d-java-pojo&#x5BF9;&#x8C61;"><a href="#d-java-POJO&#x5BF9;&#x8C61;" class="headerlink" title="d. java POJO&#x5BF9;&#x8C61;"></a>d. java POJO&#x5BF9;&#x8C61;</h3><p>&#x7ECF;&#x8FC7;APT&#x8FC7;&#x7A0B;&#x589E;&#x52A0;&#x4EE5;&#x4E0B;&#x51FD;&#x6570;:</p>
+<ol>
+<li><p>&#x5BF9;&#x5E94;getter/setter&#x51FD;&#x6570;</p>
+</li>
+<li><p>&#x8BBE;&#x7F6E;DaoSession&#xFF0C;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x90FD;&#x901A;&#x8FC7;DaoSession&#x5B9E;&#x73B0;</p>
+</li>
+<li><p>@Entity(active = true)&#x65F6;:  </p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x65B9;&#x6CD5;</th>
+<th style="text-align:left">&#x89E3;&#x91CA;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">#update()</td>
+<td style="text-align:left">java POJO&#x66F4;&#x65B0;&#x5230;&#x6570;&#x636E;&#x5E93;</td>
+</tr>
+<tr>
+<td style="text-align:left">#refresh()</td>
+<td style="text-align:left">&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x66F4;&#x65B0;java POJO</td>
+</tr>
+<tr>
+<td style="text-align:left">#delete()</td>
+<td style="text-align:left">&#x5220;&#x9664;java POJO</td>
+</tr>
+</tbody>
+</table>
+<h2 id="&#x5176;&#x4ED6;&#x7EC6;&#x8282;"><a href="#&#x5176;&#x4ED6;&#x7EC6;&#x8282;" class="headerlink" title="&#x5176;&#x4ED6;&#x7EC6;&#x8282;"></a>&#x5176;&#x4ED6;&#x7EC6;&#x8282;</h2><h3 id="1-mn&#x5173;&#x7CFB;"><a href="#1-m-n&#x5173;&#x7CFB;" class="headerlink" title="1. m:n&#x5173;&#x7CFB;"></a>1. m:n&#x5173;&#x7CFB;</h3><p>greenDAO&#x5BF9;1:1&#x7684;&#x652F;&#x6301;&#x662F;&#x4F7F;&#x7528;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF0C;&#x5BF9;1:n&#x652F;&#x6301;&#x662F;&#x4F7F;&#x7528;List&#x5217;&#x8868;&#xFF0C;m:n&#x5173;&#x7CFB;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x4E2D;&#x95F4;&#x8868;&#x8F6C;&#x5316;&#x6210;&#x4E24;&#x4E2A;1:n&#x5B9E;&#x73B0;&#x3002;&#x901A;&#x8FC7;&#x5916;&#x952E;&#x521B;&#x5EFA;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x662F;&#x61D2;&#x52A0;&#x8F7D;&#xFF0C;&#x5373;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;&#x65F6;&#x624D;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x8BFB;&#x53D6;&#x5E76;&#x751F;&#x6210;&#x5BF9;&#x8C61;&#xFF0C;&#x518D;&#x6B21;&#x8BFB;&#x53D6;&#x8BE5;&#x5BF9;&#x8C61;&#x65F6;&#x76F4;&#x63A5;&#x4ECE;&#x5185;&#x5B58;&#x4E2D;&#x83B7;&#x5F97;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027;&#x3002;</p>
+<h3 id="2-&#x67E5;&#x8BE2;query"><a href="#2-&#x67E5;&#x8BE2;Query" class="headerlink" title="2. &#x67E5;&#x8BE2;Query"></a>2. &#x67E5;&#x8BE2;Query</h3><p>&#x67E5;&#x8BE2;&#x662F;&#x6700;&#x590D;&#x6742;&#x7684;SQL&#x64CD;&#x4F5C;&#xFF0C;&#x4E0E;&#x67E5;&#x8BE2;&#x76F8;&#x5173;&#x7684;SQL&#x7531;&#x4EE5;&#x4E0B;&#x7C7B;&#x7EC4;&#x6210;&#xFF1A;</p>
+<img src="/2017/03/13/greenDAO-analysis/db-query.png" alt="db-query.png" title="">
+<p>&#x5176;&#x4E2D;&#xFF0C;&#x6700;&#x5E38;&#x7528;&#x7684;&#x662F;Query,CountQuery&#x548C;DeleteQuery&#xFF0C;&#x5206;&#x522B;&#x8868;&#x793A;&#x8FD4;&#x56DE;&#x76F8;&#x5173;&#x67E5;&#x8BE2;&#x5BF9;&#x8C61;&#xFF0C;&#x6267;&#x884C;count&#x64CD;&#x4F5C;&#x548C;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x6570;&#x636E;&#x5E76;&#x5220;&#x9664;&#x3002;Query&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x4E3B;&#x8981;&#x6709;2&#x79CD;&#x5F62;&#x5F0F;&#xFF1A;1.&#x4E00;&#x6B21;&#x6027;&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x7ED3;&#x679C;&#xFF1B;2.&#x5B9E;&#x73B0;&#x61D2;&#x52A0;&#x8F7D;&#xFF0C;&#x4F46;&#x9700;&#x8981;&#x624B;&#x52A8;&#x5173;&#x95ED;cursor&#x3002;</p>
+<p>Dao&#x7C7B;&#x4E0E;Query&#x901A;&#x8FC7;QueryBuilder&#x7C7B;&#x8FDB;&#x884C;&#x5173;&#x8054;&#xFF0C;&#x4F7F;&#x7528;&#x6784;&#x5EFA;&#x8005;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;&#x5BF9;&#x5E94;Query&#x5BF9;&#x8C61;&#x751F;&#x6210;&#xFF0C;&#x540C;&#x65F6;QueryBuilder&#x63D0;&#x4F9B;Join&#x64CD;&#x4F5C;&#x5B9E;&#x73B0;&#x8054;&#x8868;&#x67E5;&#x8BE2;&#x3002;</p>
+<h3 id="3-&#x7EBF;&#x7A0B;&#x5B89;&#x5168;"><a href="#3-&#x7EBF;&#x7A0B;&#x5B89;&#x5168;" class="headerlink" title="3. &#x7EBF;&#x7A0B;&#x5B89;&#x5168;"></a>3. &#x7EBF;&#x7A0B;&#x5B89;&#x5168;</h3><p><strong>SQLite&#x7EA7;&#x522B;</strong>&#xFF1A;&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x9488;&#x5BF9;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;SQLiteDatabase&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x5BF9;&#x6570;&#x636E;&#x5E93;CRUD&#x64CD;&#x4F5C;&#x90FD;&#x4F1A;&#x88AB;&#x6570;&#x636E;&#x5E93;&#x52A0;&#x9501;&#xFF0C;&#x56E0;&#x4E3A;DB&#x662F;&#x6587;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x662F;&#x6570;&#x636E;&#x5E93;&#x7EA7;&#x9501;&#x3002;API 11&#x4EE5;&#x4E0A;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;SQLiteDatabase#enableWriteAheadLogging()&#x5141;&#x8BB8;&#x4E00;&#x4E2A;&#x5199;&#x7EBF;&#x7A0B;&#x4E0E;&#x591A;&#x4E2A;&#x8BFB;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x5728;&#x4E00;&#x4E2A;SQLiteDatabase&#x4E0A;&#x8D77;&#x4F5C;&#x7528;&#x3002;</p>
+<p><strong>greenDAO&#x7EA7;&#x522B;</strong>&#xFF1A; DaoSession&#x548C;DAO&#x90FD;&#x662F;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x5176;&#x4E2D;&#xFF0C;&#x7F13;&#x5B58;IdentityScope&#x4F7F;&#x7528;ReentrantLock&#x5B9E;&#x73B0;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#xFF1B;&#x5199;&#x64CD;&#x4F5C;&#x65F6;&#x4F7F;&#x7528;SQLiteDatabase#isDbLockedByCurrentThread()&#x5224;&#x65AD;&#x662F;&#x5426;&#x83B7;&#x5F97;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#xFF0C;&#x6CA1;&#x6709;&#x7684;&#x8BDD;&#xFF0C;&#x901A;&#x8FC7;SQLiteDatabase#beginTransaction()&#x83B7;&#x53D6;&#x6570;&#x636E;&#x8FDE;&#x63A5;(EXCLUSIVE mode)&#xFF1B;&#x8BFB;&#x64CD;&#x4F5C;&#x65F6;&#x63D0;&#x4F9B;#forCurrentThread()&#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x9488;&#x5BF9;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;&#x67E5;&#x8BE2;&#x914D;&#x7F6E;(&#x901A;&#x8FC7;QueryBuilder&#x8BBE;&#x7F6E;)&#x526F;&#x672C;&#xFF0C;&#x7136;&#x540E;&#x7531;&#x5E95;&#x5C42;SQLite&#x6570;&#x636E;&#x5E93;&#x63A7;&#x5236;&#x591A;&#x7EBF;&#x7A0B;&#x8BFB;&#x64CD;&#x4F5C;&#x3002;</p>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>greenDAO&#x4F5C;&#x4E3A;2011&#x5E74;&#x5F00;&#x6E90;&#x7684;&#x9879;&#x76EE;&#xFF0C;&#x6574;&#x4F53;&#x8BBE;&#x8BA1;&#x662F;&#x5F88;&#x4F18;&#x79C0;&#x7684;&#xFF0C;&#x6EE1;&#x8DB3;app&#x5BF9;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#x5927;&#x90E8;&#x5206;&#x5E38;&#x7528;&#x64CD;&#x4F5C;&#xFF0C;&#x67B6;&#x6784;&#x53EF;&#x6269;&#x5C55;&#x6027;&#x975E;&#x5E38;&#x4E0D;&#x9519;&#xFF0C;&#x5BF9;&#x53EF;&#x53D8;&#x90E8;&#x5206;&#x4E0E;&#x516C;&#x5171;&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#x62C6;&#x5206;&#xFF0C;&#x4F7F;&#x5176;&#x4F18;&#x4E8E;&#x5176;&#x4ED6;ORM&#x6846;&#x67B6;&#x3002;&#x4E2A;&#x4EBA;&#x89C9;&#x5F97;&#x5982;&#x679C;&#x6709;&#x5FD7;&#x4E8E;ORM&#x8F6E;&#x5B50;&#x7684;&#x540C;&#x5B66;&#x53EF;&#x4EE5;&#x4ECE;:1. SQL&#x8BED;&#x53E5;&#x4F18;&#x5316;&#x4E0E;&#x6821;&#x9A8C; 2. &#x591A;&#x7EBF;&#x7A0B;&#x7BA1;&#x7406;&#x63D0;&#x9AD8;&#x6027;&#x80FD; &#x8FD9;&#x4E9B;&#x65B9;&#x9762;&#x53BB;&#x4F18;&#x5316;&#xFF0C;&#x5F53;&#x7136;&#xFF0C;&#x5E95;&#x5C42;&#x4E0D;&#x4F7F;&#x7528;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x76F4;&#x63A5;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x6570;&#x636E;&#x5E93;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x65B9;&#x5411;&#x3002;</p>
+<h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><ol>
+<li><a href="http://greenrobot.org/greendao/" target="_blank" rel="external">http://greenrobot.org/greendao/</a></li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/14/read-note/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          读书笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/16/okio/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">学习Okio的优化思想</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="greenDAO-analysis" data-title="greenDAO组件分析" data-url="http://yoursite.com/2017/03/13/greenDAO-analysis/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andrewlcgu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 andrewlcgu
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Andrewlcgu&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="andrewlcgu 学习小木屋">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Andrewlcgu's Blog">
+<meta property="og:title" content="Andrewlcgu&#39;s Blog">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
-<meta property="og:site_name" content="Andrewlcgu's Blog">
+<meta property="og:site_name" content="Andrewlcgu&#39;s Blog">
 <meta property="og:description" content="andrewlcgu 学习小木屋">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Andrewlcgu's Blog">
+<meta name="twitter:title" content="Andrewlcgu&#39;s Blog">
 <meta name="twitter:description" content="andrewlcgu 学习小木屋">
   
     <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
@@ -23,7 +24,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div class="left-col">
@@ -172,7 +173,87 @@
 
       <div class="body-wrap">
   
-    <article id="post-android-animation-summary" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Android-multiThread-summary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/31/Android-multiThread-summary/" class="article-date">
+  	<time datetime="2016-08-31T12:23:25.000Z" itemprop="datePublished">2016-08-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/31/Android-multiThread-summary/">Android 多线程使用总结</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#asynctask类">AsyncTask类</a></li>
+<li><a href="#loaders框架">Loaders框架</a></li>
+<li><a href="#handlerthread类">HandlerThread类</a></li>
+<li><a href="#intentservice类">IntentService类</a></li>
+<li><a href="#线程池threadpoolexecutor">线程池ThreadPoolExecutor</a></li>
+<li><a href="#参考">参考</a></li>
+</ul>
+<!-- tocstop -->
+<p>APK启动时会执行ActivityThread中main()方法，其中创建ActivityThread的线程作为主线程，由于该线程主要与UI交互相关，所以称为UI线程；UI线程中不能执行耗时操作，否则容易引起ANR，所以Google建议开启worker thread执行耗时操作，然后通过Handler机制通知主线程刷新UI。系统提供三种方法：</p>
+<ol>
+<li>Activity.runOnUiThread(Runnable)</li>
+<li>View.post(Runnable)</li>
+<li>View.postDelayed(Runnable,long)</li>
+</ol>
+<p>使得worker thread中方便的刷新View，但上述方法不便于管理。针对这种场景，系统对Handler机制进行一定轻量级封装，方便worker thread通知主线程，我们主要分析以下几个类：</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a href="/2016/08/31/Android-multiThread-summary/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-android-animation-summary" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/08/22/android-animation-summary/" class="article-date">
@@ -182,7 +263,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -266,7 +347,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/08/22/android-animation-summary/#more">more >></a>
+          <a href="/2016/08/22/android-animation-summary/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -285,7 +366,7 @@
 
 
   
-    <article id="post-android-touch-research" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-android-touch-research" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/08/08/android-touch-research/" class="article-date">
@@ -295,7 +376,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -341,7 +422,7 @@
 <li>isFocusable() = true</li>
 <li>调用requestFocus()  </li>
 </ol>
-<p>View的焦点变化可以通过<code>OnFocusChangeListener</code>进行监听，View失去焦点后如何传递焦点是由系统计算的，当然可以手动进行控制，详情参考(<a href="https://developer.android.com/guide/topics/ui/ui-events.html#HandlingFocus">https://developer.android.com/guide/topics/ui/ui-events.html#HandlingFocus</a>)。</p>
+<p>View的焦点变化可以通过<code>OnFocusChangeListener</code>进行监听，View失去焦点后如何传递焦点是由系统计算的，当然可以手动进行控制，详情参考(<a href="https://developer.android.com/guide/topics/ui/ui-events.html#HandlingFocus" target="_blank" rel="noopener">https://developer.android.com/guide/topics/ui/ui-events.html#HandlingFocus</a>)。</p>
       
     </div>
     
@@ -360,7 +441,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/08/08/android-touch-research/#more">more >></a>
+          <a href="/2016/08/08/android-touch-research/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -379,7 +460,7 @@
 
 
   
-    <article id="post-android-study-note-0-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-android-study-note-0-md" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/06/12/android-study-note-0-md/" class="article-date">
@@ -389,7 +470,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -415,7 +496,7 @@
 </ul>
 <!-- tocstop -->
 <p>最近通过官网重新学习了Activity的相关知识，觉得收获挺大，遂总结一下。</p>
-<h2 id="Activity的生命周期分析"><a href="#Activity的生命周期分析" class="headerlink" title="Activity的生命周期分析"></a>Activity的生命周期分析</h2><img src="/2016/06/12/android-study-note-0-md/pic_0.png" alt="pic_0.png" title="">
+<h2 id="Activity的生命周期分析"><a href="#Activity的生命周期分析" class="headerlink" title="Activity的生命周期分析"></a>Activity的生命周期分析</h2><img src="/2016/06/12/android-study-note-0-md/pic_0.png">
 <p><strong>Tips:</strong>  </p>
 <ol>
 <li><code>onCreate()</code>在整个生命周期只出现一次，建议执行Activity的基本设置，例如：声明用户界面(在XML 布局文件中定义),定义成员变量,以及配置某些UI.  </li>
@@ -449,7 +530,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/06/12/android-study-note-0-md/#more">more >></a>
+          <a href="/2016/06/12/android-study-note-0-md/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -468,7 +549,7 @@
 
 
   
-    <article id="post-java-tcp-ip-socket-program-note-0" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-java-tcp-ip-socket-program-note-0" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/05/08/java-tcp-ip-socket-program-note-0/" class="article-date">
@@ -478,7 +559,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -494,7 +575,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="第一章-简介"><a href="#第一章-简介" class="headerlink" title="第一章 简介"></a>第一章 简介</h2><img src="/2016/05/08/java-tcp-ip-socket-program-note-0/chapter1.png" alt="chapter1.png" title="">
+        <h2 id="第一章-简介"><a href="#第一章-简介" class="headerlink" title="第一章 简介"></a>第一章 简介</h2><img src="/2016/05/08/java-tcp-ip-socket-program-note-0/chapter1.png">
       
     </div>
     
@@ -513,7 +594,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/05/08/java-tcp-ip-socket-program-note-0/#more">more >></a>
+          <a href="/2016/05/08/java-tcp-ip-socket-program-note-0/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -532,7 +613,7 @@
 
 
   
-    <article id="post-handler-research" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-handler-research" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/17/handler-research/" class="article-date">
@@ -542,7 +623,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -572,11 +653,11 @@
 <li>事件驱动模型</li>
 <li>Looper,Message和Hanlder关系图</li>
 </ul>
-<img src="/2016/04/17/handler-research/handler_outline.png" alt="handler_outline.png" title="">
+<img src="/2016/04/17/handler-research/handler_outline.png">
 <ul>
 <li>Looper类<br>用于建立消息循环并管理消息队列(MessageQueue),不停的从消息队列中抽取消息,分发执行。每个线程只能有一个Looper对象,并且Looper构造方法是私有的,只是创建一个MessageQueue对象并持有。根据Google官方文档,一个Thread实现Looper机制如下:
       
-    </div>
+    </li></ul></div>
     
     <div class="article-info article-info-index">
       
@@ -593,7 +674,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/04/17/handler-research/#more">more >></a>
+          <a href="/2016/04/17/handler-research/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -612,7 +693,7 @@
 
 
   
-    <article id="post-eventbus" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-eventbus" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/17/eventbus/" class="article-date">
@@ -622,7 +703,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -647,7 +728,7 @@
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- tocstop -->
-<p>这里要讲的EventBus特指greenrobot开源的项目(<a href="https://github.com/greenrobot/EventBus">https://github.com/greenrobot/EventBus</a>)，是一个Android事件发布/订阅框架，通过解耦发布者和订阅者来简化Android事件传递。事件传递既可以用于Android四大组件间通信，也可以应用于异步线程和主线程间通信等。</p>
+<p>这里要讲的EventBus特指greenrobot开源的项目(<a href="https://github.com/greenrobot/EventBus" target="_blank" rel="noopener">https://github.com/greenrobot/EventBus</a>)，是一个Android事件发布/订阅框架，通过解耦发布者和订阅者来简化Android事件传递。事件传递既可以用于Android四大组件间通信，也可以应用于异步线程和主线程间通信等。</p>
 <h2 id="Simple-Demo"><a href="#Simple-Demo" class="headerlink" title="Simple Demo"></a>Simple Demo</h2><p>1.<strong> 定义事件 </strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoEvent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> grade;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DemoEvent</span><span class="params">(String name, <span class="keyword">int</span> grade)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.grade = grade;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
       
     </div>
@@ -667,7 +748,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/04/17/eventbus/#more">more >></a>
+          <a href="/2016/04/17/eventbus/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -686,7 +767,7 @@
 
 
   
-    <article id="post-android-file-path" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-android-file-path" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/17/android-file-path/" class="article-date">
@@ -696,7 +777,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -722,9 +803,9 @@
 </ul>
 <!-- tocstop -->
 <p>Android有两种文件存储空间：内部存储(<code>internal storage</code>)和外部存储(<code>external storage</code>)，这主要是因为早期Android设备存储主要由内置的非易失性内存和可插拔的存储(比如<code>micro SD</code>卡)两部分组成，而随着现在设备提供商把存储都内置到手机中，已经没有外部存储一说了，但系统级别还是保持这两种存储空间。</p>
-<h2 id="Internal-Storage"><a href="#Internal-Storage" class="headerlink" title="Internal Storage"></a>Internal Storage</h2><p><code>Internal storage</code>总是可用的，默认只允许你的App访问，当用户删除App时，系统会自动把<code>internal storage</code>数据一并清除。App安装时默认安装在<code>internal storage</code>，但是可以在<code>manifest</code>文件中指定属性<code>android:installLocation</code>进行改变。从技术上来讲如果你在创建内部存储文件的时候将文件属性设置成可读，其他App能够访问自己应用的数据，前提是他知道你这个应用的包名，如果一个文件的属性是私有(private)，那么即使知道包名其他应用也无法访问。<code>Internal storage</code>大小相对比较宝贵，其大小由设备提供商根据官方推荐的最小值进行设定，可以从官方提供的<a href="http://static.googleusercontent.com/media/source.android.com/zh-CN//compatibility/android-cdd.pdf">compatibility document</a> 7.6节查看，但并没有规定单个App最大可以使用多少。
+<h2 id="Internal-Storage"><a href="#Internal-Storage" class="headerlink" title="Internal Storage"></a>Internal Storage</h2><p><code>Internal storage</code>总是可用的，默认只允许你的App访问，当用户删除App时，系统会自动把<code>internal storage</code>数据一并清除。App安装时默认安装在<code>internal storage</code>，但是可以在<code>manifest</code>文件中指定属性<code>android:installLocation</code>进行改变。从技术上来讲如果你在创建内部存储文件的时候将文件属性设置成可读，其他App能够访问自己应用的数据，前提是他知道你这个应用的包名，如果一个文件的属性是私有(private)，那么即使知道包名其他应用也无法访问。<code>Internal storage</code>大小相对比较宝贵，其大小由设备提供商根据官方推荐的最小值进行设定，可以从官方提供的<a href="http://static.googleusercontent.com/media/source.android.com/zh-CN//compatibility/android-cdd.pdf" target="_blank" rel="noopener">compatibility document</a> 7.6节查看，但并没有规定单个App最大可以使用多少。
       
-    </div>
+    </p></div>
     
     <div class="article-info article-info-index">
       
@@ -741,7 +822,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/04/17/android-file-path/#more">more >></a>
+          <a href="/2016/04/17/android-file-path/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -760,7 +841,7 @@
 
 
   
-    <article id="post-apk-sign-theroy" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-apk-sign-theroy" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/17/apk-sign-theroy/" class="article-date">
@@ -770,7 +851,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -799,7 +880,7 @@
 <li><strong>Signature(数字签名)</strong><br>数字签名是非对称密钥加密技术与数字摘要技术的应用。将信息摘要用发送者的私钥加密，与原文一起传送给接收者。接收者只有用发送者的公钥才能解密被加密的信息摘要，然后接收者用相同的Hash函数对收到的原文产生一个信息摘要，与解密的信息摘要做比对。如果相同，则说明收到的信息是完整的，在传输过程中没有被修改；不同则说明信息被修改过，因此数字签名能保证信息的完整性。并且由于只有发送者才有加密摘要的私钥，所以我们可以确定信息一定是发送者发送的(发送者的身份认证)。</li>
 <li><strong>Certification(数字证书)</strong><br>数字证书是一个经证书授权中心数字签名的包含公开密钥拥有者信息以及公开密钥的文件。最简单的证书包含一个公开密钥、名称以及证书授权中心的数字签名。数字证书还有一个重要的特征就是只在特定的时间段内有效。
       
-    </div>
+    </li></ul></div>
     
     <div class="article-info article-info-index">
       
@@ -816,7 +897,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/04/17/apk-sign-theroy/#more">more >></a>
+          <a href="/2016/04/17/apk-sign-theroy/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -835,7 +916,7 @@
 
 
   
-    <article id="post-new-start" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-new-start" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/16/new-start/" class="article-date">
@@ -845,7 +926,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -863,7 +944,7 @@
       
         <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>我是一个热爱学习、热爱技术的小屌丝，创建这个Blog是为了纪念未来这几年的学习之路，我习惯看书思考过程中记录下自己的点滴，可能水平不够，但能证明我曾经走过的脚步。</p>
 <p><strong> 附一张偶像图 </strong></p>
-<img src="/2016/04/16/new-start/idol.jpg" alt="我的偶像" title="我的偶像">
+<img src="/2016/04/16/new-start/idol.jpg" title="我的偶像">
       
     </div>
     
@@ -882,7 +963,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/04/16/new-start/#more">more >></a>
+          <a href="/2016/04/16/new-start/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -1,31 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>深入分析Android EventBus组件 | Andrewlcgu&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Simple Demo
-为什么使用
-原理分析
-关于EventBus思考
-参考
-
-
-这里要讲的EventBus特指greenrobot开源的项目(https://github.com/greenrobot/EventBus)，是一个Android事件发布/订阅框架，通过解耦发布者和订阅者来简化Android事件传递。事件传递既可以用于Android四大组件间通信，也可以应用于异步线程和主线程间通">
+  <meta name="description" content="Simple Demo 为什么使用 原理分析 关于EventBus思考 参考   这里要讲的EventBus特指greenrobot开源的项目(https://github.com/greenrobot/EventBus)，是一个Android事件发布/订阅框架，通过解耦发布者和订阅者来简化Android事件传递。事件传递既可以用于Android四大组件间通信，也可以应用于异步线程和主线程间通">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入分析Android EventBus组件">
 <meta property="og:url" content="http://yoursite.com/2016/04/17/eventbus/index.html">
-<meta property="og:site_name" content="Andrewlcgu's Blog">
-<meta property="og:description" content="Simple Demo
-为什么使用
-原理分析
-关于EventBus思考
-参考
-
-
-这里要讲的EventBus特指greenrobot开源的项目(https://github.com/greenrobot/EventBus)，是一个Android事件发布/订阅框架，通过解耦发布者和订阅者来简化Android事件传递。事件传递既可以用于Android四大组件间通信，也可以应用于异步线程和主线程间通">
+<meta property="og:site_name" content="Andrewlcgu&#39;s Blog">
+<meta property="og:description" content="Simple Demo 为什么使用 原理分析 关于EventBus思考 参考   这里要讲的EventBus特指greenrobot开源的项目(https://github.com/greenrobot/EventBus)，是一个Android事件发布/订阅框架，通过解耦发布者和订阅者来简化Android事件传递。事件传递既可以用于Android四大组件间通信，也可以应用于异步线程和主线程间通">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2016/04/17/eventbus/eventbus_0.png">
 <meta property="og:image" content="http://yoursite.com/2016/04/17/eventbus/eventbus_1.png">
 <meta property="og:image" content="http://yoursite.com/2016/04/17/eventbus/eventbus_2.png">
@@ -33,14 +21,7 @@
 <meta property="og:updated_time" content="2016-04-17T09:08:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入分析Android EventBus组件">
-<meta name="twitter:description" content="Simple Demo
-为什么使用
-原理分析
-关于EventBus思考
-参考
-
-
-这里要讲的EventBus特指greenrobot开源的项目(https://github.com/greenrobot/EventBus)，是一个Android事件发布/订阅框架，通过解耦发布者和订阅者来简化Android事件传递。事件传递既可以用于Android四大组件间通信，也可以应用于异步线程和主线程间通">
+<meta name="twitter:description" content="Simple Demo 为什么使用 原理分析 关于EventBus思考 参考   这里要讲的EventBus特指greenrobot开源的项目(https://github.com/greenrobot/EventBus)，是一个Android事件发布/订阅框架，通过解耦发布者和订阅者来简化Android事件传递。事件传递既可以用于Android四大组件间通信，也可以应用于异步线程和主线程间通">
 <meta name="twitter:image" content="http://yoursite.com/2016/04/17/eventbus/eventbus_0.png">
   
     <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
@@ -50,7 +31,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div class="left-col">
@@ -197,7 +178,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-eventbus" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-eventbus" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/17/eventbus/" class="article-date">
@@ -207,7 +188,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -260,7 +241,7 @@
 <li><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a></li>
 </ul>
 <!-- tocstop -->
-<p>&#x8FD9;&#x91CC;&#x8981;&#x8BB2;&#x7684;EventBus&#x7279;&#x6307;greenrobot&#x5F00;&#x6E90;&#x7684;&#x9879;&#x76EE;(<a href="https://github.com/greenrobot/EventBus" target="_blank" rel="external">https://github.com/greenrobot/EventBus</a>)&#xFF0C;&#x662F;&#x4E00;&#x4E2A;Android&#x4E8B;&#x4EF6;&#x53D1;&#x5E03;/&#x8BA2;&#x9605;&#x6846;&#x67B6;&#xFF0C;&#x901A;&#x8FC7;&#x89E3;&#x8026;&#x53D1;&#x5E03;&#x8005;&#x548C;&#x8BA2;&#x9605;&#x8005;&#x6765;&#x7B80;&#x5316;Android&#x4E8B;&#x4EF6;&#x4F20;&#x9012;&#x3002;&#x4E8B;&#x4EF6;&#x4F20;&#x9012;&#x65E2;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;Android&#x56DB;&#x5927;&#x7EC4;&#x4EF6;&#x95F4;&#x901A;&#x4FE1;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5E94;&#x7528;&#x4E8E;&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;&#x548C;&#x4E3B;&#x7EBF;&#x7A0B;&#x95F4;&#x901A;&#x4FE1;&#x7B49;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x8981;&#x8BB2;&#x7684;EventBus&#x7279;&#x6307;greenrobot&#x5F00;&#x6E90;&#x7684;&#x9879;&#x76EE;(<a href="https://github.com/greenrobot/EventBus" target="_blank" rel="noopener">https://github.com/greenrobot/EventBus</a>)&#xFF0C;&#x662F;&#x4E00;&#x4E2A;Android&#x4E8B;&#x4EF6;&#x53D1;&#x5E03;/&#x8BA2;&#x9605;&#x6846;&#x67B6;&#xFF0C;&#x901A;&#x8FC7;&#x89E3;&#x8026;&#x53D1;&#x5E03;&#x8005;&#x548C;&#x8BA2;&#x9605;&#x8005;&#x6765;&#x7B80;&#x5316;Android&#x4E8B;&#x4EF6;&#x4F20;&#x9012;&#x3002;&#x4E8B;&#x4EF6;&#x4F20;&#x9012;&#x65E2;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;Android&#x56DB;&#x5927;&#x7EC4;&#x4EF6;&#x95F4;&#x901A;&#x4FE1;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5E94;&#x7528;&#x4E8E;&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;&#x548C;&#x4E3B;&#x7EBF;&#x7A0B;&#x95F4;&#x901A;&#x4FE1;&#x7B49;&#x3002;</p>
 <h2 id="simple-demo"><a href="#Simple-Demo" class="headerlink" title="Simple Demo"></a>Simple Demo</h2><p>1.<strong> &#x5B9A;&#x4E49;&#x4E8B;&#x4EF6; </strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoEvent</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> grade;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DemoEvent</span><span class="params">(String name, <span class="keyword">int</span> grade)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.grade = grade;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>2.<strong> &#x8BA2;&#x9605;&#x8005; </strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventBusDemoActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>{</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// register</span></span><br><span class="line">    EventBus.getDefault().register(<span class="keyword">this</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// proceed event</span></span><br><span class="line">    <span class="meta">@Subscribe</span>(threadMode = ThreadMode.MAIN, priority = <span class="number">1</span>, sticky = <span class="keyword">true</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDemoCallBack</span><span class="params">(DemoEvent event)</span> </span>{</span><br><span class="line">        <span class="comment">// do something...</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDemoCallBackNew</span><span class="params">(DemoEvent event)</span> </span>{</span><br><span class="line">        <span class="comment">// do something...</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// unregister</span></span><br><span class="line">    EventBus.getDefault().unregister(<span class="keyword">this</span>);</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
@@ -268,7 +249,7 @@
 <p>4.<strong> Subscriber Index </strong>  </p>
 <p>EventBus3.0&#x4F7F;&#x7528;&#x6CE8;&#x89E3;&#x6807;&#x660E;&#x8BA2;&#x9605;&#x8005;&#x7684;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#xFF0C;&#x5982;&#x679C;&#x8FD0;&#x884C;&#x65F6;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x89E3;&#x6790;&#x6CE8;&#x89E3;&#x4F1A;&#x5E26;&#x6765;&#x6548;&#x7387;&#x95EE;&#x9898;&#xFF0C;&#x4E8E;&#x662F;EventBus3.0&#x63D0;&#x4F9B;&#x4E86;&#x7F16;&#x8BD1;&#x65F6;&#x5C31;&#x628A;&#x5305;&#x542B;&#x8BA2;&#x9605;&#x8005;&#x7684;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x7B49;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#x7C7B;&#x6784;&#x5EFA;&#x51FA;&#x6765;&#xFF0C;&#x63D0;&#x9AD8;&#x8FD0;&#x884C;&#x6548;&#x7387;&#xFF0C;&#x6240;&#x4EE5;&#x53EB;Subscriber Index&#xFF0C;&#x4F46;&#x662F;&#x8981;&#x6C42;subscriber&#x548C;event&#x7684;class&#x90FD;&#x662F;public&#x3002;&#x5F53;&#x7136;&#xFF0C;EventBus&#x9ED8;&#x8BA4;&#x5982;&#x679C;Subscriber Index&#x6CA1;&#x6709;&#x627E;&#x5230;&#x65F6;&#xFF0C;&#x5219;&#x4F1A;&#x518D;&#x6B21;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x3002;</p>
 <ul>
-<li><p>&#x6784;&#x5EFA;&#x811A;&#x672C;&#x4FEE;&#x6539;<br>&#x4E3A;&#x4E86;&#x5728;android studio&#x5B9E;&#x73B0;annotation processors&#xFF0C;&#x9700;&#x8981;android-apt plugins(<a href="https://bitbucket.org/hvisser/android-apt" target="_blank" rel="external">https://bitbucket.org/hvisser/android-apt</a>)&#xFF0C;&#x6700;&#x7EC8;gradle&#x811A;&#x672C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<li><p>&#x6784;&#x5EFA;&#x811A;&#x672C;&#x4FEE;&#x6539;<br>&#x4E3A;&#x4E86;&#x5728;android studio&#x5B9E;&#x73B0;annotation processors&#xFF0C;&#x9700;&#x8981;android-apt plugins(<a href="https://bitbucket.org/hvisser/android-apt" target="_blank" rel="noopener">https://bitbucket.org/hvisser/android-apt</a>)&#xFF0C;&#x6700;&#x7EC8;gradle&#x811A;&#x672C;&#x5982;&#x4E0B;&#xFF1A;</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buildscript</span> {</span><br><span class="line">    <span class="keyword">dependencies</span> {</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">&apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line">apply plugin: <span class="string">&apos;com.neenbedankt.android-apt&apos;</span></span><br><span class="line"><span class="keyword">dependencies</span> {</span><br><span class="line">    <span class="keyword">compile</span> <span class="string">&apos;org.greenrobot:eventbus:3.0.0&apos;</span></span><br><span class="line">    apt <span class="string">&apos;org.greenrobot:eventbus-annotation-processor:3.0.0&apos;</span></span><br><span class="line">}</span><br><span class="line">apt {</span><br><span class="line">    arguments {</span><br><span class="line">        eventBusIndex <span class="string">&quot;com.example.myapp.MyEventBusIndex&quot;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>&#x8BBE;&#x7F6E;EventBus</p>
@@ -300,7 +281,7 @@
 </ul>
 </li>
 <li><p>3.0<br>3.0&#x7248;&#x672C;&#x4F7F;&#x7528;&#x6CE8;&#x89E3;&#x8FDB;&#x884C;&#x6807;&#x8BC6;&#xFF0C;&#x5177;&#x4F53;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>({ElementType.METHOD})</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Subscribe {</span><br><span class="line">    <span class="function">ThreadMode <span class="title">threadMode</span><span class="params">()</span> <span class="keyword">default</span> ThreadMode.POSTING</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * If true, delivers the most recent sticky event (posted with</span><br><span class="line">     * {<span class="doctag">@link</span> EventBus#postSticky(Object)}) to this subscriber (if event available).</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">sticky</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">false</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Subscriber priority to influence the order of event delivery.</span><br><span class="line">     * Within the same delivery thread ({<span class="doctag">@link</span> ThreadMode}), higher priority subscribers will receive events before</span><br><span class="line">     * others with a lower priority. The default priority is 0. Note: the priority does *NOT* affect the order of</span><br><span class="line">     * delivery among subscribers with different {<span class="doctag">@link</span> ThreadMode}s! */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">priority</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>({ElementType.METHOD})</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Subscribe {</span><br><span class="line">    <span class="function">ThreadMode <span class="title">threadMode</span><span class="params">()</span> <span class="keyword">default</span> ThreadMode.POSTING</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * If true, delivers the most recent sticky event (posted with</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@link</span> EventBus#postSticky(Object)}) to this subscriber (if event available).</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">sticky</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">false</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Subscriber priority to influence the order of event delivery.</span></span><br><span class="line"><span class="comment">     * Within the same delivery thread ({<span class="doctag">@link</span> ThreadMode}), higher priority subscribers will receive events before</span></span><br><span class="line"><span class="comment">     * others with a lower priority. The default priority is 0. Note: the priority does *NOT* affect the order of</span></span><br><span class="line"><span class="comment">     * delivery among subscribers with different {<span class="doctag">@link</span> ThreadMode}s! */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">priority</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -311,18 +292,18 @@
 </ul>
 <p>&#x8BA2;&#x9605;&#x8005;register&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x539F;&#x578B;&#x5982;&#x4E0B;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(Object subscriber)</span></span></span><br></pre></td></tr></table></figure></p>
 <p>&#x8BE5;&#x51FD;&#x6570;&#x9996;&#x5148;&#x6839;&#x636E;&#x8BA2;&#x9605;&#x8005;&#x7C7B;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5F97;&#x5230;&#x5305;&#x542B;SubscriberMethod&#x5BF9;&#x8C61;&#x7684;&#x961F;&#x5217;&#xFF0C;&#x5176;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;</p>
-<img src="/2016/04/17/eventbus/eventbus_0.png" alt="eventbus_0.png" title="">
+<img src="/2016/04/17/eventbus/eventbus_0.png">
 <p>&#x9488;&#x5BF9;&#x4E0A;&#x8FF0;&#x961F;&#x5217;&#x4E2D;&#x6BCF;&#x4E2A;SubscriberMethod&#x5BF9;&#x8C61;&#xFF0C;&#x8C03;&#x7528;&#x5982;&#x4E0B;&#x51FD;&#x6570;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(Object subscriber, SubscriberMethod subscriberMethod)</span></span></span><br></pre></td></tr></table></figure></p>
 <p>&#x6BCF;&#x4E2A;EventBus&#x5B9E;&#x4F8B;&#x6709;&#x4E00;&#x4E2A;<code>Map&lt;Class&lt;?&gt;, CopyOnWriteArrayList&lt;Subscription&gt;&gt; subscriptionsByEventType</code>&#xFF0C;&#x5176;&#x4E2D;key&#x503C;&#x662F;&#x8BA2;&#x9605;&#x8005;&#x7684;&#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#xFF0C;value&#x662F;&#x4E00;&#x4E2A;&#x961F;&#x5217;&#xFF0C;&#x91CC;&#x9762;&#x5B58;&#x653E;&#x7740;&#x8BA2;&#x9605;&#x8BE5;&#x4E8B;&#x4EF6;&#x7684;&#x8BA2;&#x9605;&#x8005;&#x4FE1;&#x606F;&#xFF0C;&#x4FE1;&#x606F;&#x88AB;&#x5C01;&#x88C5;&#x6210;&#x4E00;&#x4E2A;Subscription&#x7C7B;&#x3002;&#x76F8;&#x540C;&#x4E8B;&#x4EF6;&#x7684;&#x4E0D;&#x540C;&#x8BA2;&#x9605;&#x8005;&#x4F1A;&#x6839;&#x636E;priority&#x653E;&#x5728;&#x961F;&#x5217;&#x91CC;&#x5408;&#x9002;&#x7684;&#x4F4D;&#x7F6E;&#x4E0A;&#x3002;&#x540C;&#x65F6;&#xFF0C;EventBus&#x5B9E;&#x4F8B;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;<code>Map&lt;Object, List&lt;Class&lt;?&gt;&gt;&gt; typesBySubscriber</code>&#xFF0C;&#x4FDD;&#x5B58;&#x7740;&#x6BCF;&#x4E2A;&#x8BA2;&#x9605;&#x8005;&#x6240;&#x8BA2;&#x9605;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x7528;&#x4E8E;unregister&#x65F6;&#x6839;&#x636E;&#x8BA2;&#x9605;&#x8005;&#x67E5;&#x627E;&#x51FA;&#x6240;&#x8BA2;&#x9605;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x4ECE;&#x8BE5;&#x4E8B;&#x4EF6;&#x961F;&#x5217;&#x4E2D;&#x628A;&#x8BA2;&#x9605;&#x8005;remove&#x3002;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;</p>
-<img src="/2016/04/17/eventbus/eventbus_1.png" alt="eventbus_1.png" title="">
+<img src="/2016/04/17/eventbus/eventbus_1.png">
 <p>&#x5230;&#x6B64;&#x8BA2;&#x9605;&#x8005;register&#x8FC7;&#x7A0B;&#x7ED3;&#x675F;&#xFF0C;&#x4F46;&#x6700;&#x540E;&#x6709;&#x4E2A;sticky&#x7279;&#x6027;&#x9700;&#x8981;&#x8BF4;&#x4E00;&#x4E0B;&#x3002;EventBus&#x6301;&#x6709;&#x4E00;&#x4E2A;<code>Map&lt;Class&lt;?&gt;, Object&gt; stickyEvents</code>&#xFF0C;&#x91CC;&#x9762;&#x4FDD;&#x5B58;sticky event&#xFF1B;&#x53D1;&#x5E03;&#x4E8B;&#x4EF6;&#x65F6;&#x53EF;&#x4EE5;&#x8C03;&#x7528;postSticky&#x65B9;&#x6CD5;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x4F1A;&#x4FDD;&#x5B58;&#x5728;Map&#x4E2D;&#x3002;&#x8BA2;&#x9605;&#x8005;register&#x65B9;&#x6CD5;&#x6700;&#x540E;&#x68C0;&#x67E5;&#x8BE5;&#x8BA2;&#x9605;&#x8005;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;&#x7684;&#x8BA2;&#x9605;&#x4E8B;&#x4EF6;&#x662F;&#x5426;&#x662F;sticky&#xFF0C;&#x5982;&#x679C;sticky=true&#x4E14;&#x5B58;&#x5728;stickyEvents&#x4E2D;&#xFF0C;&#x5219;&#x8BF4;&#x660E;&#x8BE5;&#x4E8B;&#x4EF6;&#x5DF2;&#x7ECF;&#x88AB;&#x53D1;&#x5E03;&#xFF0C;&#x6240;&#x4EE5;&#x4F1A;&#x7ACB;&#x523B;&#x901A;&#x77E5;&#x8BA2;&#x9605;&#x8005;&#x8BE5;&#x4E8B;&#x4EF6;&#x3002;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;</p>
-<img src="/2016/04/17/eventbus/eventbus_2.png" alt="eventbus_2.png" title="">
+<img src="/2016/04/17/eventbus/eventbus_2.png">
 <ul>
 <li><strong>post</strong>  </li>
 </ul>
-<p>EventBus&#x5B9E;&#x4F8B;&#x63D0;&#x4F9B;2&#x4E2A;post&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x539F;&#x578B;&#x5982;&#x4E0B;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">post</span><span class="params">(Object event)</span> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postSticky</span><span class="params">(Object event)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>EventBus&#x5B9E;&#x4F8B;&#x63D0;&#x4F9B;2&#x4E2A;post&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x539F;&#x578B;&#x5982;&#x4E0B;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">post</span><span class="params">(Object event)</span> </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postSticky</span><span class="params">(Object event)</span></span></span><br></pre></td></tr></table></figure></p>
 <p>&#x5176;&#x4E2D;postSticky&#x51FD;&#x6570;&#x9996;&#x5148;&#x628A;event&#x653E;&#x5165;stickyEvents&#x7684;Map&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;post&#x51FD;&#x6570;&#x3002;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x5206;&#x6790;post&#x51FD;&#x6570;&#x3002;<br>&#x6BCF;&#x4E2A;EventBus&#x5B9E;&#x4F8B;&#x5B58;&#x6709;&#x4E00;&#x4E2A;ThreadLocal&#x53D8;&#x91CF;currentPostingThreadState&#xFF0C;&#x5176;&#x7EF4;&#x62A4;&#x7684;&#x53D8;&#x91CF;&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF0C;eventQueue&#x7528;&#x4E8E;&#x5B58;&#x653E;&#x4E8B;&#x4EF6;Event&#x7684;&#x961F;&#x5217;&#xFF1B;isPosting&#x6807;&#x8BC6;&#x662F;&#x5426;&#x5F00;&#x59CB;&#x5FAA;&#x73AF;&#x5904;&#x7406;eventQueue&#x961F;&#x5217;&#x4E2D;&#x7684;&#x4E8B;&#x4EF6;&#xFF1B;isMainThread&#x6807;&#x8BC6;&#x53D1;&#x5E03;&#x4E8B;&#x4EF6;&#x7684;&#x7EBF;&#x7A0B;&#x662F;&#x5426;&#x662F;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF1B;subscription&#x548C;event&#x4E3B;&#x8981;&#x662F;&#x7528;&#x4E8E;&#x5FAA;&#x73AF;&#x65F6;&#x4FDD;&#x7559;&#x4E8B;&#x4EF6;&#x548C;&#x5BF9;&#x5E94;&#x7684;Subscription&#xFF0C;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x901A;&#x77E5;&#x8BA2;&#x9605;&#x8005;&#xFF1B;canceled&#x7528;&#x4E8E;&#x53D6;&#x6D88;&#x53D1;&#x5E03;&#x4E8B;&#x4EF6;&#x3002;&#x6574;&#x4E2A;post&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#x3002;</p>
-<img src="/2016/04/17/eventbus/eventbus_3.png" alt="eventbus_3.png" title="">
+<img src="/2016/04/17/eventbus/eventbus_3.png">
 <h2 id="&#x5173;&#x4E8E;eventbus&#x601D;&#x8003;"><a href="#&#x5173;&#x4E8E;EventBus&#x601D;&#x8003;" class="headerlink" title="&#x5173;&#x4E8E;EventBus&#x601D;&#x8003;"></a>&#x5173;&#x4E8E;EventBus&#x601D;&#x8003;</h2><ul>
 <li><p>ProGuard &#x914D;&#x7F6E;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-keepattributes *Annotation*</span><br><span class="line">-keepclassmembers class ** {</span><br><span class="line">    @org.greenrobot.eventbus.Subscribe &lt;methods&gt;;</span><br><span class="line">}</span><br><span class="line">-keep enum org.greenrobot.eventbus.ThreadMode { *; }</span><br><span class="line"></span><br><span class="line"># Only required if you use AsyncExecutor</span><br><span class="line">-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {</span><br><span class="line">    &lt;init&gt;(java.lang.Throwable);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
@@ -332,10 +313,10 @@
 </li>
 </ul>
 <h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><ol>
-<li><a href="http://greenrobot.org/eventbus/" target="_blank" rel="external">http://greenrobot.org/eventbus/</a></li>
-<li><a href="http://a.codekk.com/detail/Android/Trinea/EventBus%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90" target="_blank" rel="external">http://a.codekk.com/detail/Android/Trinea/EventBus%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90</a></li>
-<li><a href="http://www.ithao123.cn/content-7461338.html" target="_blank" rel="external">http://www.ithao123.cn/content-7461338.html</a></li>
-<li><a href="http://android.jobbole.com/81098/" target="_blank" rel="external">http://android.jobbole.com/81098/</a></li>
+<li><a href="http://greenrobot.org/eventbus/" target="_blank" rel="noopener">http://greenrobot.org/eventbus/</a></li>
+<li><a href="http://a.codekk.com/detail/Android/Trinea/EventBus%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90" target="_blank" rel="noopener">http://a.codekk.com/detail/Android/Trinea/EventBus%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90</a></li>
+<li><a href="http://www.ithao123.cn/content-7461338.html" target="_blank" rel="noopener">http://www.ithao123.cn/content-7461338.html</a></li>
+<li><a href="http://android.jobbole.com/81098/" target="_blank" rel="noopener">http://android.jobbole.com/81098/</a></li>
 </ol>
 
       

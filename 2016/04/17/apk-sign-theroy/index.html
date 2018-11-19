@@ -1,47 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APK签名原理解析 | Andrewlcgu&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="相关概念
-签名原理
-验证过程
-参考
-
-
-相关概念
-Message Digest(数字摘要)将任意长度的消息变成固定长度的短消息，它类似于一个自变量是消息的函数，也就是Hash函数。数字摘要是采用单项Hash函数将需要加密的明文“摘要”成一串固定长度(128位)的密文这一串密文又称为数字指纹，它有固定的长度，而且不同的明文摘要成密文，其结果总是不同的，而同样的明文其摘要必定一致。
-Signatu">
+  <meta name="description" content="相关概念 签名原理 验证过程 参考   相关概念 Message Digest(数字摘要)将任意长度的消息变成固定长度的短消息，它类似于一个自变量是消息的函数，也就是Hash函数。数字摘要是采用单项Hash函数将需要加密的明文“摘要”成一串固定长度(128位)的密文这一串密文又称为数字指纹，它有固定的长度，而且不同的明文摘要成密文，其结果总是不同的，而同样的明文其摘要必定一致。 Signatu">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="APK签名原理解析">
 <meta property="og:url" content="http://yoursite.com/2016/04/17/apk-sign-theroy/index.html">
-<meta property="og:site_name" content="Andrewlcgu's Blog">
-<meta property="og:description" content="相关概念
-签名原理
-验证过程
-参考
-
-
-相关概念
-Message Digest(数字摘要)将任意长度的消息变成固定长度的短消息，它类似于一个自变量是消息的函数，也就是Hash函数。数字摘要是采用单项Hash函数将需要加密的明文“摘要”成一串固定长度(128位)的密文这一串密文又称为数字指纹，它有固定的长度，而且不同的明文摘要成密文，其结果总是不同的，而同样的明文其摘要必定一致。
-Signatu">
+<meta property="og:site_name" content="Andrewlcgu&#39;s Blog">
+<meta property="og:description" content="相关概念 签名原理 验证过程 参考   相关概念 Message Digest(数字摘要)将任意长度的消息变成固定长度的短消息，它类似于一个自变量是消息的函数，也就是Hash函数。数字摘要是采用单项Hash函数将需要加密的明文“摘要”成一串固定长度(128位)的密文这一串密文又称为数字指纹，它有固定的长度，而且不同的明文摘要成密文，其结果总是不同的，而同样的明文其摘要必定一致。 Signatu">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2016/04/17/apk-sign-theroy/manifest.png">
 <meta property="og:image" content="http://yoursite.com/2016/04/17/apk-sign-theroy/certsf.png">
 <meta property="og:updated_time" content="2016-04-16T17:00:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APK签名原理解析">
-<meta name="twitter:description" content="相关概念
-签名原理
-验证过程
-参考
-
-
-相关概念
-Message Digest(数字摘要)将任意长度的消息变成固定长度的短消息，它类似于一个自变量是消息的函数，也就是Hash函数。数字摘要是采用单项Hash函数将需要加密的明文“摘要”成一串固定长度(128位)的密文这一串密文又称为数字指纹，它有固定的长度，而且不同的明文摘要成密文，其结果总是不同的，而同样的明文其摘要必定一致。
-Signatu">
+<meta name="twitter:description" content="相关概念 签名原理 验证过程 参考   相关概念 Message Digest(数字摘要)将任意长度的消息变成固定长度的短消息，它类似于一个自变量是消息的函数，也就是Hash函数。数字摘要是采用单项Hash函数将需要加密的明文“摘要”成一串固定长度(128位)的密文这一串密文又称为数字指纹，它有固定的长度，而且不同的明文摘要成密文，其结果总是不同的，而同样的明文其摘要必定一致。 Signatu">
 <meta name="twitter:image" content="http://yoursite.com/2016/04/17/apk-sign-theroy/manifest.png">
   
     <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
@@ -51,7 +29,7 @@ Signatu">
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div class="left-col">
@@ -198,7 +176,7 @@ Signatu">
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-apk-sign-theroy" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-apk-sign-theroy" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/17/apk-sign-theroy/" class="article-date">
@@ -208,7 +186,7 @@ Signatu">
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -274,8 +252,8 @@ Signatu">
 <li><strong>Debug&#x7B7E;&#x540D;</strong><br>Eclipse ADT &#x6216;&#x8005; android studio&#x8C03;&#x8BD5;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;debug&#x7B7E;&#x540D;&#xFF0C;&#x9ED8;&#x8BA4;&#x8DEF;&#x5F84;&#x662F; ~/.android/debug&#x3002;keystore&#xFF0C;Keystore password &#x548C; Key password &#x90FD;&#x4E3A; android&#xFF0C;&#x8BA9;&#x6211;&#x770B;&#x770B;&#x8FD9;&#x4E2A;debug&#x3002;keystore&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#xFF0C;&#x8F93;&#x5165;keytool -list -keystore debug.keystore  
 &#x5176;&#x4E2D;&#xFF0C;JKS&#x662F;&#x9ED8;&#x8BA4;&#x683C;&#x5F0F;&#xFF0C;&#x5176;&#x4ED6;&#x6709;JCEKS(&#x5B58;&#x50A8;&#x5BF9;&#x79F0;&#x5BC6;&#x94A5;)&#xFF0C;PKCS#12(&#x901A;&#x7528;&#x683C;&#x5F0F;&#xFF0C;RSA&#x516C;&#x53F8;&#x6807;&#x51C6;&#xFF0C;&#x5FAE;&#x8F6F;&#x548C;Java&#x90FD;&#x652F;&#x6301;)&#xFF0C;JKS&#x53EA;&#x80FD;&#x5B58;&#x50A8;&#x975E;&#x5BF9;&#x79F0;&#x5BC6;&#x94A5;(&#x79C1;&#x94A5;+X509&#x516C;&#x94A5;&#x8BC1;&#x4E66;)&#x3002;</li>
 <li><strong>Android&#x7CFB;&#x7EDF;&#x7B7E;&#x540D;</strong><br>&#x8C37;&#x6B4C;CTS(&#x517C;&#x5BB9;&#x6027;&#x6D4B;&#x8BD5;)&#x9700;&#x8981;&#x7CFB;&#x7EDF;&#x7B7E;&#x540D;&#x3002;&#x4E2A;&#x4EBA;&#x7406;&#x89E3;&#x5C31;&#x662F;&#x5382;&#x5546;&#x4E3A;&#x81EA;&#x5DF1;&#x786C;&#x4EF6;&#x5B9A;&#x5236;&#x7684;Android&#x7CFB;&#x7EDF;&#x5FC5;&#x987B;&#x901A;&#x8FC7;CTS&#x6D4B;&#x8BD5;&#x624D;&#x80FD;&#x4FDD;&#x8BC1;&#x5F00;&#x53D1;&#x7684;Android&#x5E94;&#x7528;&#x90FD;&#x80FD;&#x5728;&#x4E0A;&#x9762;&#x8FD0;&#x884C;&#xFF0C;&#x624D;&#x80FD;&#x7533;&#x8BF7;Android Market&#x3002;&#x5B9A;&#x5236;&#x7684;&#x7CFB;&#x7EDF;&#x5FC5;&#x987B;&#x8981;&#x8FDB;&#x884C;&#x7CFB;&#x7EDF;&#x7B7E;&#x540D;&#xFF0C;&#x9632;&#x6B62;&#x88AB;&#x522B;&#x4EBA;&#x76D7;&#x7528;&#x3002;&#x6E90;&#x7801;&#x63D0;&#x4F9B;make_key&#x811A;&#x672C;&#x8C03;&#x7528;openssh&#x751F;&#x6210;&#x79C1;&#x94A5;&#x548C;&#x8BC1;&#x4E66;&#x4E24;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x4F7F;&#x7528;Android&#x6E90;&#x7801;&#x63D0;&#x4F9B;signapk&#x8FDB;&#x884C;&#x7B7E;&#x540D;&#xFF0C;&#x4E3B;&#x8981;&#x662F;ROM&#x79FB;&#x690D;&#x65F6;&#x4F7F;&#x7528;&#x3002;</li>
-<li><strong>APK&#x7B7E;&#x540D;</strong><br>keytool&#x751F;&#x6210;&#x7B7E;&#x540D;&#x6587;&#x4EF6;keystore&#xFF0C;&#x9ED8;&#x8BA4;&#x6253;&#x5305;&#x811A;&#x672C;(sdk\tools\ant\build.xml)&#x8C03;&#x7528;signapk&#x8FDB;&#x884C;&#x7B7E;&#x540D;&#xFF0C;signapk&#x6E90;&#x7801;&#x5728;&#x9644;&#x4EF6;&#x4E2D;&#x63D0;&#x4F9B;&#xFF0C;&#x7B7E;&#x540D;&#x8FC7;&#x7A0B;&#x4E3B;&#x8981;&#x6D89;&#x53CA;&#x4E09;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;MANIFEST.MF&#xFF0C;CERT.SF&#x548C;CERT.RSA&#xFF0C;&#x5B58;&#x653E;&#x5728;META-INF&#x6587;&#x4EF6;&#x5939;&#x4E2D;&#x3002;<br>MANIFEST.MF&#xFF1A;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x4E0E;&#x5176;SHA1&#x6458;&#x8981;&#x503C;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x4F1A;&#x5305;&#x542B;META-INF&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x6587;&#x4EF6;&#x3002;<img src="/2016/04/17/apk-sign-theroy/manifest.png" alt="manifest.png" title="">
-CERT.SF&#xFF1A;&#x6574;&#x4E2A;MANIFEST.MF&#x7684;SHA1&#x6458;&#x8981;&#x503C;&#xFF1B;&#x9488;&#x5BF9;MANIFEST.MF&#x6587;&#x4EF6;&#x4E2D;&#x6BCF;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E09;&#x884C;&#x6570;&#x636E;(&#x7A7A;&#x884C;&#x7B97;&#x4E00;&#x884C;)&#x751F;&#x6210;&#x5176;&#x5BF9;&#x5E94;&#x7684;SHA1-Digest&#x3002;<img src="/2016/04/17/apk-sign-theroy/certsf.png" alt="certsf.png" title="">
+<li><strong>APK&#x7B7E;&#x540D;</strong><br>keytool&#x751F;&#x6210;&#x7B7E;&#x540D;&#x6587;&#x4EF6;keystore&#xFF0C;&#x9ED8;&#x8BA4;&#x6253;&#x5305;&#x811A;&#x672C;(sdk\tools\ant\build.xml)&#x8C03;&#x7528;signapk&#x8FDB;&#x884C;&#x7B7E;&#x540D;&#xFF0C;signapk&#x6E90;&#x7801;&#x5728;&#x9644;&#x4EF6;&#x4E2D;&#x63D0;&#x4F9B;&#xFF0C;&#x7B7E;&#x540D;&#x8FC7;&#x7A0B;&#x4E3B;&#x8981;&#x6D89;&#x53CA;&#x4E09;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;MANIFEST.MF&#xFF0C;CERT.SF&#x548C;CERT.RSA&#xFF0C;&#x5B58;&#x653E;&#x5728;META-INF&#x6587;&#x4EF6;&#x5939;&#x4E2D;&#x3002;<br>MANIFEST.MF&#xFF1A;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x4E0E;&#x5176;SHA1&#x6458;&#x8981;&#x503C;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x4F1A;&#x5305;&#x542B;META-INF&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x6587;&#x4EF6;&#x3002;<img src="/2016/04/17/apk-sign-theroy/manifest.png">
+CERT.SF&#xFF1A;&#x6574;&#x4E2A;MANIFEST.MF&#x7684;SHA1&#x6458;&#x8981;&#x503C;&#xFF1B;&#x9488;&#x5BF9;MANIFEST.MF&#x6587;&#x4EF6;&#x4E2D;&#x6BCF;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E09;&#x884C;&#x6570;&#x636E;(&#x7A7A;&#x884C;&#x7B97;&#x4E00;&#x884C;)&#x751F;&#x6210;&#x5176;&#x5BF9;&#x5E94;&#x7684;SHA1-Digest&#x3002;<img src="/2016/04/17/apk-sign-theroy/certsf.png">
 CERT.RSA&#xFF1A;&#x683C;&#x5F0F;&#x4E3A;PKCS7&#x7684;&#x6570;&#x5B57;&#x8BC1;&#x4E66;&#xFF0C;&#x5176;&#x4E2D;&#x8BC1;&#x4E66;&#x53D1;&#x884C;&#x8005;&#x5BF9;&#x8BC1;&#x4E66;&#x7684;&#x7B7E;&#x540D;&#x662F;&#x5BF9;CERT.SF&#x6587;&#x4EF6;&#x7684;&#x6570;&#x5B57;&#x7B7E;&#x540D;&#xFF0C;&#x6240;&#x4EE5;&#x662F;&#x81EA;&#x7B7E;&#x540D;&#x8BC1;&#x4E66;&#x3002;</li>
 </ul>
 <h2 id="&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;"><a href="#&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;"></a>&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;</h2><p>&#x6839;&#x636E;Oracle&#x5B98;&#x65B9;&#x5173;&#x4E8E;jarsigner&#x6587;&#x6863;&#xFF0C;&#x5206;&#x4E09;&#x6B65;&#xFF1A;  </p>
@@ -285,9 +263,9 @@ CERT.RSA&#xFF1A;&#x683C;&#x5F0F;&#x4E3A;PKCS7&#x7684;&#x6570;&#x5B57;&#x8BC1;&#x
 <li>&#x9488;&#x5BF9;CERT.SF&#x6BCF;&#x4E00;&#x9879;&#xFF0C;&#x8BFB;&#x53D6;&#x5BF9;&#x5E94;&#x6587;&#x4EF6;&#xFF0C;&#x8BA1;&#x7B97;&#x5176;digest&#x4E0E;MANIFEST&#x5BF9;&#x5E94;&#x9879;&#x8FDB;&#x884C;&#x5BF9;&#x6BD4;&#x3002;&#x5982;&#x679C;&#x653B;&#x51FB;&#x8005;&#x4FEE;&#x6539;&#x7A0B;&#x5E8F;&#xFF0C;&#x6CA1;&#x6709;&#x79C1;&#x94A5;&#x65E0;&#x6CD5;&#x751F;&#x6210;CERT.RSA&#x4E2D;&#x7684;&#x6570;&#x5B57;&#x7B7E;&#x540D;&#xFF0C;&#x6240;&#x4EE5;&#x79C1;&#x94A5;&#x4E00;&#x5B9A;&#x8981;&#x4FDD;&#x7BA1;&#x597D;&#xFF01;CERT.RSA&#x548C;CERT.SF&#x6587;&#x4EF6;&#x7684;&#x540E;&#x7F00;&#x540D;&#x4E0D;&#x80FD;&#x53D8;&#xFF0C;&#x540D;&#x5B57;&#x53EF;&#x4EE5;&#x968F;&#x610F;&#x8D77;&#xFF0C;&#x4F46;&#x5FC5;&#x987B;&#x76F8;&#x540C;&#x3002;</li>
 </ol>
 <h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><ol>
-<li><a href="http://baike.baidu.com/view/16501.htm" target="_blank" rel="external">http://baike.baidu.com/view/16501.htm</a></li>
-<li><a href="http://docs.oracle.com/javase/8/docs/technotes/tools/windows/jarsigner.html" target="_blank" rel="external">http://docs.oracle.com/javase/8/docs/technotes/tools/windows/jarsigner.html</a></li>
-<li><a href="https://developer.android.com/tools/publishing/app-signing.html" target="_blank" rel="external">https://developer.android.com/tools/publishing/app-signing.html</a></li>
+<li><a href="http://baike.baidu.com/view/16501.htm" target="_blank" rel="noopener">http://baike.baidu.com/view/16501.htm</a></li>
+<li><a href="http://docs.oracle.com/javase/8/docs/technotes/tools/windows/jarsigner.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/8/docs/technotes/tools/windows/jarsigner.html</a></li>
+<li><a href="https://developer.android.com/tools/publishing/app-signing.html" target="_blank" rel="noopener">https://developer.android.com/tools/publishing/app-signing.html</a></li>
 </ol>
 
       

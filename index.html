@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Andrewlcgu&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="andrewlcgu 学习小木屋">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Andrewlcgu's Blog">
+<meta property="og:title" content="Andrewlcgu&#39;s Blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Andrewlcgu's Blog">
+<meta property="og:site_name" content="Andrewlcgu&#39;s Blog">
 <meta property="og:description" content="andrewlcgu 学习小木屋">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Andrewlcgu's Blog">
+<meta name="twitter:title" content="Andrewlcgu&#39;s Blog">
 <meta name="twitter:description" content="andrewlcgu 学习小木屋">
   
     <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
@@ -23,7 +24,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div class="left-col">
@@ -172,7 +173,78 @@
 
       <div class="body-wrap">
   
-    <article id="post-okhttp" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-retrofit2" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/11/19/retrofit2/" class="article-date">
+  	<time datetime="2018-11-19T01:48:30.000Z" itemprop="datePublished">2018-11-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/19/retrofit2/">Retrofit2组件分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-简介">1. 简介</a></li>
+<li><a href="#2-关键分析">2. 关键分析</a></li>
+<li><a href="#3-一些细节">3. 一些细节</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>Retrofit2是由Square公司开源的HTTP网络请求框架的封装，最近阅读v2.4.0源码，在此记录一下。<br>官方使用的Demo：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GitHubService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@GET</span>(<span class="string">"users/&#123;user&#125;/repos"</span>)</span><br><span class="line">  Call&lt;List&lt;Repo&gt;&gt; listRepos(<span class="meta">@Path</span>(<span class="string">"user"</span>) String user);</span><br><span class="line">&#125;</span><br><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">    .baseUrl(<span class="string">"https://api.github.com/"</span>)</span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line">GitHubService service = retrofit.create(GitHubService.class);</span><br><span class="line">Call&lt;List&lt;Repo&gt;&gt; repos = service.listRepos(<span class="string">"octocat"</span>);</span><br><span class="line"><span class="comment">// SYNCHRONOUS</span></span><br><span class="line">repos.execute()</span><br><span class="line"><span class="comment">//  ASYNCHRONOUS</span></span><br><span class="line">repos.enqueue(...)</span><br></pre></td></tr></table></figure></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a href="/2018/11/19/retrofit2/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-okhttp" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2018/10/29/okhttp/" class="article-date">
@@ -182,7 +254,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -255,7 +327,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2018/10/29/okhttp/#more">more >></a>
+          <a href="/2018/10/29/okhttp/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -274,7 +346,7 @@
 
 
   
-    <article id="post-design-pattern-note" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-design-pattern-note" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/04/05/design-pattern-note/" class="article-date">
@@ -284,7 +356,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -308,7 +380,7 @@
 <li>Interface Segregation Principle</li>
 <li>Law of Demeter</li>
 </ol>
-<h2 id="《设计模式-可复用面向对象软件的基础》23种设计模式："><a href="#《设计模式-可复用面向对象软件的基础》23种设计模式：" class="headerlink" title="《设计模式:可复用面向对象软件的基础》23种设计模式："></a>《设计模式:可复用面向对象软件的基础》23种设计模式：</h2><h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><h3 id="单例模式-Singleton"><a href="#单例模式-Singleton" class="headerlink" title="单例模式(Singleton)"></a>单例模式(Singleton)</h3><img src="/2017/04/05/design-pattern-note/pic_0.png" alt="pic_0.png" title="">
+<h2 id="《设计模式-可复用面向对象软件的基础》23种设计模式："><a href="#《设计模式-可复用面向对象软件的基础》23种设计模式：" class="headerlink" title="《设计模式:可复用面向对象软件的基础》23种设计模式："></a>《设计模式:可复用面向对象软件的基础》23种设计模式：</h2><h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><h3 id="单例模式-Singleton"><a href="#单例模式-Singleton" class="headerlink" title="单例模式(Singleton)"></a>单例模式(Singleton)</h3><img src="/2017/04/05/design-pattern-note/pic_0.png">
       
     </div>
     
@@ -327,7 +399,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2017/04/05/design-pattern-note/#more">more >></a>
+          <a href="/2017/04/05/design-pattern-note/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -346,7 +418,7 @@
 
 
   
-    <article id="post-read-note" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-read-note" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/03/14/read-note/" class="article-date">
@@ -356,7 +428,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -391,7 +463,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2017/03/14/read-note/#more">more >></a>
+          <a href="/2017/03/14/read-note/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -410,7 +482,7 @@
 
 
   
-    <article id="post-greenDAO-analysis" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-greenDAO-analysis" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/03/13/greenDAO-analysis/" class="article-date">
@@ -420,7 +492,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -459,10 +531,10 @@
 <!-- tocstop -->
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>greenDAO是一个开源的针对Android SQLite数据库的ORM组件，根据官方信息，其主要特点有性能好，包小(&lt;100KB)等，本文主要分析greenDAO设计原理和思想，为今后我们自己使用和开发ORM组件提供指导。</p>
 <h2 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h2><p>ORM组件可以使我们摆脱枯燥的各种SQL操作，使我们专心于对象操作。第一步就是如何进行建模，假设我们需要创建如下数据库:</p>
-<img src="/2017/03/13/greenDAO-analysis/db.png" alt="db.png" title="">
+<img src="/2017/03/13/greenDAO-analysis/db.png">
 <p>按照greenDAO规范，我们需要根据数据库schema创建如下两个实体类:<br>
       
-    </div>
+    </p></div>
     
     <div class="article-info article-info-index">
       
@@ -479,7 +551,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2017/03/13/greenDAO-analysis/#more">more >></a>
+          <a href="/2017/03/13/greenDAO-analysis/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -498,7 +570,7 @@
 
 
   
-    <article id="post-okio" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-okio" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/02/16/okio/" class="article-date">
@@ -508,7 +580,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -570,7 +642,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2017/02/16/okio/#more">more >></a>
+          <a href="/2017/02/16/okio/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -589,7 +661,7 @@
 
 
   
-    <article id="post-android-style-guide" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-android-style-guide" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/01/10/android-style-guide/" class="article-date">
@@ -599,7 +671,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -617,9 +689,9 @@
       
         <h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p> <strong> 建议仔细阅读以下文档:</strong></p>
 <ol>
-<li><a href="http://google.github.io/styleguide/javaguide.html">Google Java Style Guide</a></li>
-<li><a href="https://google.github.io/styleguide/cppguide.html">Google C++ Style Guide</a></li>
-<li><a href="http://source.android.com/source/code-style.html#java-language-rules">Android Source Style Guide</a></li>
+<li><a href="http://google.github.io/styleguide/javaguide.html" target="_blank" rel="noopener">Google Java Style Guide</a></li>
+<li><a href="https://google.github.io/styleguide/cppguide.html" target="_blank" rel="noopener">Google C++ Style Guide</a></li>
+<li><a href="http://source.android.com/source/code-style.html#java-language-rules" target="_blank" rel="noopener">Android Source Style Guide</a></li>
 </ol>
 <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p><strong>简单，统一，高效</strong></p>
       
@@ -640,7 +712,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2017/01/10/android-style-guide/#more">more >></a>
+          <a href="/2017/01/10/android-style-guide/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -659,7 +731,7 @@
 
 
   
-    <article id="post-java-tcp-ip-socket-program-note-1" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-java-tcp-ip-socket-program-note-1" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/12/08/java-tcp-ip-socket-program-note-1/" class="article-date">
@@ -669,7 +741,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -692,7 +764,7 @@
 <li><a href="#第六章-深入剖析">第六章 深入剖析</a></li>
 </ul>
 <!-- tocstop -->
-<h2 id="第四章-进阶"><a href="#第四章-进阶" class="headerlink" title="第四章 进阶"></a>第四章 进阶</h2><img src="/2016/12/08/java-tcp-ip-socket-program-note-1/chapter4.png" alt="chapter4.png" title="">
+<h2 id="第四章-进阶"><a href="#第四章-进阶" class="headerlink" title="第四章 进阶"></a>第四章 进阶</h2><img src="/2016/12/08/java-tcp-ip-socket-program-note-1/chapter4.png">
       
     </div>
     
@@ -711,7 +783,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/12/08/java-tcp-ip-socket-program-note-1/#more">more >></a>
+          <a href="/2016/12/08/java-tcp-ip-socket-program-note-1/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -730,7 +802,7 @@
 
 
   
-    <article id="post-android-studio-plugin" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-android-studio-plugin" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/11/13/android-studio-plugin/" class="article-date">
@@ -740,7 +812,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -779,7 +851,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/11/13/android-studio-plugin/#more">more >></a>
+          <a href="/2016/11/13/android-studio-plugin/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -798,7 +870,7 @@
 
 
   
-    <article id="post-android-custom-view-and-drawable" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-android-custom-view-and-drawable" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/09/13/android-custom-view-and-drawable/" class="article-date">
@@ -808,7 +880,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -868,87 +940,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/09/13/android-custom-view-and-drawable/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android-multiThread-summary" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/08/31/Android-multiThread-summary/" class="article-date">
-  	<time datetime="2016-08-31T12:23:25.000Z" itemprop="datePublished">2016-08-31</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/31/Android-multiThread-summary/">Android 多线程使用总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#asynctask类">AsyncTask类</a></li>
-<li><a href="#loaders框架">Loaders框架</a></li>
-<li><a href="#handlerthread类">HandlerThread类</a></li>
-<li><a href="#intentservice类">IntentService类</a></li>
-<li><a href="#线程池threadpoolexecutor">线程池ThreadPoolExecutor</a></li>
-<li><a href="#参考">参考</a></li>
-</ul>
-<!-- tocstop -->
-<p>APK启动时会执行ActivityThread中main()方法，其中创建ActivityThread的线程作为主线程，由于该线程主要与UI交互相关，所以称为UI线程；UI线程中不能执行耗时操作，否则容易引起ANR，所以Google建议开启worker thread执行耗时操作，然后通过Handler机制通知主线程刷新UI。系统提供三种方法：</p>
-<ol>
-<li>Activity.runOnUiThread(Runnable)</li>
-<li>View.post(Runnable)</li>
-<li>View.postDelayed(Runnable,long)</li>
-</ol>
-<p>使得worker thread中方便的刷新View，但上述方法不便于管理。针对这种场景，系统对Handler机制进行一定轻量级封装，方便worker thread通知主线程，我们主要分析以下几个类：</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/08/31/Android-multiThread-summary/#more">more >></a>
+          <a href="/2016/09/13/android-custom-view-and-drawable/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

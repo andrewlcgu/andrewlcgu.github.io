@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-09T06:34:24.488Z</updated>
+  <updated>2018-12-09T06:45:04.546Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>快速排序</title>
+    <title>快速排序算法</title>
     <link href="http://yoursite.com/2018/12/09/quick-sort/"/>
     <id>http://yoursite.com/2018/12/09/quick-sort/</id>
     <published>2018-12-09T03:01:55.000Z</published>
-    <updated>2018-12-09T06:34:24.488Z</updated>
+    <updated>2018-12-09T06:45:04.546Z</updated>
     
     <content type="html">&lt;!-- toc --&gt;
 &lt;ul&gt;

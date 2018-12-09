@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Andrewlcgu&#39;s Blog</title>
@@ -22,11 +22,11 @@
   
     <link rel="icon" href="/favicon.png">
   
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 </html>
 <body>
-  <div id="container">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
     <div class="left-col">
     <div class="overlay"></div>
 <div class="intrude-less">
@@ -107,7 +107,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 10px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
 					</div>
 				</section>
 				
@@ -172,6 +172,79 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-quick-sort" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/09/quick-sort/" class="article-date">
+  	<time datetime="2018-12-09T03:01:55.000Z" itemprop="datePublished">2018-12-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/09/quick-sort/">快速排序</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <!-- toc -->
+<ul>
+<li><a href="#&#x7B80;&#x4ECB;">&#x7B80;&#x4ECB;</a></li>
+<li><a href="#&#x4EE3;&#x7801;&#x5B9E;&#x73B0;">&#x4EE3;&#x7801;&#x5B9E;&#x73B0;</a></li>
+<li><a href="#&#x6027;&#x80FD;&#x5206;&#x6790;">&#x6027;&#x80FD;&#x5206;&#x6790;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p>&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#xFF08;Quick Sort&#xFF09;&#x662F;&#x7531;&#x56FE;&#x7075;&#x5956;&#x83B7;&#x5F97;&#x8005;Tony Hoare&#x8BBE;&#x8BA1;&#x51FA;&#x6765;&#xFF0C;&#x88AB;&#x5217;&#x4E3A;20&#x4E16;&#x7EAA;&#x5341;&#x5927;&#x7B97;&#x6CD5;&#x4E4B;&#x4E00;&#xFF0C;&#x4EE5;&#x201C;&#x5FEB;&#x901F;&#x201D;&#x547D;&#x540D;&#x8868;&#x660E;&#x8BE5;&#x7B97;&#x6CD5;&#x5728;&#x6574;&#x4F53;&#x6027;&#x80FD;&#x4E0A;&#x662F;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#x7684;&#x738B;&#x8005;&#x3002;<br>&#x6838;&#x5FC3;&#x601D;&#x60F3;&#x662F;&#xFF1A;&#x901A;&#x8FC7;&#x4E00;&#x8D9F;&#x6392;&#x5E8F;&#x5C06;&#x5F85;&#x6392;&#x5E8F;&#x8BB0;&#x5F55;&#x5206;&#x5272;&#x6210;&#x72EC;&#x7ACB;&#x7684;&#x4E24;&#x90E8;&#x5206;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x90E8;&#x5206;&#x8BB0;&#x5F55;&#x5173;&#x952E;&#x5B57;&#x5747;&#x6BD4;&#x53E6;&#x4E00;&#x90E8;&#x5206;&#x8BB0;&#x5F55;&#x7684;&#x5173;&#x952E;&#x5B57;&#x5C0F;&#xFF0C;&#x5219;&#x53EF;&#x5206;&#x522B;&#x5BF9;&#x8FD9;&#x4E24;&#x90E8;&#x5206;&#x8BB0;&#x5F55;&#x7EE7;&#x7EED;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#xFF0C;&#x4EE5;&#x8FBE;&#x5230;&#x6574;&#x4E2A;&#x5E8F;&#x5217;&#x6709;&#x5E8F;&#x7684;&#x76EE;&#x7684;&#x3002;&#x4E00;&#x8D9F;&#x6392;&#x5E8F;&#x8FC7;&#x7A0B;&#x793A;&#x610F;&#x56FE;&#x5982;&#x4E0B;&#x3002;</p>
+<img src="/2018/12/09/quick-sort/quick-sort_0.jpg">
+<p>&#x4E00;&#x8D9F;&#x6392;&#x5E8F;&#x4E2D;&#x9700;&#x8981;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x4F7F;&#x5F97;&#x5176;&#x5DE6;&#x8FB9;&#x7684;&#x503C;&#x90FD;&#x6BD4;&#x5B83;&#x5C0F;&#xFF0C;&#x53F3;&#x8FB9;&#x7684;&#x503C;&#x6BD4;&#x5B83;&#x5927; &#xFF0C;&#x8FD9;&#x4E2A;&#x5173;&#x952E;&#x5B57;&#x79F0;&#x4E3A;&#x67A2;&#x8F74;&#xFF08;pivot&#xFF09;&#xFF0C;pivot&#x53D6;&#x503C;&#x8D8A;&#x662F;&#x4F4D;&#x4E8E;&#x4E2D;&#x95F4;&#x5176;&#x6392;&#x5E8F;&#x6027;&#x80FD;&#x8D8A;&#x597D;&#x3002;</p>
+<h2 id="&#x4EE3;&#x7801;&#x5B9E;&#x73B0;"><a href="#&#x4EE3;&#x7801;&#x5B9E;&#x73B0;" class="headerlink" title="&#x4EE3;&#x7801;&#x5B9E;&#x73B0;"></a>&#x4EE3;&#x7801;&#x5B9E;&#x73B0;</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">fun <span class="title">quickSort</span><span class="params">(input: Array&lt;Int&gt;)</span></span>{</span><br><span class="line">    quickSort(input)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">fun <span class="title">quickSort</span><span class="params">(array: Array&lt;Int&gt;, _start: Int, _end: Int)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (_start &gt;= _end) {</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    }</span><br><span class="line">    val pivot = partition(array, _start, _end)</span><br><span class="line">    quickSort(array, _start, pivot - <span class="number">1</span>)</span><br><span class="line">    quickSort(array, pivot + <span class="number">1</span>, _end)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">fun <span class="title">partition</span><span class="params">(array: Array&lt;Int&gt;, _start: Int, _end: Int)</span>: Int </span>{</span><br><span class="line">    val pivot = array[_start] <span class="comment">// pivot&#x9009;&#x7B2C;&#x4E00;&#x4E2A;&#xFF0C;&#x53EF;&#x4F18;&#x5316;</span></span><br><span class="line">    <span class="keyword">var</span> start = _start</span><br><span class="line">    <span class="keyword">var</span> end = _end</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (start &lt; end) {</span><br><span class="line">        <span class="keyword">while</span> (end &gt; start &amp;&amp; array[end] &gt;= pivot) {</span><br><span class="line">            end--</span><br><span class="line">        }</span><br><span class="line">        array[start] = array[end]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (start &lt; end &amp;&amp; array[start] &lt;= pivot) {</span><br><span class="line">            start++</span><br><span class="line">        }</span><br><span class="line">        array[end] = array[start]</span><br><span class="line">    }</span><br><span class="line">    array[start] = pivot</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> start</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="&#x6027;&#x80FD;&#x5206;&#x6790;"><a href="#&#x6027;&#x80FD;&#x5206;&#x6790;" class="headerlink" title="&#x6027;&#x80FD;&#x5206;&#x6790;"></a>&#x6027;&#x80FD;&#x5206;&#x6790;</h2><p>&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x7684;&#x65F6;&#x95F4;&#x6027;&#x80FD;&#x53D6;&#x51B3;&#x4E8E;&#x9012;&#x5F52;&#x7684;&#x6DF1;&#x5EA6;&#xFF0C;&#x6700;&#x4F18;&#x7684;&#x60C5;&#x51B5;&#x662F;Partition&#x6BCF;&#x6B21;&#x90FD;&#x5212;&#x5206;&#x5F97;&#x6BD4;&#x8F83;&#x5747;&#x5300;&#xFF0C;&#x5982;&#x679C;&#x6392;&#x5E8F;n&#x4E2A;&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x5176;&#x9012;&#x5F52;&#x6811;&#x7684;&#x6DF1;&#x5EA6;&#x4E3A;$\lfloor log_2n+1\rfloor$&#xFF0C;&#x5373;&#x4EC5;&#x9700;&#x9012;&#x5F52;&#x6B21;$log_2n$&#xFF0C;&#x6BCF;&#x6B21;&#x9700;&#x8981;&#x904D;&#x5386;&#x6574;&#x4E2A;&#x5E8F;&#x5217;&#xFF0C;&#x9700;&#x8981;$O(n)$&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x6240;&#x4EE5;&#x6574;&#x4E2A;&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#x5728;&#x6700;&#x4F18;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E3A;$O(nlogn)$&#x3002;&#x6700;&#x574F;&#x7684;&#x60C5;&#x51B5;&#x662F;&#x4E00;&#x9897;&#x659C;&#x6811;&#xFF0C;&#x5176;&#x6DF1;&#x5EA6;&#x4E3A;n&#xFF0C;&#x6240;&#x4EE5;&#x6700;&#x574F;&#x7684;&#x60C5;&#x51B5;&#x5176;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E3A;$O(n^2)$&#x3002;&#x5E73;&#x5747;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x53EF;&#x4EE5;&#x8BC1;&#x660E;&#x5176;&#x6570;&#x91CF;&#x7EA7;&#x4E3A;$O(log_2n)$&#x3002;&#x7531;&#x4E8E;&#x5176;&#x5173;&#x952E;&#x5B57;&#x6BD4;&#x8F83;&#x548C;&#x4EA4;&#x6362;&#x662F;&#x8DF3;&#x8DC3;&#x5F0F;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x662F;&#x4E00;&#x79CD;&#x4E0D;&#x7A33;&#x5B9A;&#x7684;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#x3002;</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法与数据结构/">算法与数据结构</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/算法与数据结构/">算法与数据结构</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-retrofit2" class="article article-type-post" itemscope="" itemprop="blogPost">
   
@@ -870,98 +943,9 @@
 
 
   
-    <article id="post-android-custom-view-and-drawable" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/13/android-custom-view-and-drawable/" class="article-date">
-  	<time datetime="2016-09-13T08:15:29.000Z" itemprop="datePublished">2016-09-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/13/android-custom-view-and-drawable/">Android自定义View和Drawable总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#android自定义view简述">Android自定义View简述</a><ul>
-<li><a href="#自定义属性">自定义属性</a></li>
-<li><a href="#onmeasure">onMeasure()</a></li>
-<li><a href="#onlayout">onLayout()</a></li>
-<li><a href="#ondraw">onDraw()</a></li>
-<li><a href="#一些tips">一些Tips：</a></li>
-</ul>
-</li>
-<li><a href="#drawable总结">Drawable总结</a><ul>
-<li><a href="#bitmapdrawable">BitmapDrawable</a></li>
-<li><a href="#ninepatchdrawable">NinePatchDrawable</a></li>
-<li><a href="#layerdrawable">LayerDrawable</a></li>
-<li><a href="#statelistdrawable">StateListDrawable</a></li>
-<li><a href="#transitiondrawable">TransitionDrawable</a></li>
-<li><a href="#insertdrawable">InsertDrawable</a></li>
-<li><a href="#clipdrawable">ClipDrawable</a></li>
-</ul>
-</li>
-<li><a href="#参考">参考</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="Android自定义View简述"><a href="#Android自定义View简述" class="headerlink" title="Android自定义View简述"></a>Android自定义View简述</h2><p>Android自定义View方式有许多，本文对直接继承View的方式进行总结，建议深入阅读源码了解View是如何进行绘制的，可以从 <strong>ViewRootImpl#performTraversals()</strong> 方法开始，并且建议同时理解View的事件传递机制和动画机制，这样才能实现非常炫丽的View；我们主要讨论onMeasure()、onLayout()和onDraw()进行override的注意事项，不会讨论增加交互和动画等事宜。</p>
-<h3 id="自定义属性"><a href="#自定义属性" class="headerlink" title="自定义属性"></a>自定义属性</h3><p><strong>1.</strong> 建立<code>res/values/attrs.xml</code>，demo如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"PieChart"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"showText"</span> <span class="attr">format</span>=<span class="string">"boolean"</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"labelPosition"</span> <span class="attr">format</span>=<span class="string">"enum"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"left"</span> <span class="attr">value</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"right"</span> <span class="attr">value</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attr</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>2.</strong> 布局文件中使用自定义属性时，Gradle建议命名空间统一使用<code>&quot;http://schemas.android.com/apk/res-auto&quot;</code><br><strong>3.</strong> 官方建议通过<code>TypedArray</code>在程序中读取定义的属性，demo如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">PieChart</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>(context, attrs);</span><br><span class="line">   TypedArray a = context.getTheme().obtainStyledAttributes(</span><br><span class="line">        attrs,</span><br><span class="line">        R.styleable.PieChart,</span><br><span class="line">        <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       mShowText = a.getBoolean(R.styleable.PieChart_showText, <span class="keyword">false</span>);</span><br><span class="line">       mTextPos = a.getInteger(R.styleable.PieChart_labelPosition, <span class="number">0</span>);</span><br><span class="line">   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       a.recycle();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Andorid学习笔记/">Andorid学习笔记</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a href="/2016/09/13/android-custom-view-and-drawable/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>
@@ -1036,6 +1020,6 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
-  </div>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

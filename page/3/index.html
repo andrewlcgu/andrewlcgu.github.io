@@ -107,7 +107,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 10px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
 					</div>
 				</section>
 				
@@ -172,6 +172,81 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-apk-sign-theroy" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/17/apk-sign-theroy/" class="article-date">
+  	<time datetime="2016-04-16T16:48:32.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/17/apk-sign-theroy/">APK签名原理解析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#相关概念">相关概念</a></li>
+<li><a href="#签名原理">签名原理</a></li>
+<li><a href="#验证过程">验证过程</a></li>
+<li><a href="#参考">参考</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><ul>
+<li><strong>Message Digest(数字摘要)</strong><br>将任意长度的消息变成固定长度的短消息，它类似于一个自变量是消息的函数，也就是Hash函数。数字摘要是采用单项Hash函数将需要加密的明文“摘要”成一串固定长度(128位)的密文这一串密文又称为数字指纹，它有固定的长度，而且不同的明文摘要成密文，其结果总是不同的，而同样的明文其摘要必定一致。</li>
+<li><strong>Signature(数字签名)</strong><br>数字签名是非对称密钥加密技术与数字摘要技术的应用。将信息摘要用发送者的私钥加密，与原文一起传送给接收者。接收者只有用发送者的公钥才能解密被加密的信息摘要，然后接收者用相同的Hash函数对收到的原文产生一个信息摘要，与解密的信息摘要做比对。如果相同，则说明收到的信息是完整的，在传输过程中没有被修改；不同则说明信息被修改过，因此数字签名能保证信息的完整性。并且由于只有发送者才有加密摘要的私钥，所以我们可以确定信息一定是发送者发送的(发送者的身份认证)。</li>
+<li><strong>Certification(数字证书)</strong><br>数字证书是一个经证书授权中心数字签名的包含公开密钥拥有者信息以及公开密钥的文件。最简单的证书包含一个公开密钥、名称以及证书授权中心的数字签名。数字证书还有一个重要的特征就是只在特定的时间段内有效。
+      
+    </li></ul></div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a href="/2016/04/17/apk-sign-theroy/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-new-start" class="article article-type-post" itemscope="" itemprop="blogPost">
   

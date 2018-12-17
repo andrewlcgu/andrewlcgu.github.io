@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/12/17/max-sub-array/</loc>
+    
+    <lastmod>2018-12-17T04:24:19.594Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/12/09/quick-sort/</loc>
     
-    <lastmod>2018-12-09T07:19:47.783Z</lastmod>
+    <lastmod>2018-12-09T09:05:32.075Z</lastmod>
     
   </url>
   

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>最大连续子序列和 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="描述给定一个数字序列$A_1,A_2,…,A_n,求i,j(1\le i \le j\le n)$,使得$A_i+…+A_j$最大并输出最大值">
+<meta name="keywords" content="算法与数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最大连续子序列和">
+<meta property="og:url" content="http://yoursite.com/2018/12/17/max-sub-array/index.html">
+<meta property="og:site_name" content="Andrewlcgu&#39;s Blog">
+<meta property="og:description" content="描述给定一个数字序列$A_1,A_2,…,A_n,求i,j(1\le i \le j\le n)$,使得$A_i+…+A_j$最大并输出最大值">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-17T04:24:19.594Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最大连续子序列和">
+<meta name="twitter:description" content="描述给定一个数字序列$A_1,A_2,…,A_n,求i,j(1\le i \le j\le n)$,使得$A_i+…+A_j$最大并输出最大值">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/andrewlcgu" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/gu-lian-chao" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:andrewlcgu@foxmail.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-max-sub-array" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/17/max-sub-array/" class="article-date">
+  	<time datetime="2018-12-17T03:04:26.000Z" itemprop="datePublished">2018-12-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      最大连续子序列和
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法与数据结构/">算法与数据结构</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/算法与数据结构/">算法与数据结构</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#描述"><span class="toc-text">描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码1"><span class="toc-text">代码1：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解释1"><span class="toc-text">解释1：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码2"><span class="toc-text">代码2:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解释2动态规划"><span class="toc-text">解释2（动态规划）：</span></a></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <h2 id="&#x63CF;&#x8FF0;"><a href="#&#x63CF;&#x8FF0;" class="headerlink" title="&#x63CF;&#x8FF0;"></a>&#x63CF;&#x8FF0;</h2><p>&#x7ED9;&#x5B9A;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#x5E8F;&#x5217;$A_1,A_2,&#x2026;,A_n,&#x6C42;i,j(1\le i \le j\le n)$,&#x4F7F;&#x5F97;$A_i+&#x2026;+A_j$&#x6700;&#x5927;&#x5E76;&#x8F93;&#x51FA;&#x6700;&#x5927;&#x503C;</p>
+<a id="more"></a>
+<h2 id="&#x4EE3;&#x7801;1"><a href="#&#x4EE3;&#x7801;1&#xFF1A;" class="headerlink" title="&#x4EE3;&#x7801;1&#xFF1A;"></a>&#x4EE3;&#x7801;1&#xFF1A;</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">maxSubArray</span><span class="params">(nums: <span class="type">IntArray</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> maxSum = <span class="built_in">Int</span>.MIN_VALUE</span><br><span class="line">    <span class="keyword">for</span>(i <span class="keyword">in</span> nums){</span><br><span class="line">        sum += i</span><br><span class="line">        <span class="keyword">if</span> (sum &gt; maxSum){</span><br><span class="line">            maxSum = sum</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (sum &lt; <span class="number">0</span>){</span><br><span class="line">            sum = <span class="number">0</span> </span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> maxSum</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="&#x89E3;&#x91CA;1"><a href="#&#x89E3;&#x91CA;1&#xFF1A;" class="headerlink" title="&#x89E3;&#x91CA;1&#xFF1A;"></a>&#x89E3;&#x91CA;1&#xFF1A;</h2><p><strong>1.</strong> &#x5047;&#x8BBE;A[0]&gt;0,A[0]+A[1]+&#x2026;+A[p-1]&gt;0&#xFF0C;A[0]+A[1]+&#x2026;+ A[p-1]+ A[p]&lt;0,p&#x662F;&#x6570;&#x7EC4;&#x7684;&#x5143;&#x7D20;&#x7D2F;&#x52A0;&#x548C;&#x8FC7;&#x7A0B;&#x4E2D;&#x9047;&#x5230;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5C0F;&#x4E8E;&#x96F6;&#x7684;&#x4F4D;&#x7F6E;.</p>
+<p>&#x90A3;&#x4E48;&#x5BF9;&#x4E8E;k&#x5C5E;&#x4E8E;[0,p-1], &#x53EF;&#x63A8;&#x5BFC;&#x51FA;A[0]+&#x2026;+A[k]&gt;A[s]+&#x2026;+A[k],&#x5176;&#x4E2D;$s\in(0,k]$,&#x8FD9;&#x8BF4;&#x660E;0~k&#x4F4D;&#x7F6E;&#x7684;&#x5143;&#x7D20;&#x7D2F;&#x52A0;&#x548C;&#x5927;&#x4E8E;&#x4EFB;&#x610F;s~k&#x4F4D;&#x7F6E;&#x7684;&#x5B50;&#x5E8F;&#x5217;&#x4E4B;&#x548C;,&#x6240;&#x4EE5;&#x5728;[0,p-1]&#x533A;&#x95F4;&#x7D2F;&#x52A0;&#x6C42;&#x548C;&#x5E76;&#x8BB0;&#x5F55;&#x6700;&#x5927;&#x503C;.</p>
+<p><strong>2.</strong> &#x6700;&#x5927;&#x8FDE;&#x7EED;&#x5B50;&#x5E8F;&#x5217;&#x4E0D;&#x53EF;&#x80FD;&#x5305;&#x542B;p,&#x56E0;&#x4E3A;A[n]+&#x2026;+A[p]+A[p+1]+&#x2026;+A[m]&#x4E2D;A[n]+&#x2026;A[p]&lt;0&#xFF0C;&#x6240;&#x4EE5;A[p+1]+&#x2026;+A[m]&#x5927;&#x4E8E;A[n]+&#x2026;+A[p]+&#x2026;+A[m], &#x5219;&#x8BF4;&#x660E;A[n]+&#x2026;+A[p]+&#x2026;+A[m]&#x4E0D;&#x662F;&#x6700;&#x5927;&#x8FDE;&#x7EED;&#x5B50;&#x5E8F;&#x5217;.</p>
+<p><strong>3.</strong> &#x6240;&#x4EE5;&#x4ECE;p+1&#x8D77;,&#x91CD;&#x65B0;&#x7D2F;&#x52A0;&#x6C42;&#x5408;&#x5E76;&#x8BB0;&#x5F55;&#x6700;&#x5927;&#x503C;</p>
+<h2 id="&#x4EE3;&#x7801;2"><a href="#&#x4EE3;&#x7801;2" class="headerlink" title="&#x4EE3;&#x7801;2:"></a>&#x4EE3;&#x7801;2:</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">maxSubArray</span><span class="params">(nums: <span class="type">IntArray</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> maxSum = <span class="built_in">Int</span>.MIN_VALUE</span><br><span class="line">    nums.forEachIndexed{ i, v -&gt;</span><br><span class="line">        <span class="keyword">when</span>(i){</span><br><span class="line">            <span class="number">0</span> -&gt; sum = v</span><br><span class="line">            <span class="keyword">else</span> -&gt; {</span><br><span class="line">                sum = Math.max(sum+v ,v)</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (sum &gt; maxSum){</span><br><span class="line">            maxSum = sum</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> maxSum</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="&#x89E3;&#x91CA;2&#x52A8;&#x6001;&#x89C4;&#x5212;"><a href="#&#x89E3;&#x91CA;2&#xFF08;&#x52A8;&#x6001;&#x89C4;&#x5212;&#xFF09;&#xFF1A;" class="headerlink" title="&#x89E3;&#x91CA;2&#xFF08;&#x52A8;&#x6001;&#x89C4;&#x5212;&#xFF09;&#xFF1A;"></a>&#x89E3;&#x91CA;2&#xFF08;&#x52A8;&#x6001;&#x89C4;&#x5212;&#xFF09;&#xFF1A;</h2><p>&#x4EE4;&#x72B6;&#x6001; dp[i] &#x8868;&#x793A;&#x4EE5; A[i] &#x4F5C;&#x4E3A;&#x672B;&#x5C3E;&#x7684;&#x8FDE;&#x7EED;&#x5E8F;&#x5217;&#x7684;&#x6700;&#x5927;&#x548C;.&#x56E0;&#x4E3A; dp[i] &#x8981;&#x6C42;&#x662F;&#x5FC5;&#x987B;&#x4EE5; A[i] &#x7ED3;&#x5C3E;&#x7684;&#x8FDE;&#x7EED;&#x5E8F;&#x5217;&#xFF0C;&#x90A3;&#x4E48;&#x53EA;&#x6709;&#x4E24;&#x79CD;&#x60C5;&#x51B5;:</p>
+<ol>
+<li>&#x8FD9;&#x4E2A;&#x6700;&#x5927;&#x548C;&#x7684;&#x8FDE;&#x7EED;&#x5E8F;&#x5217;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5143;&#x7D20;,&#x5373;&#x4EE5; A[i] &#x5F00;&#x59CB;,&#x4EE5; A[i] &#x7ED3;&#x5C3E;.</li>
+<li>&#x8FD9;&#x4E2A;&#x6700;&#x5927;&#x548C;&#x7684;&#x8FDE;&#x7EED;&#x5E8F;&#x5217;&#x6709;&#x591A;&#x4E2A;&#x5143;&#x7D20;,&#x5373;&#x4ECE;&#x524D;&#x9762;&#x67D0;&#x5904; A[p] &#x5F00;&#x59CB; (p&lt;i),&#x4E00;&#x76F4;&#x5230; A[i] &#x7ED3;&#x5C3E;</li>
+</ol>
+<p>&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;: dp[i] = max{ A[i], dp[i-1]+A[i] }</p>
+<p>&#x8FB9;&#x754C;: dp[0] = A[0]</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/09/quick-sort/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">快速排序算法</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="max-sub-array" data-title="最大连续子序列和" data-url="http://yoursite.com/2018/12/17/max-sub-array/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andrewlcgu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 andrewlcgu
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

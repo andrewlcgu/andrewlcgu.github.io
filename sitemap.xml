@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/09/23/JetPack-Lifecycle/</loc>
+    
+    <lastmod>2019-09-24T07:19:38.415Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2019-09-23T07:20:28.178Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/12/17/max-sub-array/</loc>
     
     <lastmod>2018-12-17T04:24:19.594Z</lastmod>
@@ -145,13 +159,6 @@
     <loc>http://yoursite.com/404.html</loc>
     
     <lastmod>2016-04-16T17:11:14.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
-    
-    <lastmod>2016-04-16T17:03:30.000Z</lastmod>
     
   </url>
   

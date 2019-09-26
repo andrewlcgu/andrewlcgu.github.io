@@ -107,7 +107,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 10px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔/" style="font-size: 10px;">Android学习笔</a> <a href="/tags/Android学习笔记/" style="font-size: 10px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
 					</div>
 				</section>
 				
@@ -172,6 +172,89 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-JetPack-LiveData" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/09/25/JetPack-LiveData/" class="article-date">
+  	<time datetime="2019-09-25T06:12:56.000Z" itemprop="datePublished">2019-09-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/25/JetPack-LiveData/">JetPack-LiveData</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#概述">概述</a></li>
+<li><a href="#原理简述">原理简述</a></li>
+<li><a href="#其他">其他</a></li>
+<li><a href="#参考">参考</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Google引入该组件的原因如下：</p>
+<blockquote>
+<p> LiveData is a data holder class that can be observed within a given lifecycle.<br>   This means that an {@link Observer} can be added in a pair with a {@link LifecycleOwner}, and<br>   this observer will be notified about modifications of the wrapped data only if the paired<br>   LifecycleOwner is in active state. LifecycleOwner is considered as active, if its state is<br>   {@link Lifecycle.State#STARTED} or {@link Lifecycle.State#RESUMED}</p>
+</blockquote>
+<h2 id="原理简述"><a href="#原理简述" class="headerlink" title="原理简述"></a>原理简述</h2><p>核心实现在<code>LiveData</code>抽象类中，该类重要成员变量如下：</p>
+<ul>
+<li><code>mData</code>: 持有的数据对象</li>
+<li><code>mVersion</code>: 数据对象的版本号,默认值是<code>START_VERSION</code>(-1)</li>
+<li><code>mObservers</code>: Map对象(<code>Observer</code> <--> <code>ObserverWrapper</code>),其中<code>Observer</code>定义了被观察者的接口,<code>ObserverWrapper</code>包含<code>LifecycleOwner</code>、<code>Observer</code>和版本号<code>mLastVersion</code>。</--></li>
+</ul>
+<p><strong>注意:</strong> </p>
+<p>一个<code>Observer</code>不能关联不同的<code>ObserverWrapper</code>，但<code>ObserverWrapper</code>可关联多个不同的观察者。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android学习笔/">Android学习笔</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/JetPack/">JetPack</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2019/09/25/JetPack-LiveData/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-JetPack-Lifecycle" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -856,76 +939,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/02/16/okio/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-android-style-guide" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/10/android-style-guide/" class="article-date">
-  	<time datetime="2017-01-10T08:03:08.000Z" itemprop="datePublished">2017-01-10</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/10/android-style-guide/">Android 开发参考规范</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p> <strong> 建议仔细阅读以下文档:</strong></p>
-<ol>
-<li><a href="http://google.github.io/styleguide/javaguide.html" target="_blank" rel="noopener">Google Java Style Guide</a></li>
-<li><a href="https://google.github.io/styleguide/cppguide.html" target="_blank" rel="noopener">Google C++ Style Guide</a></li>
-<li><a href="http://source.android.com/source/code-style.html#java-language-rules" target="_blank" rel="noopener">Android Source Style Guide</a></li>
-</ol>
-<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p><strong>简单，统一，高效</strong></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/01/10/android-style-guide/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

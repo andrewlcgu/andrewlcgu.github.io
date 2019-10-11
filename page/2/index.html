@@ -107,7 +107,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 15px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Socket/" style="font-size: 15px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 16.67px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Socket/" style="font-size: 13.33px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 13.33px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
 					</div>
 				</section>
 				
@@ -172,6 +172,97 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-okio" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/16/okio/" class="article-date">
+  	<time datetime="2017-02-16T07:43:11.000Z" itemprop="datePublished">2017-02-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/16/okio/">学习Okio的优化思想</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#okio简单demo">Okio简单demo</a></li>
+<li><a href="#核心类">核心类</a><ul>
+<li><a href="#结论">结论</a></li>
+</ul>
+</li>
+<li><a href="#buffer详解">Buffer详解</a><ul>
+<li><a href="#两个优化小细节">两个优化小细节</a></li>
+<li><a href="#两个疑问">两个疑问</a></li>
+</ul>
+</li>
+<li><a href="#其他优化">其他优化</a><ul>
+<li><a href="#bytestring">ByteString</a></li>
+<li><a href="#timeout">Timeout</a></li>
+</ul>
+</li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考">参考</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Okio是由Square公司开发并开源的java IO组件库，最初用于其开发的HTTP客户端OkHttp的底层IO封装，从Android 4.4起，HttpURLConnection底层实现采用Okhttp，Okio组件也被开发者所认可。根据GitHub介绍，该组件定位是：</p>
+<blockquote>
+<p>Okio is a new library that complements java.io and java.nio to make it much easier to access, store, and process your data.</p>
+</blockquote>
+<p>我们主要是通过源码分析学习其优化的思想。</p>
+<h2 id="Okio简单demo"><a href="#Okio简单demo" class="headerlink" title="Okio简单demo"></a>Okio简单demo</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// inputStream  : 输入</span></span><br><span class="line"><span class="comment">// outputStream : 输出</span></span><br><span class="line"><span class="keyword">try</span> (BufferedSource source = Okio.buffer(Okio.source(inputStream));</span><br><span class="line">     BufferedSink sink = Okio.buffer(HashingSink.md5(Okio.sink(outputStream)))</span><br><span class="line">) &#123;</span><br><span class="line">    sink.writeAll(source);</span><br><span class="line">    sink.flush();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/02/16/okio/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-android-style-guide" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -893,86 +984,6 @@
       
         <p class="article-more-link">
           <a  href="/2016/05/08/java-tcp-ip-socket-program-note-0/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-handler-research" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/17/handler-research/" class="article-date">
-  	<time datetime="2016-04-17T09:22:52.000Z" itemprop="datePublished">2016-04-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/17/handler-research/">深入了解Handler以及相关问题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#总体介绍">总体介绍</a></li>
-<li><a href="#深入分析">深入分析</a></li>
-<li><a href="#handler内存泄露问题">Handler内存泄露问题</a></li>
-<li><a href="#一种优雅的解决方案">一种优雅的解决方案</a></li>
-<li><a href="#参考">参考</a></li>
-</ul>
-<!-- tocstop -->
-<p>根据Google官方，Handler机制有两个主要作用:1.在未来某个时刻调度消息执行;2.在其他线程中执行相关操作。实际上，我们可以看成是framework层提供的一种线程之间通信方式。通常，我们与UI线程交互时会使用Handler实现,本文主要讨论其源码实现以及相关问题。</p>
-<h2 id="总体介绍"><a href="#总体介绍" class="headerlink" title="总体介绍"></a>总体介绍</h2><ul>
-<li>事件驱动模型</li>
-<li>Looper,Message和Hanlder关系图</li>
-</ul>
-<img src="/2016/04/17/handler-research/handler_outline.png">
-<ul>
-<li>Looper类<br>用于建立消息循环并管理消息队列(MessageQueue),不停的从消息队列中抽取消息,分发执行。每个线程只能有一个Looper对象,并且Looper构造方法是私有的,只是创建一个MessageQueue对象并持有。根据Google官方文档,一个Thread实现Looper机制如下:
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Andorid学习笔记/">Andorid学习笔记</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/17/handler-research/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

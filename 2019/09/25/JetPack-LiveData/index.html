@@ -15,7 +15,7 @@
 <meta property="og:description" content="概述 原理简述 其他 参考   概述Google引入该组件的原因如下：   LiveData is a data holder class that can be observed within a given lifecycle.   This means that an {@link Observer} can be added in a pair with a {@link Lifecy">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/09/25/JetPack-LiveData/liveData-theory.webp">
-<meta property="og:updated_time" content="2019-09-30T07:35:49.145Z">
+<meta property="og:updated_time" content="2019-11-26T03:43:07.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JetPack-LiveData">
 <meta name="twitter:description" content="概述 原理简述 其他 参考   概述Google引入该组件的原因如下：   LiveData is a data holder class that can be observed within a given lifecycle.   This means that an {@link Observer} can be added in a pair with a {@link Lifecy">
@@ -245,25 +245,26 @@
 <ul>
 <li><code>mData</code>: &#x6301;&#x6709;&#x7684;&#x6570;&#x636E;&#x5BF9;&#x8C61;</li>
 <li><code>mVersion</code>: &#x6570;&#x636E;&#x5BF9;&#x8C61;&#x7684;&#x7248;&#x672C;&#x53F7;,&#x9ED8;&#x8BA4;&#x503C;&#x662F;<code>START_VERSION</code>(-1)</li>
-<li><code>mObservers</code>: Map&#x5BF9;&#x8C61;(<code>Observer</code> <--> <code>ObserverWrapper</code>),&#x5176;&#x4E2D;<code>Observer</code>&#x5B9A;&#x4E49;&#x4E86;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#x7684;&#x63A5;&#x53E3;,<code>ObserverWrapper</code>&#x5305;&#x542B;<code>LifecycleOwner</code>&#x3001;<code>Observer</code>&#x548C;&#x7248;&#x672C;&#x53F7;<code>mLastVersion</code>&#x3002;</--></li>
+<li><code>mObservers</code>: Map&#x5BF9;&#x8C61;(<code>Observer</code> <--> <code>ObserverWrapper</code>),&#x5176;&#x4E2D;<code>Observer</code>&#x5B9A;&#x4E49;&#x4E86;&#x89C2;&#x5BDF;&#x8005;&#x63A5;&#x53E3;,<code>ObserverWrapper</code>&#x5305;&#x542B;<code>LifecycleOwner</code>&#x3001;<code>Observer</code>&#x548C;&#x7248;&#x672C;&#x53F7;<code>mLastVersion</code>&#x3002;</--></li>
 </ul>
 <p><strong>&#x6CE8;&#x610F;:</strong> </p>
-<p>&#x4E00;&#x4E2A;<code>Observer</code>&#x4E0D;&#x80FD;&#x5173;&#x8054;&#x4E0D;&#x540C;&#x7684;<code>ObserverWrapper</code>&#xFF0C;&#x4F46;<code>ObserverWrapper</code>&#x53EF;&#x5173;&#x8054;&#x591A;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x3002;</p>
+<p>&#x6839;&#x636E;<code>LiveData#observe</code>&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5F97;&#x51FA;&#x4E00;&#x4E2A;<code>Observer</code>&#x53EA;&#x80FD;&#x5728;&#x540C;&#x4E00;&#x4E2A;<code>LiveData</code>&#x6CE8;&#x518C;&#x4E00;&#x6B21;&#xFF0C;&#x4F46;&#x53EF;&#x4EE5;&#x5728;&#x591A;&#x4E2A;&#x4E0D;&#x540C;&#x7684;<code>LiveData</code>&#x4E2D;&#x6CE8;&#x518C;&#x3002;</p>
 <a id="more"></a>
 <p><strong>&#x7F51;&#x4E0A;&#x4E2A;&#x4EBA;&#x611F;&#x89C9;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x793A;&#x610F;&#x56FE;:</strong> </p>
 <img src="/2019/09/25/JetPack-LiveData/liveData-theory.webp">
 <p><strong>&#x5173;&#x952E;&#x89E3;&#x91CA;:</strong></p>
-<p><code>LiveData</code>&#x901A;&#x8FC7;&#x6CE8;&#x518C;<code>Lifecycle</code>&#x611F;&#x77E5;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1A;</p>
 <ul>
-<li><p>&#x5F53;<code>Lifecycle</code>&#x901A;&#x77E5;&#x4E8B;&#x4EF6;<code>Event&gt;=STARTED</code>&#x65F6;&#x8BA4;&#x4E3A;<code>LiveData</code>&#x5904;&#x4E8E;Active&#x72B6;&#x6001;&#xFF0C;&#x6B64;&#x65F6;&#x901A;&#x8FC7;&#x5BF9;&#x6BD4;<code>LiveData</code>&#x7684;version&#x662F;&#x5426;&#x5927;&#x4E8E; <code>ObserverWrapper</code>&#x7684;version&#xFF0C;&#x5982;&#x679C;&#x5927;&#x4E8E;&#x5219;&#x8BA4;&#x4E3A;<code>mData</code>&#x6709;&#x6700;&#x65B0;&#x503C;&#xFF0C;&#x901A;&#x77E5;&#x89C2;&#x5BDF;&#x8005;&#xFF1B;<code>LiveData#setValue()/#postValue()</code>&#x90FD;&#x4F1A;&#x589E;&#x52A0;<code>LiveData</code>&#x7684;version&#x503C;&#x3002;</p>
+<li><p><code>LiveData</code>&#x901A;&#x8FC7;<code>Lifecycle</code>&#x611F;&#x77E5;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5177;&#x4F53;&#x662F;&#x5728;<code>Lifecycle</code>&#x4E2D;&#x6CE8;&#x518C;<code>LifecycleBoundObserver</code>&#x5BF9;&#x8C61;&#xFF0C;&#x662F;&#x5BF9;<code>ObserverWrapper</code>&#x5BF9;&#x8C61;&#x5C01;&#x88C5;&#xFF0C;&#x7528;&#x4E8E;&#x63A5;&#x6536;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E8B;&#x4EF6;&#x3002;</p>
 </li>
-<li><p>&#x5176;&#x4ED6;&#x4E8B;&#x4EF6;&#x90FD;&#x8BA4;&#x4E3A;<code>LiveData</code>&#x5904;&#x4E8E;InActive&#x72B6;&#x6001;&#xFF0C;&#x5176;&#x4E2D;&#x5982;&#x679C;&#x662F;<code>DESTROYED</code>&#x4E8B;&#x4EF6;&#x4F1A;&#x5BFC;&#x81F4;<code>LiveData</code>&#x548C;<code>Lifecycle</code>&#x5747;&#x81EA;&#x52A8;remove&#x89C2;&#x5BDF;&#x8005;</p>
+<li><p>&#x5F53;&#x4E8B;&#x4EF6;<code>Event&gt;=STARTED</code>&#x65F6;&#xFF0C;<code>ObserverWrapper</code>&#x901A;&#x8FC7;&#x5BF9;&#x6BD4;&#x5176;<code>version</code>&#x4E0E;<code>LiveData</code>&#x7684;version&#xFF0C;&#x5982;&#x679C;&#x5C0F;&#x4E8E;&#x5219;&#x8BA4;&#x4E3A;<code>mData</code>&#x6709;&#x6700;&#x65B0;&#x503C;&#xFF0C;&#x6700;&#x7EC8;&#x901A;&#x77E5;<code>Observer</code>&#xFF1B;&#x5F53;&#x8C03;&#x7528;<code>LiveData#setValue()/#postValue()</code>&#x65F6;&#xFF0C;&#x90FD;&#x4F1A;&#x589E;&#x52A0;<code>LiveData</code>&#x7684;version&#x503C;&#xFF0C;&#x5E76;&#x4E14;&#x6B64;&#x65F6;&#x4F1A;&#x904D;&#x5386;&#x6240;&#x6709;&#x89C2;&#x5BDF;&#x8005;&#xFF0C;&#x5904;&#x4E8E;Active&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x4F1A;&#x7ACB;&#x5373;&#x5F97;&#x5230;&#x901A;&#x77E5;&#x3002;</p>
+</li>
+<li><p>&#x5F53;<code>DESTROYED</code>&#x4E8B;&#x4EF6;&#x65F6;&#xFF0C;<code>LiveData</code>&#x548C;<code>Lifecycle</code>&#x5747;&#x81EA;&#x52A8;remove&#x5404;&#x81EA;&#x5BF9;&#x5E94;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x3002;</p>
 </li>
 </ul>
 <h2 id="&#x5176;&#x4ED6;"><a href="#&#x5176;&#x4ED6;" class="headerlink" title="&#x5176;&#x4ED6;"></a>&#x5176;&#x4ED6;</h2><ul>
 <li><p><code>LiveData#observeForever(Observer&lt;? super T&gt;)</code>&#x65B9;&#x6CD5;&#x5BFC;&#x81F4;&#x53EA;&#x8981;version&#x6709;&#x53D8;&#x5316;&#x5C31;&#x4F1A;&#x901A;&#x77E5;&#x89C2;&#x5BDF;&#x8005;&#xFF0C;&#x8131;&#x79BB;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x624B;&#x52A8;remove</p>
 </li>
-<li><p><code>LiveData</code>&#x63D0;&#x4F9B;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;<code>onActvie()</code>&#x548C;<code>OnInActive()</code>,&#x524D;&#x8005;&#x8868;&#x793A;<code>LiveData</code>&#x5904;&#x4E8E;actvie&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x4ECE;0&#x5230;1&#x65F6;&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x5373;&#x7B2C;&#x4E00;&#x4E2A;&#x89C2;&#x5BDF;&#x8005;&#x88AB;&#x901A;&#x77E5;&#x524D;&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x540E;&#x8005;&#x8868;&#x793A;<code>LiveData</code>&#x5904;&#x4E8E;&#x5904;&#x4E8E;actvie&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x4ECE;1&#x5230;0&#x65F6;&#x7684;&#x56DE;&#x8C03;&#x3002;</p>
+<li><p><code>LiveData</code>&#x63D0;&#x4F9B;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;<code>onActvie()</code>&#x548C;<code>OnInActive()</code>,&#x524D;&#x8005;&#x8868;&#x793A;<code>LiveData</code>&#x5904;&#x4E8E;actvie&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x4ECE;0&#x4E2A;&#x5230;1&#x4E2A;&#x65F6;&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x5373;&#x7B2C;&#x4E00;&#x4E2A;&#x89C2;&#x5BDF;&#x8005;&#x88AB;&#x901A;&#x77E5;&#x524D;&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x540E;&#x8005;&#x8868;&#x793A;<code>LiveData</code>&#x5904;&#x4E8E;&#x5904;&#x4E8E;actvie&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x4ECE;1&#x4E2A;&#x5230;0&#x4E2A;&#x65F6;&#x7684;&#x56DE;&#x8C03;&#xFF0C;active&#x8868;&#x793A;&#x89C2;&#x5BDF;&#x8005;&#x751F;&#x547D;&#x5468;&#x671F;&#x81F3;&#x5C11;&#x5904;&#x4E8E;<code>ON_START</code>&#x72B6;&#x6001;&#x3002;</p>
 </li>
 <li><p><code>MutableLiveData</code>&#x7EE7;&#x627F;<code>LiveData</code>&#xFF0C;&#x552F;&#x4E00;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x66B4;&#x9732;<code>#setValue()/#postValue()</code>&#x65B9;&#x6CD5;&#x3002;</p>
 </li>

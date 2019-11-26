@@ -292,10 +292,10 @@
 <ul>
 <li><code>mData</code>: 持有的数据对象</li>
 <li><code>mVersion</code>: 数据对象的版本号,默认值是<code>START_VERSION</code>(-1)</li>
-<li><code>mObservers</code>: Map对象(<code>Observer</code> <--> <code>ObserverWrapper</code>),其中<code>Observer</code>定义了被观察者的接口,<code>ObserverWrapper</code>包含<code>LifecycleOwner</code>、<code>Observer</code>和版本号<code>mLastVersion</code>。</--></li>
+<li><code>mObservers</code>: Map对象(<code>Observer</code> <--> <code>ObserverWrapper</code>),其中<code>Observer</code>定义了观察者接口,<code>ObserverWrapper</code>包含<code>LifecycleOwner</code>、<code>Observer</code>和版本号<code>mLastVersion</code>。</--></li>
 </ul>
 <p><strong>注意:</strong> </p>
-<p>一个<code>Observer</code>不能关联不同的<code>ObserverWrapper</code>，但<code>ObserverWrapper</code>可关联多个不同的观察者。</p>
+<p>根据<code>LiveData#observe</code>方法可以得出一个<code>Observer</code>只能在同一个<code>LiveData</code>注册一次，但可以在多个不同的<code>LiveData</code>中注册。</p>
       
     </div>
     

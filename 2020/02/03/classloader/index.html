@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Android-ClassLoader学习 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="类加载简述 Android类加载相关类 参考   类加载简述虚拟机把描述数据的字节码文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成被虚拟机直接使用的class类型。 Android类加载相关类">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-ClassLoader学习">
+<meta property="og:url" content="http://yoursite.com/2020/02/03/classloader/index.html">
+<meta property="og:site_name" content="Andrewlcgu&#39;s Blog">
+<meta property="og:description" content="类加载简述 Android类加载相关类 参考   类加载简述虚拟机把描述数据的字节码文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成被虚拟机直接使用的class类型。 Android类加载相关类">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/02/03/classloader/class_loader.jpg">
+<meta property="og:updated_time" content="2020-02-03T16:00:48.323Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-ClassLoader学习">
+<meta name="twitter:description" content="类加载简述 Android类加载相关类 参考   类加载简述虚拟机把描述数据的字节码文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成被虚拟机直接使用的class类型。 Android类加载相关类">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/03/classloader/class_loader.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 16.67px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Socket/" style="font-size: 13.33px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 16.67px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-classloader" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/03/classloader/" class="article-date">
+  	<time datetime="2020-02-03T11:51:23.000Z" itemprop="datePublished">2020-02-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android-ClassLoader学习
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类加载简述"><span class="toc-text">类加载简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#android类加载相关类"><span class="toc-text">Android类加载相关类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <!-- toc -->
+<ul>
+<li><a href="#&#x7C7B;&#x52A0;&#x8F7D;&#x7B80;&#x8FF0;">&#x7C7B;&#x52A0;&#x8F7D;&#x7B80;&#x8FF0;</a></li>
+<li><a href="#android&#x7C7B;&#x52A0;&#x8F7D;&#x76F8;&#x5173;&#x7C7B;">Android&#x7C7B;&#x52A0;&#x8F7D;&#x76F8;&#x5173;&#x7C7B;</a></li>
+<li><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="&#x7C7B;&#x52A0;&#x8F7D;&#x7B80;&#x8FF0;"><a href="#&#x7C7B;&#x52A0;&#x8F7D;&#x7B80;&#x8FF0;" class="headerlink" title="&#x7C7B;&#x52A0;&#x8F7D;&#x7B80;&#x8FF0;"></a>&#x7C7B;&#x52A0;&#x8F7D;&#x7B80;&#x8FF0;</h2><p>&#x865A;&#x62DF;&#x673A;&#x628A;&#x63CF;&#x8FF0;&#x6570;&#x636E;&#x7684;&#x5B57;&#x8282;&#x7801;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#xFF0C;&#x5E76;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x6821;&#x9A8C;&#x3001;&#x8F6C;&#x6362;&#x89E3;&#x6790;&#x548C;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x6700;&#x7EC8;&#x5F62;&#x6210;&#x88AB;&#x865A;&#x62DF;&#x673A;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x7684;class&#x7C7B;&#x578B;&#x3002;</p>
+<h2 id="android&#x7C7B;&#x52A0;&#x8F7D;&#x76F8;&#x5173;&#x7C7B;"><a href="#Android&#x7C7B;&#x52A0;&#x8F7D;&#x76F8;&#x5173;&#x7C7B;" class="headerlink" title="Android&#x7C7B;&#x52A0;&#x8F7D;&#x76F8;&#x5173;&#x7C7B;"></a>Android&#x7C7B;&#x52A0;&#x8F7D;&#x76F8;&#x5173;&#x7C7B;</h2><img src="/2020/02/03/classloader/class_loader.jpg">
+<a id="more"></a>
+<ul>
+<li><p><code>ClassLoader</code>&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x6E90;&#x7801;&#x4F4D;&#x4E8E;<code>java.lang</code>&#x5305;&#x4E0B;&#xFF0C;&#x662F;&#x6240;&#x6709;&#x52A0;&#x8F7D;&#x7C7B;&#x7684;&#x57FA;&#x7C7B;&#x3002;&#x5176;&#x6784;&#x9020;&#x51FD;&#x6570;&#x9700;&#x8981;&#x4F20;parent classloader&#xFF0C;&#x5982;&#x679C;&#x4F20;null&#xFF0C;&#x5219;&#x9ED8;&#x8BA4;&#x4E3A;<code>PathClassLoader</code>&#x3002;&#x5B9A;&#x4E49;&#x82E5;&#x5E72;&#x91CD;&#x8981;&#x51FD;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>loadClass</code> &#x5982;&#x4F55;&#x52A0;&#x8F7D;&#x6307;&#x5B9A;&#x7C7B;: &#x5B9A;&#x4E49;&#x4E86;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x578B;&#xFF0C;parent&#x52A0;&#x8F7D;&#x4E0D;&#x5230;&#x65F6;&#x624D;&#x4F1A;&#x4F7F;&#x7528;findClass&#xFF0C; &#x901A;&#x5E38;&#x4E0D;&#x8981;override&#x53BB;&#x8FDD;&#x80CC;&#x8BE5;&#x6A21;&#x578B;</li>
+<li><code>findClass</code> &#x5982;&#x4F55;&#x67E5;&#x627E;&#x6307;&#x5B9A;&#x7C7B;: &#x5B50;&#x7C7B;&#x5B9E;&#x73B0;&#x901A;&#x5E38;override&#x8BE5;&#x65B9;&#x6CD5;</li>
+<li><code>defineClass</code> &#x6839;&#x636E;&#x5B57;&#x8282;&#x6570;&#x7EC4;&#x52A0;&#x8F7D;&#x7C7B;&#xFF0C;Android&#x4E2D;&#x4E0D;&#x5141;&#x8BB8;&#x4F7F;&#x7528;</li>
+</ul>
+</li>
+<li><p><code>BootClassLoader</code>&#x7EE7;&#x627F;<code>ClassLoader</code>&#xFF0C;&#x6E90;&#x7801;&#x4F4D;&#x4E8E;<code>java.lang</code>&#x5305;&#x4E0B;&#xFF0C;&#x662F;&#x6240;&#x6709;&#x52A0;&#x8F7D;&#x7C7B;&#x7684;parent&#xFF0C;&#x8D1F;&#x8D23;&#x52A0;&#x8F7D;&#x7CFB;&#x7EDF;&#x7C7B;&#x548C;Framework&#x7C7B;&#x7B49;: &#x8FD9;&#x4FDD;&#x8BC1;&#x4E86;&#x7C7B;&#x4F3C;<code>String</code>&#x7C7B;&#x5FC5;&#x987B;&#x4F7F;&#x7528;&#x7CFB;&#x7EDF;&#x9884;&#x5148;&#x5B9A;&#x4E49;&#x597D;&#x7684;&#xFF0C;&#x4E0D;&#x5141;&#x8BB8;&#x81EA;&#x5B9A;&#x4E49;&#xFF0C;&#x63D0;&#x9AD8;&#x5B89;&#x5168;&#x6027;&#x3002;</p>
+</li>
+<li><p><code>BaseDexClassLoader</code>&#x662F;Android&#x4F7F;&#x7528;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x7684;&#x57FA;&#x7C7B;&#xFF0C;&#x4FDD;&#x8BC1;Android&#x53EA;&#x5141;&#x8BB8;&#x52A0;&#x8F7D;dex&#x7ED3;&#x6784;&#x5B57;&#x8282;&#x7801;&#x3002;</p>
+<ul>
+<li>&#x6784;&#x9020;&#x51FD;&#x6570;&#x4F20;&#x5165;&#x53D8;&#x91CF;dexPath&#xFF0C;&#x8868;&#x793A;&#x52A0;&#x8F7D;dex&#x6240;&#x5728;&#x8DEF;&#x5F84;&#xFF0C;&#x53EF;&#x4EE5;&#x591A;&#x8DEF;&#x5F84;&#x901A;&#x8FC7;<code>File.pathSeparator</code>&#x533A;&#x5206;;&#x5982;&#x679C;&#x662F;jar/apk&#x6587;&#x4EF6;&#xFF0C;&#x5176;&#x4E2D;&#x542B;&#x6709;*.dex&#x4E5F;&#x53EF;&#x4EE5;&#x3002;</li>
+<li>&#x91CD;&#x8F7D;<code>findClass</code>&#x51FD;&#x6570;&#xFF0C;&#x771F;&#x6B63;&#x5B9E;&#x73B0;&#x67E5;&#x627E;&#x7684;&#x7C7B;&#x662F;<code></code>DexPathList`</li>
+</ul>
+</li>
+<li><p><code>PathClassLoader</code>&#x7EE7;&#x627F;<code>BaseDexClassLoader</code>,Android&#x7CFB;&#x7EDF;&#x4F7F;&#x7528;&#x8BE5;&#x7C7B;&#x52A0;&#x8F7D;&#x7CFB;&#x7EDF;&#x7C7B;&#x548C;&#x5E94;&#x7528;&#x7C7B;&#xFF0C;&#x6240;&#x4EE5;&#x7CFB;&#x7EDF;&#x8BBE;&#x7F6E;&#x5176;dexPath&#x4E3A;<code>/data/app/&lt;packagename&gt;/*.apk</code>&#x3002;</p>
+</li>
+<li><p><code>DexClassLoader</code>&#x7EE7;&#x627F;<code>BaseDexClassLoader</code>,&#x63D0;&#x4F9B;&#x7ED9;&#x7B2C;&#x4E09;&#x65B9;&#x52A0;&#x8F7D;&#x6267;&#x884C;&#x5E94;&#x7528;&#x672A;&#x5B89;&#x88C5;&#x4EE3;&#x7801;&#x7684;&#x80FD;&#x529B;&#x3002;</p>
+</li>
+<li><p><code>DexPathList</code>&#x771F;&#x6B63;&#x5B9E;&#x73B0;&#x67E5;&#x627E;&#x7C7B;&#xFF1A;&#x6839;&#x636E;dexPath&#x628A;&#x6BCF;&#x4E2A;dex&#x6587;&#x4EF6;&#x5C01;&#x88C5;&#x6210;Element&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E9B;Element&#x5BF9;&#x8C61;&#x6392;&#x5217;&#x6210;&#x6709;&#x5E8F;&#x6570;&#x7EC4;<code>dexElement</code>&#xFF0C;&#x4F9D;&#x6B21;&#x904D;&#x5386;&#x53BB;&#x67E5;&#x627E;&#x6307;&#x5B9A;&#x7C7B;&#xFF0C;&#x6700;&#x7EC8;&#x4F1A;&#x8C03;&#x7528;&#x81F3;<code>DexFile</code>&#x4E2D;<code>defineClassNative</code>&#x65B9;&#x6CD5;&#xFF0C;&#x901A;&#x8FC7;native&#x5B9E;&#x73B0;&#x7684;&#x3002;</p>
+</li>
+</ul>
+<h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><ol>
+<li><p>&#x6E90;&#x7801;</p>
+</li>
+<li><p><a href="https://developer.android.com/reference/dalvik/system/" target="_blank" rel="noopener">https://developer.android.com/reference/dalvik/system/</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/16/Map-study/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Map学习</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 andrewlcgu   &sdot; <a href="http://beian.miit.gov.cn" target="_blank">京ICP备19035870号</a>
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

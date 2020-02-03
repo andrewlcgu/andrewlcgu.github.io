@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Map学习 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HashMap LinkedHashMap WeakHashMap 线程安全的Map 1. HashTable/Collections.synchronizedMap() 2. ConcurrentHashMap   Android特有Map ArrayMap SparseArray     HashMap以Java1.8源码为准，其数据结构如下：   默认值     常量名 解释 默认值">
+<meta name="keywords" content="算法与数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Map学习">
+<meta property="og:url" content="http://yoursite.com/2020/01/16/Map-study/index.html">
+<meta property="og:site_name" content="Andrewlcgu&#39;s Blog">
+<meta property="og:description" content="HashMap LinkedHashMap WeakHashMap 线程安全的Map 1. HashTable/Collections.synchronizedMap() 2. ConcurrentHashMap   Android特有Map ArrayMap SparseArray     HashMap以Java1.8源码为准，其数据结构如下：   默认值     常量名 解释 默认值">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/01/16/Map-study/table-structure.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/16/Map-study/node_hash_map.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/16/Map-study/hashmap_resize.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/16/Map-study/LinkedHashMap.webp">
+<meta property="og:image" content="http://yoursite.com/2020/01/16/Map-study/concurrent_hash_map.webp">
+<meta property="og:image" content="http://yoursite.com/2020/01/16/Map-study/array_map.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/16/Map-study/sparse_array.jpg">
+<meta property="og:updated_time" content="2020-02-03T08:39:07.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Map学习">
+<meta name="twitter:description" content="HashMap LinkedHashMap WeakHashMap 线程安全的Map 1. HashTable/Collections.synchronizedMap() 2. ConcurrentHashMap   Android特有Map ArrayMap SparseArray     HashMap以Java1.8源码为准，其数据结构如下：   默认值     常量名 解释 默认值">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/16/Map-study/table-structure.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 16.67px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Socket/" style="font-size: 13.33px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 16.67px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Map-study" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/01/16/Map-study/" class="article-date">
+  	<time datetime="2020-01-16T15:46:41.000Z" itemprop="datePublished">2020-01-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Map学习
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法与数据结构/">算法与数据结构</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/算法与数据结构/">算法与数据结构</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hashmap"><span class="toc-text">HashMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程安全的map"><span class="toc-text">线程安全的Map</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-hashtablecollectionssynchronizedmap"><span class="toc-text">1. HashTable/Collections.synchronizedMap()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-concurrenthashmap"><span class="toc-text">2. ConcurrentHashMap</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#android特有map"><span class="toc-text">Android特有Map</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#arraymap"><span class="toc-text">ArrayMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sparsearray"><span class="toc-text">SparseArray</span></a></li></ol></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <!-- toc -->
+<ul>
+<li><a href="#hashmap">HashMap</a></li>
+<li><a href="#linkedhashmap">LinkedHashMap</a></li>
+<li><a href="#weakhashmap">WeakHashMap</a></li>
+<li><a href="#&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;map">&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;Map</a><ul>
+<li><a href="#1-hashtablecollectionssynchronizedmap">1. HashTable/Collections.synchronizedMap()</a></li>
+<li><a href="#2-concurrenthashmap">2. ConcurrentHashMap</a></li>
+</ul>
+</li>
+<li><a href="#android&#x7279;&#x6709;map">Android&#x7279;&#x6709;Map</a><ul>
+<li><a href="#arraymap">ArrayMap</a></li>
+<li><a href="#sparsearray">SparseArray</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2 id="hashmap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>&#x4EE5;Java1.8&#x6E90;&#x7801;&#x4E3A;&#x51C6;&#xFF0C;&#x5176;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
+<img src="/2020/01/16/Map-study/table-structure.png">
+<ul>
+<li><strong>&#x9ED8;&#x8BA4;&#x503C;</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x5E38;&#x91CF;&#x540D;</th>
+<th style="text-align:left">&#x89E3;&#x91CA;</th>
+<th style="text-align:left">&#x9ED8;&#x8BA4;&#x503C;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DEFAULT_INITIAL_CAPACITY</td>
+<td style="text-align:left">&#x521D;&#x59CB;&#x5BB9;&#x91CF;</td>
+<td style="text-align:left">1 &lt;&lt; 4(16)</td>
+</tr>
+<tr>
+<td style="text-align:left">MAXIMUM_CAPACITY</td>
+<td style="text-align:left">&#x6700;&#x5927;&#x5BB9;&#x91CF;</td>
+<td style="text-align:left">1 &lt;&lt; 30</td>
+</tr>
+<tr>
+<td style="text-align:left">DEFAULT_LOAD_FACTOR</td>
+<td style="text-align:left">&#x8D1F;&#x8F7D;&#x7CFB;&#x6570;</td>
+<td style="text-align:left">0.75</td>
+</tr>
+<tr>
+<td style="text-align:left">TREEIFY_THRESHOLD</td>
+<td style="text-align:left">&#x8D85;&#x8FC7;&#x8BE5;&#x503C;&#x7684;&#x94FE;&#x8868;&#x6539;&#x7528;&#x7EA2;&#x9ED1;&#x6811;&#x5B58;&#x50A8;</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">UNTREEIFY_THRESHOLD</td>
+<td style="text-align:left">resize&#x65F6;,&#x5982;&#x679C;&#x7EA2;&#x9ED1;&#x6811;&#x5B58;&#x50A8;&#x7684;&#x8282;&#x70B9;&#x6570;&#x5C0F;&#x4E8E;&#x8BE5;&#x503C;&#x5219;&#x4F7F;&#x7528;&#x94FE;&#x8868;&#x5B58;&#x50A8;</td>
+<td style="text-align:left">6</td>
+</tr>
+<tr>
+<td style="text-align:left">MIN_TREEIFY_CAPACITY</td>
+<td style="text-align:left">&#x94FE;&#x8868;&#x8282;&#x70B9;&#x6570;&#x5927;&#x4E8E;8&#x4E2A;&#x65F6;&#xFF0C;&#x5148;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x5B58;&#x50A8;&#x7684;mapping&#x6570;&#x662F;&#x5426;&#x5927;&#x4E8E;&#x8BE5;&#x503C;&#xFF0C;&#x5982;&#x679C;&#x5C0F;&#x4E8E;&#x5219;resize&#xFF0C;&#x5927;&#x4E8E;&#x5219;&#x6539;&#x7528;&#x7EA2;&#x9ED1;&#x6811;</td>
+<td style="text-align:left">64</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<ul>
+<li><strong>Node</strong></li>
+</ul>
+<img src="/2020/01/16/Map-study/node_hash_map.png">
+<ol>
+<li><p>hash&#x5982;&#x4F55;&#x6C42;&#xFF1F; </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashMap#hash(Object key) {</span><br><span class="line">   <span class="keyword">int</span> h;</span><br><span class="line">   <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>table&#x5927;&#x5C0F;&#x662F;2^n,&#x597D;&#x5904;&#x662F;&#x6C42;&#x4E0B;&#x6807;: <code>(table.length - 1) &amp; hash</code></p>
+</li>
+<li><p>&#x5982;&#x679C;&#x8D85;&#x8FC7;&#x8D1F;&#x8F7D;&#x7CFB;&#x6570;x&#x5BB9;&#x91CF;&#xFF0C;&#x5219;resize();&#x5176;&#x539F;&#x7406;&#x56FE;:</p>
+</li>
+</ol>
+<img src="/2020/01/16/Map-study/hashmap_resize.png">}<br><br>4. &#x5141;&#x8BB8;key/value&#x4E3A;null,&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;<br><br>5. <code>HashSet</code>&#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#x662F;<code>HashMap</code>,key&#x662F;&#x96C6;&#x5408;&#x5143;&#x7D20;e&#xFF0C;value&#x662F;dummy object<br><br>## LinkedHashMap<br><br><img src="/2020/01/16/Map-study/LinkedHashMap.webp">}<br><br>&#x7EE7;&#x627F;HashMap,&#x5E95;&#x5C42;&#x901A;&#x8FC7;&#x53CC;&#x5411;&#x94FE;&#x8868;&#x5B58;&#x50A8;&#x987A;&#x5E8F;;&#x6392;&#x5E8F;&#x65B9;&#x5F0F;&#x6709;&#x4E24;&#x79CD;:<br><br>+ &#x6839;&#x636E;&#x5199;&#x5165;&#x987A;&#x5E8F;&#x6392;&#x5E8F;<br>+ &#x6839;&#x636E;&#x8BBF;&#x95EE;&#x987A;&#x5E8F;&#x6392;&#x5E8F;<br><br>&#x901A;&#x8FC7;<code></code>accessOrder`&#x6210;&#x5458;&#x53D8;&#x91CF;&#x6807;&#x8BC6;&#xFF0C;&#x5176;&#x4E2D;&#x6839;&#x636E;&#x8BBF;&#x95EE;&#x987A;&#x5E8F;&#x6392;&#x5E8F;&#x65F6;&#xFF0C;&#x6BCF;&#x6B21; get &#x90FD;&#x4F1A;&#x5C06;&#x8BBF;&#x95EE;&#x7684;&#x503C;&#x79FB;&#x52A8;&#x5230;&#x94FE;&#x8868;&#x672B;&#x5C3E;&#xFF0C;&#x901A;&#x8FC7;&#x8BE5;&#x6027;&#x8D28;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;LruCache<br><br>## WeakHashMap<br><br>&#x4E0E;HashMap&#x7C7B;&#x4F3C;,&#x4E0D;&#x540C;&#x4E4B;&#x5904;&#x5728;Key&#x662F;&#x5F31;&#x5F15;&#x7528;&#x7684;,&#x5B9E;&#x73B0;&#x5173;&#x952E;&#x662F;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">WeakReference</span>&lt;<span class="title">Object</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>{...}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;<code>get/put</code>&#x7B49;&#x64CD;&#x4F5C;&#x4E2D;&#x4F1A;&#x9996;&#x5148;&#x8C03;&#x7528;<code>expungeStaleEntries()</code>,&#x6839;&#x636E;<code>ReferenceQueue</code>&#x6E05;&#x9664;&#x65E0;&#x7528;&#x7684;Entry</p>
+<h2 id="&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;map"><a href="#&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;Map" class="headerlink" title="&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;Map"></a>&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;Map</h2><h3 id="1-hashtablecollectionssynchronizedmap"><a href="#1-HashTable-Collections-synchronizedMap" class="headerlink" title="1. HashTable/Collections.synchronizedMap()"></a>1. HashTable/Collections.synchronizedMap()</h3><p>&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#xFF0C;&#x91C7;&#x7528;synchronized&#x65B9;&#x6CD5;&#x4E0A;&#x52A0;&#x9501;&#xFF0C;&#x4F7F;&#x7528;&#x963B;&#x585E;&#x540C;&#x6B65;&#xFF0C;&#x6548;&#x7387;&#x4F4E;</p>
+<h3 id="2-concurrenthashmap"><a href="#2-ConcurrentHashMap" class="headerlink" title="2. ConcurrentHashMap"></a>2. ConcurrentHashMap</h3><p>&#x6570;&#x636E;&#x7ED3;&#x6784;&#x4E0E;HashMap&#x76F8;&#x540C;,&#x91C7;&#x7528;CAS(CompareAndSwap,&#x539F;&#x5B50;&#x64CD;&#x4F5C;)&#x548C;synchronized&#x4FDD;&#x8BC1;&#x5E76;&#x53D1;&#x5B89;&#x5168;,synchronized&#x53EA;&#x9501;&#x5B9A;&#x5F53;&#x524D;&#x94FE;&#x8868;&#x6216;&#x7EA2;&#x9ED1;&#x4E8C;&#x53C9;&#x6811;&#x7684;&#x9996;&#x8282;&#x70B9;</p>
+<img src="/2020/01/16/Map-study/concurrent_hash_map.webp">
+<h2 id="android&#x7279;&#x6709;map"><a href="#Android&#x7279;&#x6709;Map" class="headerlink" title="Android&#x7279;&#x6709;Map"></a>Android&#x7279;&#x6709;Map</h2><h3 id="arraymap"><a href="#ArrayMap" class="headerlink" title="ArrayMap"></a>ArrayMap</h3><p>ArrayMap&#x662F;Android&#x4E13;&#x95E8;&#x9488;&#x5BF9;&#x5185;&#x5B58;&#x4F18;&#x5316;&#x800C;&#x8BBE;&#x8BA1;&#x7684;&#xFF0C;&#x7528;&#x4E8E;&#x53D6;&#x4EE3;Java API&#x4E2D;&#x7684;HashMap&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;&#x5176;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x5982;&#x4E0B;:</p>
+<img src="/2020/01/16/Map-study/array_map.jpg">
+<ul>
+<li><p>&#x91C7;&#x7528;&#x4E24;&#x4E2A;&#x6570;&#x7EC4;&#x5B58;&#x50A8;: <code>mHashes</code>&#x5B58;&#x50A8;key&#x7684;hash&#x503C;,&#x6309;&#x589E;&#x5E8F;&#x5B58;&#x50A8;,&#x901A;&#x8FC7;&#x4E8C;&#x5206;&#x67E5;&#x627E;&#x6307;&#x5B9A;key&#x503C;&#x7684;&#x6570;&#x7EC4;&#x4E0B;&#x6807;;&#x6839;&#x636E;<code>mHashes</code>&#x6307;&#x5B9A;&#x4E0B;&#x6807;&#x5728;<code>mArray</code>&#x4E2D;&#x8BBF;&#x95EE;key/value. &#x5185;&#x5B58;&#x4F7F;&#x7528;&#x76F8;&#x6BD4;HashMap&#x8282;&#x7701;&#xFF0C;&#x67E5;&#x627E;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;O(logN),&#x5E76;&#x4E14;&#x589E;&#x52A0;/&#x5220;&#x9664;&#x65F6;&#x9700;&#x8981;&#x6570;&#x7EC4;copy&#xFF0C;&#x901F;&#x5EA6;&#x76F8;&#x5BF9;&#x8F83;&#x6162;&#xFF0C;size&#x5C0F;&#x4E8E;1k&#x65F6;&#x57FA;&#x672C;&#x53EF;&#x4EE5;&#x5FFD;&#x7565;&#x3002;</p>
+</li>
+<li><p>&#x76F8;&#x6BD4;HashMap&#xFF1A;ArrayMap&#x5728;&#x5BB9;&#x91CF;&#x6EE1;&#x7684;&#x65F6;&#x673A;&#x89E6;&#x53D1;&#x5BB9;&#x91CF;&#x6269;&#x5927;&#x81F3;&#x539F;&#x6765;&#x7684;1.5&#x500D;&#xFF0C;&#x5728;&#x5BB9;&#x91CF;&#x4E0D;&#x8DB3;1/3&#x65F6;&#x89E6;&#x53D1;&#x5185;&#x5B58;&#x6536;&#x7F29;&#xFF0C;&#x66F4;&#x8282;&#x7701;&#x5185;&#x5B58;&#xFF1B;&#x6709;&#x7F13;&#x5B58;&#x673A;&#x5236;&#xFF0C;&#x907F;&#x514D;&#x9891;&#x7E41;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x800C;&#x5206;&#x914D;&#x5185;&#x5B58;&#x4E0E;GC&#x64CD;&#x4F5C;</p>
+</li>
+<li><p>&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;</p>
+</li>
+</ul>
+<h3 id="sparsearray"><a href="#SparseArray" class="headerlink" title="SparseArray"></a>SparseArray</h3><p>SparseArray&#x662F;Android&#x9488;&#x5BF9;key&#x4E3A;int&#x800C;&#x8BBE;&#x8BA1;&#x7684;Map,&#x6CE8;&#x610F;&#x8BE5;&#x7C7B;&#x5E76;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;Map&#x63A5;&#x53E3;&#x3002;&#x5176;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x5982;&#x4E0B;:</p>
+<img src="/2020/01/16/Map-study/sparse_array.jpg">
+<ul>
+<li><p>&#x76F8;&#x6BD4;HashMap: &#x6570;&#x7EC4;&#x5B58;&#x50A8;&#x8282;&#x7701;&#x5185;&#x5B58;&#xFF0C;&#x56E0;&#x65E0;&#x9700;&#x5BF9;int&#x8FDB;&#x884C;&#x88C5;&#x7BB1;&#x64CD;&#x4F5C;&#xFF0C;size&#x8F83;&#x5C0F;&#x65F6;&#x6027;&#x80FD;&#x8F83;&#x597D;</p>
+</li>
+<li><p>&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;</p>
+</li>
+<li><p><code>SparseIntArray</code>&#x3001;<code>SparseBooleanArray</code>&#x3001;<code>SparseLongArray</code>&#x4E0E;<code>SparseArray</code>&#x7C7B;&#x4F3C;&#xFF0C;&#x552F;&#x4E00;&#x533A;&#x522B;&#x662F;&#x6307;&#x5B9A;value&#x7C7B;&#x578B;&#xFF0C;&#x5176;value&#x65E0;&#x9700;&#x88C5;&#x7BB1;</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/30/JetPack-ViewModel/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JetPack-ViewModel</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 andrewlcgu   &sdot; <a href="http://beian.miit.gov.cn" target="_blank">京ICP备19035870号</a>
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

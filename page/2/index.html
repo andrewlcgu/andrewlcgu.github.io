@@ -99,7 +99,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 16.67px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Socket/" style="font-size: 13.33px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 16.67px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 17.5px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/Socket/" style="font-size: 12.5px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
 					</div>
 				</section>
 				
@@ -156,6 +156,180 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-okhttp" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/29/okhttp/" class="article-date">
+  	<time datetime="2018-10-29T07:34:43.000Z" itemprop="datePublished">2018-10-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/29/okhttp/">okhttp组件学习</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#网络请求队列-dispatcher">网络请求队列 Dispatcher</a></li>
+<li><a href="#socket连接池-connectionpool">Socket连接池 ConnectionPool</a></li>
+<li><a href="#缓存管理">缓存管理</a></li>
+<li><a href="#https">HTTPS</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>OkHttp是一个HTTP客户端组件,要求Android2.3以上或者JDK1.7以上,最近重新读其源码,对感兴趣的部分记录一下.</p>
+<h2 id="网络请求队列-Dispatcher"><a href="#网络请求队列-Dispatcher" class="headerlink" title="网络请求队列 Dispatcher"></a>网络请求队列 Dispatcher</h2><ul>
+<li><p><code>Call#execute()</code>同步请求前会进入<code>Dispacher#runningSyncCalls</code>队列,完成后remove</p>
+</li>
+<li><p><code>Call#enqueue()</code>异步请求会进入<code>Dispatchder#runningAsyncCalls</code>队列,这里有限制条件：<code>maxRequests&lt;=64 &amp;&amp; maxRequestsPerHost&lt;=5</code>,不满足则放入<code>Dispatcher#readyAsyncCalls</code>,这些值可通过<code>#setMaxRequests()</code>和<code>#setMaxRequestsPerHost()</code>设置. </p>
+</li>
+<li><p>异步执行的线程池默认设置为: </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CorePoolSize</th>
+<th style="text-align:left">MaximumPoolSize</th>
+<th style="text-align:left">KeepAliveTime</th>
+<th style="text-align:left">WorkQueue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">Integer.MAX_VALUE</td>
+<td style="text-align:left">60s</td>
+<td style="text-align:left">SynchronousQueue</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>Dispatcher#setIdleCallback()</code>用于设置在同步请求队列和异步请求队列均为空时执行一次callback</li>
+</ul>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2018/10/29/okhttp/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-design-pattern-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/05/design-pattern-note/" class="article-date">
+  	<time datetime="2017-04-05T12:26:30.000Z" itemprop="datePublished">2017-04-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/05/design-pattern-note/">设计模式笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="面向对象六大原则"><a href="#面向对象六大原则" class="headerlink" title="面向对象六大原则"></a>面向对象六大原则</h2><ol>
+<li>Single Responsibility Principle</li>
+<li>Open Close Principle</li>
+<li>Liskov Substitution Principle</li>
+<li>Dependence Inversion Principle</li>
+<li>Interface Segregation Principle</li>
+<li>Law of Demeter</li>
+</ol>
+<h2 id="《设计模式-可复用面向对象软件的基础》23种设计模式："><a href="#《设计模式-可复用面向对象软件的基础》23种设计模式：" class="headerlink" title="《设计模式:可复用面向对象软件的基础》23种设计模式："></a>《设计模式:可复用面向对象软件的基础》23种设计模式：</h2><h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><h3 id="单例模式-Singleton"><a href="#单例模式-Singleton" class="headerlink" title="单例模式(Singleton)"></a>单例模式(Singleton)</h3><img src="/2017/04/05/design-pattern-note/pic_0.png">
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论知识/">理论知识</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/04/05/design-pattern-note/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-read-note" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -760,213 +934,6 @@
       
         <p class="article-more-link">
           <a  href="/2016/08/31/Android-multiThread-summary/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-android-animation-summary" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/08/22/android-animation-summary/" class="article-date">
-  	<time datetime="2016-08-22T07:17:33.000Z" itemprop="datePublished">2016-08-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/22/android-animation-summary/">Android 动画总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#view-animation">View Animation</a><ul>
-<li><a href="#1-tween-animation">1. Tween Animation</a></li>
-<li><a href="#2-drawable-animation">2. Drawable Animation</a></li>
-</ul>
-</li>
-<li><a href="#property-animation">Property Animation</a></li>
-<li><a href="#系统提供的应用场景">系统提供的应用场景</a><ul>
-<li><a href="#activity切换动画">Activity切换动画</a></li>
-<li><a href="#fragment切换动画">Fragment切换动画</a></li>
-<li><a href="#layout-changes-animation">Layout Changes Animation</a></li>
-<li><a href="#使用svg动画">使用SVG动画</a></li>
-</ul>
-</li>
-<li><a href="#参考">参考</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="View-Animation"><a href="#View-Animation" class="headerlink" title="View Animation"></a>View Animation</h2><h3 id="1-Tween-Animation"><a href="#1-Tween-Animation" class="headerlink" title="1. Tween Animation"></a>1. Tween Animation</h3><p>针对View的动画，其相关类在<code>android.view.animation</code>中，<br>由四种动画组成：平移动画、缩放动画、旋转动画和透明度动画，分别对应<code>Animation</code>四个子类：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">名称</th>
-<th style="text-align:left">子类</th>
-<th style="text-align:left">标签</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">平移动画</td>
-<td style="text-align:left"><code>&lt;translate&gt;</code></td>
-<td style="text-align:left"><code>TranslateAnimation</code></td>
-</tr>
-<tr>
-<td style="text-align:left">缩放动画</td>
-<td style="text-align:left"><code>&lt;scale&gt;</code></td>
-<td style="text-align:left"><code>ScaleAnimation</code></td>
-</tr>
-<tr>
-<td style="text-align:left">旋转动画</td>
-<td style="text-align:left"><code>&lt;rotate&gt;</code></td>
-<td style="text-align:left"><code>RotateAnimation</code></td>
-</tr>
-<tr>
-<td style="text-align:left">透明度动画</td>
-<td style="text-align:left"><code>&lt;alpha&gt;</code></td>
-<td style="text-align:left"><code>AlphaAnimation</code></td>
-</tr>
-</tbody>
-</table>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/08/22/android-animation-summary/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-android-touch-research" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/08/08/android-touch-research/" class="article-date">
-  	<time datetime="2016-08-08T01:57:27.000Z" itemprop="datePublished">2016-08-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/08/android-touch-research/">Android关于Touch事件的相关研究</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#touch-mode">Touch Mode</a></li>
-<li><a href="#motionevent">MotionEvent</a></li>
-<li><a href="#常用手势">常用手势</a></li>
-<li><a href="#view的滑动">View的滑动</a><ul>
-<li><a href="#1使用scrolltoscrollby">1.使用scrollTo/scrollBy</a></li>
-<li><a href="#2使用动画">2.使用动画</a></li>
-<li><a href="#3改变布局参数">3.改变布局参数</a></li>
-<li><a href="#4使用viewdraghelper">4.使用ViewDragHelper</a></li>
-<li><a href="#5总结几个函数">5.总结几个函数</a></li>
-</ul>
-</li>
-<li><a href="#view的事件分发和滑动冲突解决">View的事件分发和滑动冲突解决</a><ul>
-<li><a href="#1使用touchdelegate扩大view点击事件范围">1.使用TouchDelegate扩大View点击事件范围</a></li>
-<li><a href="#2事件分发机制简述">2.事件分发机制简述</a></li>
-<li><a href="#3常用滑动冲突解决方法">3.常用滑动冲突解决方法</a></li>
-</ul>
-</li>
-<li><a href="#参考">参考</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="Touch-Mode"><a href="#Touch-Mode" class="headerlink" title="Touch Mode"></a>Touch Mode</h2><p>Android有许多Input Type，包括轨迹球、书写笔、声音等，我们主要探究触摸屏这种输入。针对其他输入，这里说明一点：有些手机的实体按键点击时会把该事件传递给当前屏幕中处于焦点状态View的<code>onKey()</code>回调方法，当然也可以在Activity中<code>dispatchKeyEvent()</code>进行拦截，或者通过<code>onKeyDown()</code>和<code>onKeyUp()</code>进行监听。当前手机APP主要交互是通过触摸屏进行，根据KeyCode监听实体按键的情况不是很多了，而且像Back键、Menu键系统也提供了方便的回调方法，但Home键并没有，而且在onKey方法中也不回调，网上通常采用监听Home键产生的广播事件进行监听，本文不过多对此进行讨论。现在手机通常是虚拟软键盘输入，按键时通常不会回调<code>onKeyDown</code>方法，所以针对虚拟键盘最好不要使用<code>onKeyDown</code>等回调事件。针对EditText控件提供了OnEditorActionListener回调方法，用于处理输入完成后的后续工作。Demo如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private EditText mEditText;</span><br><span class="line">...</span><br><span class="line">mEditText.setImeOptions(EditorInfo.IME_ACTION_SEARCH); // 输入后搜索</span><br><span class="line">mEditText.setSingleLine(true); // required</span><br><span class="line">mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>想查看支持哪些输入类型，可以通过<code>INPUT_SERVICE</code>服务查看，其类型常量定义在InputDevice类。Demo如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">InputManager inputManager = (InputManager) getSystemService(Context.INPUT_SERVICE);</span><br><span class="line">int[] ids = inputManager.getInputDeviceIds();</span><br><span class="line">for (int i : ids) &#123;</span><br><span class="line">    ...</span><br><span class="line">    inputManager.getInputDevice(i).getSources() == Inputdevice.XXX;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>触摸操作相比其他交互，不需要高亮来提醒用户当前焦点处于何处，所以当用户点击触摸屏时会处于”Touch Mode”，通过<code>isInTouchMode()</code>判断是否处于Touch Mode。在Touc Mode下，只有<code>isFocusableInTouchMode()==true</code>的View会获得焦点(即<code>isFocused()</code>返回true)，比如EditText；而可触摸的View(即<code>isFocusable()</code>返回true)点击时也不会获得焦点，仅仅执行其onClick回调，比如Button。如果Button要获得焦点(<code>isFocused()</code>返回true)，必须保证：  </p>
-<ol>
-<li>isFocusableInTouchMode() = true</li>
-<li>isFocusable() = true</li>
-<li>调用requestFocus()  </li>
-</ol>
-<p>View的焦点变化可以通过<code>OnFocusChangeListener</code>进行监听，View失去焦点后如何传递焦点是由系统计算的，当然可以手动进行控制，详情参考(<a href="https://developer.android.com/guide/topics/ui/ui-events.html#HandlingFocus" target="_blank" rel="noopener">https://developer.android.com/guide/topics/ui/ui-events.html#HandlingFocus</a>)。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/08/08/android-touch-research/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

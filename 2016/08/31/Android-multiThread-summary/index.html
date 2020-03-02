@@ -16,7 +16,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2016/08/31/Android-multiThread-summary/pic_0.png">
 <meta property="og:image" content="http://yoursite.com/2016/08/31/Android-multiThread-summary/pic_1.png">
-<meta property="og:updated_time" content="2016-08-31T12:30:00.000Z">
+<meta property="og:image" content="http://yoursite.com/2016/08/31/Android-multiThread-summary/thread-pool.png">
+<meta property="og:updated_time" content="2020-03-02T09:53:39.673Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 多线程使用总结">
 <meta name="twitter:description" content="AsyncTask类 Loaders框架 HandlerThread类 IntentService类 线程池ThreadPoolExecutor 参考   APK启动时会执行ActivityThread中main()方法，其中创建ActivityThread的线程作为主线程，由于该线程主要与UI交互相关，所以称为UI线程；UI线程中不能执行耗时操作，否则容易引起ANR，所以Google建议开启">
@@ -335,6 +336,7 @@
 <li>&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#x5DF2;&#x6EE1;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7EBF;&#x7A0B;&#x6570;&#x5C0F;&#x4E8E;maximumPoolSize&#x65F6;&#xFF0C;&#x542F;&#x52A8;&#x975E;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x4EFB;&#x52A1;</li>
 <li>&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#x5DF2;&#x6EE1;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7EBF;&#x7A0B;&#x6570;&#x7B49;&#x4E8E;maximumPoolSize&#x65F6;&#xFF0C;&#x8C03;&#x7528;RejectedExecutionHandler&#x8FDB;&#x884C;&#x901A;&#x77E5;</li>
 </ol>
+<img src="/2016/08/31/Android-multiThread-summary/thread-pool.png">
 <p><strong>&#x56DB;&#x79CD;&#x5E38;&#x7528;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6784;&#x9020;&#x53C2;&#x6570;&#xFF1A;</strong></p>
 <table>
 <thead>

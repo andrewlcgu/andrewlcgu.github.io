@@ -15,7 +15,7 @@
 <meta property="og:description" content="JMM(Java Memory Model) 指令重排 as-if-serial语义 happens-before原则 并发编程特性   JMM(Java Memory Model) 指令重排程序在经过编译器编译之后形成的指令序列会被CPU和编译器进行优化，提升执行效率。 as-if-serial语义不管怎么重排序（编译器和处理器为了提高并行度），（单线程）程序的执行结果不能被改变。编译器，r">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/03/02/Java-multi-thread/jmm.jpg">
-<meta property="og:updated_time" content="2020-03-02T08:39:07.127Z">
+<meta property="og:updated_time" content="2020-03-02T15:24:19.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程学习">
 <meta name="twitter:description" content="JMM(Java Memory Model) 指令重排 as-if-serial语义 happens-before原则 并发编程特性   JMM(Java Memory Model) 指令重排程序在经过编译器编译之后形成的指令序列会被CPU和编译器进行优化，提升执行效率。 as-if-serial语义不管怎么重排序（编译器和处理器为了提高并行度），（单线程）程序的执行结果不能被改变。编译器，r">
@@ -256,7 +256,8 @@
 <ol start="3">
 <li>&#x6709;&#x5E8F;&#x6027;</li>
 </ol>
-<p><code>volatile</code>,<code>sychronized</code>&#x548C;<code>JUC</code>&#x63D0;&#x4F9B;&#x7684;&#x663E;&#x793A;&#x9501;&#x90FD;&#x80FD;&#x4FDD;&#x8BC1;&#x6709;&#x5E8F;&#x6027;&#x3002;&#x5176;&#x4E2D;<code>volatile</code>&#x65B9;&#x5F0F;&#x662F;&#x7981;&#x6B62;JVM&#x548C;&#x5904;&#x7406;&#x5668;&#x5BF9;&#x8BE5;&#x5173;&#x952E;&#x5B57;&#x4FEE;&#x9970;&#x7684;&#x6307;&#x4EE4;&#x91CD;&#x6392;&#xFF0C;&#x67E5;&#x770B;OpenJDK&#x6E90;&#x7801;&#x4F1A;&#x53D1;&#x73B0;&#x4FEE;&#x9970;&#x7684;&#x53D8;&#x91CF;&#x6709;&#x4E00;&#x4E2A;&#x201D;lock;&#x201D;&#x7684;&#x524D;&#x7F00;&#xFF0C;&#x8FD9;&#x76F8;&#x5F53;&#x4E8E;&#x4E00;&#x4E2A;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x3002;</p>
+<p><code>volatile</code>,<code>sychronized</code>&#x548C;<code>JUC</code>&#x63D0;&#x4F9B;&#x7684;&#x663E;&#x793A;&#x9501;&#x90FD;&#x80FD;&#x4FDD;&#x8BC1;&#x6709;&#x5E8F;&#x6027;&#x3002;&#x5176;&#x4E2D;<code>volatile</code>&#x65B9;&#x5F0F;&#x662F;&#x7981;&#x6B62;JVM&#x548C;&#x5904;&#x7406;&#x5668;&#x5BF9;&#x8BE5;&#x5173;&#x952E;&#x5B57;&#x4FEE;&#x9970;&#x7684;&#x6307;&#x4EE4;&#x91CD;&#x6392;&#x3002;</p>
+<p><code>volatile</code>&#x539F;&#x7406;&#x662F;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x4E2D;&#x4F7F;&#x7528;lock&#x4FEE;&#x9970;&#xFF0C;&#x8FD9;&#x7C7B;&#x4F3C;&#x4E00;&#x4E2A;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x4EE5;&#x4E0B;&#x7ED3;&#x679C;:  a&#xFF09; &#x5C06;&#x5F53;&#x524D;&#x7F13;&#x5B58;&#x884C;&#x7684;&#x6570;&#x636E;&#x5199;&#x56DE;&#x5230;&#x7CFB;&#x7EDF;&#x5185;&#x5B58;  b) &#x5199;&#x56DE;&#x5185;&#x5B58;&#x7684;&#x64CD;&#x4F5C;&#x4F1A;&#x4F7F;&#x5728;&#x5176;&#x4ED6;&#x7F13;&#x5B58;&#x4E86;&#x8BE5;&#x5185;&#x5B58;&#x5730;&#x5740;&#x7684;&#x6570;&#x636E;&#x65E0;&#x6548;</p>
 
       
     </div>

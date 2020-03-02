@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Java多线程学习 | Andrewlcgu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JMM(Java Memory Model) 指令重排 as-if-serial语义 happens-before原则 并发编程特性   JMM(Java Memory Model) 指令重排程序在经过编译器编译之后形成的指令序列会被CPU和编译器进行优化，提升执行效率。 as-if-serial语义不管怎么重排序（编译器和处理器为了提高并行度），（单线程）程序的执行结果不能被改变。编译器，r">
+<meta name="keywords" content="多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java多线程学习">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/Java-multi-thread/index.html">
+<meta property="og:site_name" content="Andrewlcgu&#39;s Blog">
+<meta property="og:description" content="JMM(Java Memory Model) 指令重排 as-if-serial语义 happens-before原则 并发编程特性   JMM(Java Memory Model) 指令重排程序在经过编译器编译之后形成的指令序列会被CPU和编译器进行优化，提升执行效率。 as-if-serial语义不管怎么重排序（编译器和处理器为了提高并行度），（单线程）程序的执行结果不能被改变。编译器，r">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/03/02/Java-multi-thread/jmm.jpg">
+<meta property="og:updated_time" content="2020-03-02T08:31:03.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java多线程学习">
+<meta name="twitter:description" content="JMM(Java Memory Model) 指令重排 as-if-serial语义 happens-before原则 并发编程特性   JMM(Java Memory Model) 指令重排程序在经过编译器编译之后形成的指令序列会被CPU和编译器进行优化，提升执行效率。 as-if-serial语义不管怎么重排序（编译器和处理器为了提高并行度），（单线程）程序的执行结果不能被改变。编译器，r">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/02/Java-multi-thread/jmm.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">andrewlcgu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人生如梦</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/read-note">读书笔记</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 17.5px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/Socket/" style="font-size: 12.5px;">Socket</a> <a href="/tags/多线程/" style="font-size: 12.5px;">多线程</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">andrewlcgu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/potrait.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">andrewlcgu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人生如梦</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/read-note">读书笔记</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Java-multi-thread" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/02/Java-multi-thread/" class="article-date">
+  	<time datetime="2020-03-02T03:24:04.000Z" itemprop="datePublished">2020-03-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java多线程学习
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/多线程/">多线程</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+           
+             <div id="toc" class="article-toc">
+             <h2>目录</h2>
+               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jmmjava-memory-model"><span class="toc-text">JMM(Java Memory Model)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指令重排"><span class="toc-text">指令重排</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#as-if-serial语义"><span class="toc-text">as-if-serial语义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#happens-before原则"><span class="toc-text">happens-before原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#并发编程特性"><span class="toc-text">并发编程特性</span></a></li></ol>
+             </div>
+             <script type="text/javascript">
+               var _article = document.getElementsByClassName('article')[0];
+               setTimeout("_article.className += ' article2'",0);
+               setTimeout("document.getElementById('toc').style.right = '15px'", 0);
+             </script>
+           
+         
+        <!-- toc -->
+<ul>
+<li><a href="#jmmjava-memory-model">JMM(Java Memory Model)</a></li>
+<li><a href="#&#x6307;&#x4EE4;&#x91CD;&#x6392;"><strong>&#x6307;&#x4EE4;&#x91CD;&#x6392;</strong></a></li>
+<li><a href="#as-if-serial&#x8BED;&#x4E49;"><strong>as-if-serial&#x8BED;&#x4E49;</strong></a></li>
+<li><a href="#happens-before&#x539F;&#x5219;"><strong>happens-before&#x539F;&#x5219;</strong></a></li>
+<li><a href="#&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x7279;&#x6027;"><strong>&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x7279;&#x6027;</strong></a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="jmmjava-memory-model"><a href="#JMM-Java-Memory-Model" class="headerlink" title="JMM(Java Memory Model)"></a>JMM(Java Memory Model)</h2><img src="/2020/03/02/Java-multi-thread/jmm.jpg">
+<h2 id="&#x6307;&#x4EE4;&#x91CD;&#x6392;"><a href="#&#x6307;&#x4EE4;&#x91CD;&#x6392;" class="headerlink" title="&#x6307;&#x4EE4;&#x91CD;&#x6392;"></a><strong>&#x6307;&#x4EE4;&#x91CD;&#x6392;</strong></h2><p>&#x7A0B;&#x5E8F;&#x5728;&#x7ECF;&#x8FC7;&#x7F16;&#x8BD1;&#x5668;&#x7F16;&#x8BD1;&#x4E4B;&#x540E;&#x5F62;&#x6210;&#x7684;&#x6307;&#x4EE4;&#x5E8F;&#x5217;&#x4F1A;&#x88AB;CPU&#x548C;&#x7F16;&#x8BD1;&#x5668;&#x8FDB;&#x884C;&#x4F18;&#x5316;&#xFF0C;&#x63D0;&#x5347;&#x6267;&#x884C;&#x6548;&#x7387;&#x3002;</p>
+<h2 id="as-if-serial&#x8BED;&#x4E49;"><a href="#as-if-serial&#x8BED;&#x4E49;" class="headerlink" title="as-if-serial&#x8BED;&#x4E49;"></a><strong>as-if-serial&#x8BED;&#x4E49;</strong></h2><p>&#x4E0D;&#x7BA1;&#x600E;&#x4E48;&#x91CD;&#x6392;&#x5E8F;&#xFF08;&#x7F16;&#x8BD1;&#x5668;&#x548C;&#x5904;&#x7406;&#x5668;&#x4E3A;&#x4E86;&#x63D0;&#x9AD8;&#x5E76;&#x884C;&#x5EA6;&#xFF09;&#xFF0C;&#xFF08;&#x5355;&#x7EBF;&#x7A0B;&#xFF09;&#x7A0B;&#x5E8F;&#x7684;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x4E0D;&#x80FD;&#x88AB;&#x6539;&#x53D8;&#x3002;&#x7F16;&#x8BD1;&#x5668;&#xFF0C;runtime &#x548C;&#x5904;&#x7406;&#x5668;&#x90FD;&#x5FC5;&#x987B;&#x9075;&#x5B88; as-if-serial &#x8BED;&#x4E49;&#x3002;&#x4E3A;&#x4E86;&#x9075;&#x5B88; as-if-serial &#x8BED;&#x4E49;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x548C;&#x5904;&#x7406;&#x5668;&#x4E0D;&#x4F1A;&#x5BF9;&#x5B58;&#x5728;&#x6570;&#x636E;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x7684;&#x64CD;&#x4F5C;&#x505A;&#x91CD;&#x6392;&#x5E8F;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x79CD;&#x91CD;&#x6392;&#x5E8F;&#x4F1A;&#x6539;&#x53D8;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x3002;</p>
+<a id="more"></a>
+<h2 id="happens-before&#x539F;&#x5219;"><a href="#happens-before&#x539F;&#x5219;" class="headerlink" title="happens-before&#x539F;&#x5219;"></a><strong>happens-before&#x539F;&#x5219;</strong></h2><p>JMM &#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>happens-before</code>&#x5173;&#x7CFB;&#x5411;&#x7A0B;&#x5E8F;&#x5458;&#x63D0;&#x4F9B;&#x8DE8;&#x7EBF;&#x7A0B;&#x7684;&#x5185;&#x5B58;&#x53EF;&#x89C1;&#x6027;&#x4FDD;&#x8BC1;&#xFF0C;&#x5373;JMM&#x5BF9;<code>A happens-before B</code>&#x4FDD;&#x8BC1;A&#x7684;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x5BF9;B&#x662F;&#x53EF;&#x89C1;&#x7684;&#x3002;&#x5177;&#x4F53;&#x6709;&#x4EE5;&#x4E0B;&#x539F;&#x5219;: </p>
+<ol>
+<li><p>&#x7A0B;&#x5E8F;&#x6B21;&#x5E8F;&#x89C4;&#x5219;&#xFF1A; &#x65E0;&#x8BBA;&#x5982;&#x4F55;&#x91CD;&#x6392;&#xFF0C;JMM&#x4FDD;&#x8BC1;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5185;&#x6700;&#x7EC8;&#x7ED3;&#x679C;&#x548C;&#x4EE3;&#x7801;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x4E00;&#x81F4;</p>
+</li>
+<li><p>&#x9501;&#x5B9A;&#x89C4;&#x5219;&#xFF1A; &#x4E00;&#x4E2A;unlock&#x64CD;&#x4F5C;&#x8981;&#x5148;&#x884C;&#x53D1;&#x751F;&#x4E8E;&#x5BF9;&#x540C;&#x4E00;&#x4E2A;&#x9501;&#x7684;lock&#x64CD;&#x4F5C;</p>
+</li>
+<li><p>volatile&#x89C4;&#x5219;&#xFF1A; &#x5BF9;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5199;&#x64CD;&#x4F5C;&#x8981;&#x65E9;&#x4E8E;&#x5BF9;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x4E4B;&#x540E;&#x7684;&#x8BFB;&#x64CD;&#x4F5C;</p>
+</li>
+<li><p>&#x4F20;&#x9012;&#x89C4;&#x5219;</p>
+</li>
+<li><p>&#x7EBF;&#x7A0B;&#x542F;&#x52A8;&#x89C4;&#x5219;&#xFF1A; Thread&#x5BF9;&#x8C61;&#x7684;start()&#x65B9;&#x6CD5;&#x5148;&#x4E8E;&#x53D1;&#x751F;&#x5BF9;&#x8BE5;&#x7EBF;&#x7A0B;&#x7684;&#x4EFB;&#x4F55;&#x52A8;&#x4F5C;</p>
+</li>
+<li><p>&#x7EBF;&#x7A0B;&#x4E2D;&#x65AD;&#x89C4;&#x5219;: &#x5BF9;&#x7EBF;&#x7A0B;&#x6267;&#x884C;interrupt()&#x80AF;&#x5B9A;&#x8981;&#x4F18;&#x5148;&#x4E8E;&#x6355;&#x83B7;&#x4E2D;&#x65AD;&#x4FE1;&#x53F7;</p>
+</li>
+<li><p>&#x7EBF;&#x7A0B;&#x7684;&#x7EC8;&#x7ED3;&#x89C4;&#x5219;: &#x7EBF;&#x7A0B;&#x6240;&#x6709;&#x64CD;&#x4F5C;&#x8981;&#x4F18;&#x5148;&#x4E8E;&#x7EBF;&#x7A0B;&#x6B7B;&#x4E4B;&#x524D;</p>
+</li>
+<li><p>&#x5BF9;&#x8C61;&#x7EC8;&#x7ED3;&#x89C4;&#x5219;: &#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x521D;&#x59CB;&#x5316;&#x5B8C;&#x6210;&#x8981;&#x5148;&#x4E8E;finalize()&#x65B9;&#x6CD5;&#x4E4B;&#x524D;</p>
+</li>
+</ol>
+<h2 id="&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x7279;&#x6027;"><a href="#&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x7279;&#x6027;" class="headerlink" title="&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x7279;&#x6027;"></a><strong>&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x7279;&#x6027;</strong></h2><ol>
+<li>&#x539F;&#x5B50;&#x6027; </li>
+</ol>
+<p>JMM&#x4FDD;&#x8BC1;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x8BFB;&#x53D6;&#x8D4B;&#x503C;&#x64CD;&#x4F5C;&#x662F;&#x539F;&#x5B50;&#x6027;&#x7684;&#xFF0C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x8BFB;&#x53D6;&#x548C;&#x8D4B;&#x503C;&#x64CD;&#x4F5C;&#x4E5F;&#x662F;&#x539F;&#x5B50;&#x6027;&#x7684;&#x3002;</p>
+<ol start="2">
+<li>&#x53EF;&#x89C1;&#x6027;</li>
+</ol>
+<p><code>volatile</code>,<code>sychronized</code>&#x548C;<code>JUC</code>&#x63D0;&#x4F9B;&#x7684;&#x663E;&#x793A;&#x9501;&#x90FD;&#x80FD;&#x4FDD;&#x8BC1;&#x53EF;&#x89C1;&#x6027;&#x3002;<code>volatile</code>&#x4FDD;&#x8BC1;&#x5171;&#x4EAB;&#x53D8;&#x91CF;&#x8BFB;&#x5199;&#x90FD;&#x4F1A;&#x5728;&#x4E3B;&#x5185;&#x5B58;&#x4E2D;&#x8FDB;&#x884C;; &#x5176;&#x4ED6;&#x9501;&#x673A;&#x5236;&#x4F1A;&#x4FDD;&#x8BC1;&#x9501;&#x91CA;&#x653E;&#x4E4B;&#x524D;&#x4F1A;&#x5C06;&#x53D8;&#x91CF;&#x7684;&#x4FEE;&#x6539;&#x5237;&#x65B0;&#x5230;&#x4E3B;&#x5185;&#x5B58;&#x4E2D;&#x3002;</p>
+<ol start="3">
+<li>&#x6709;&#x5E8F;&#x6027;</li>
+</ol>
+<p><code>volatile</code>,<code>sychronized</code>&#x548C;<code>JUC</code>&#x63D0;&#x4F9B;&#x7684;&#x663E;&#x793A;&#x9501;&#x90FD;&#x80FD;&#x4FDD;&#x8BC1;&#x6709;&#x5E8F;&#x6027;&#x3002;&#x5176;&#x4E2D;<code>volatile</code>&#x65B9;&#x5F0F;&#x662F;&#x7981;&#x6B62;JVM&#x548C;&#x5904;&#x7406;&#x5668;&#x5BF9;&#x8BE5;&#x5173;&#x952E;&#x5B57;&#x4FEE;&#x9970;&#x7684;&#x6307;&#x4EE4;&#x91CD;&#x6392;&#xFF0C;&#x67E5;&#x770B;OpenJDK&#x6E90;&#x7801;&#x4F1A;&#x53D1;&#x73B0;&#x4FEE;&#x9970;&#x7684;&#x53D8;&#x91CF;&#x6709;&#x4E00;&#x4E2A;&#x201D;lock;&#x201D;&#x7684;&#x524D;&#x7F00;&#xFF0C;&#x8FD9;&#x76F8;&#x5F53;&#x4E8E;&#x4E00;&#x4E2A;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x3002;</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/01/sychronized/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">sychronized学习</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 andrewlcgu   &sdot; <a href="http://beian.miit.gov.cn" target="_blank">京ICP备19035870号</a>
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83438834-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

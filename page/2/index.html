@@ -99,7 +99,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 17.5px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/Socket/" style="font-size: 12.5px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 17.5px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/Socket/" style="font-size: 12.5px;">Socket</a> <a href="/tags/多线程/" style="font-size: 12.5px;">多线程</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
 					</div>
 				</section>
 				
@@ -156,6 +156,148 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-quick-sort" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/09/quick-sort/" class="article-date">
+  	<time datetime="2018-12-09T03:01:55.000Z" itemprop="datePublished">2018-12-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/09/quick-sort/">快速排序算法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#代码实现">代码实现</a></li>
+<li><a href="#性能分析">性能分析</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>快速排序（Quick Sort）是由图灵奖获得者Tony Hoare设计出来，被列为20世纪十大算法之一，以“快速”命名表明该算法在整体性能上是排序算法的王者。<br>核心思想是：通过一趟排序将待排序记录分割成独立的两部分，其中一部分记录关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序的目的。一趟排序过程示意图如下。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法与数据结构/">算法与数据结构</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/算法与数据结构/">算法与数据结构</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2018/12/09/quick-sort/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-retrofit2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/11/19/retrofit2/" class="article-date">
+  	<time datetime="2018-11-19T01:48:30.000Z" itemprop="datePublished">2018-11-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/19/retrofit2/">Retrofit2组件分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-简介">1. 简介</a></li>
+<li><a href="#2-关键分析">2. 关键分析</a></li>
+<li><a href="#3-一些细节">3. 一些细节</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>Retrofit2是由Square公司开源的HTTP网络请求框架的封装，最近阅读v2.4.0源码，在此记录一下。<br>官方使用的Demo：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GitHubService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@GET</span>(<span class="string">"users/&#123;user&#125;/repos"</span>)</span><br><span class="line">  Call&lt;List&lt;Repo&gt;&gt; listRepos(<span class="meta">@Path</span>(<span class="string">"user"</span>) String user);</span><br><span class="line">&#125;</span><br><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">    .baseUrl(<span class="string">"https://api.github.com/"</span>)</span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line">GitHubService service = retrofit.create(GitHubService.class);</span><br><span class="line">Call&lt;List&lt;Repo&gt;&gt; repos = service.listRepos(<span class="string">"octocat"</span>);</span><br><span class="line"><span class="comment">// SYNCHRONOUS</span></span><br><span class="line">repos.execute()</span><br><span class="line"><span class="comment">//  ASYNCHRONOUS</span></span><br><span class="line">repos.enqueue(...)</span><br></pre></td></tr></table></figure></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2018/11/19/retrofit2/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-okhttp" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -783,178 +925,9 @@
 
 
   
-    <article id="post-android-custom-view-and-drawable" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/13/android-custom-view-and-drawable/" class="article-date">
-  	<time datetime="2016-09-13T08:15:29.000Z" itemprop="datePublished">2016-09-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/13/android-custom-view-and-drawable/">Android自定义View和Drawable总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#android自定义view简述">Android自定义View简述</a><ul>
-<li><a href="#自定义属性">自定义属性</a></li>
-<li><a href="#onmeasure">onMeasure()</a></li>
-<li><a href="#onlayout">onLayout()</a></li>
-<li><a href="#ondraw">onDraw()</a></li>
-<li><a href="#一些tips">一些Tips：</a></li>
-</ul>
-</li>
-<li><a href="#drawable总结">Drawable总结</a><ul>
-<li><a href="#bitmapdrawable">BitmapDrawable</a></li>
-<li><a href="#ninepatchdrawable">NinePatchDrawable</a></li>
-<li><a href="#layerdrawable">LayerDrawable</a></li>
-<li><a href="#statelistdrawable">StateListDrawable</a></li>
-<li><a href="#transitiondrawable">TransitionDrawable</a></li>
-<li><a href="#insertdrawable">InsertDrawable</a></li>
-<li><a href="#clipdrawable">ClipDrawable</a></li>
-</ul>
-</li>
-<li><a href="#参考">参考</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="Android自定义View简述"><a href="#Android自定义View简述" class="headerlink" title="Android自定义View简述"></a>Android自定义View简述</h2><p>Android自定义View方式有许多，本文对直接继承View的方式进行总结，建议深入阅读源码了解View是如何进行绘制的，可以从 <strong>ViewRootImpl#performTraversals()</strong> 方法开始，并且建议同时理解View的事件传递机制和动画机制，这样才能实现非常炫丽的View；我们主要讨论onMeasure()、onLayout()和onDraw()进行override的注意事项，不会讨论增加交互和动画等事宜。</p>
-<h3 id="自定义属性"><a href="#自定义属性" class="headerlink" title="自定义属性"></a>自定义属性</h3><p><strong>1.</strong> 建立<code>res/values/attrs.xml</code>，demo如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"PieChart"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"showText"</span> <span class="attr">format</span>=<span class="string">"boolean"</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"labelPosition"</span> <span class="attr">format</span>=<span class="string">"enum"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"left"</span> <span class="attr">value</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"right"</span> <span class="attr">value</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attr</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>2.</strong> 布局文件中使用自定义属性时，Gradle建议命名空间统一使用<code>&quot;http://schemas.android.com/apk/res-auto&quot;</code><br><strong>3.</strong> 官方建议通过<code>TypedArray</code>在程序中读取定义的属性，demo如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">PieChart</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>(context, attrs);</span><br><span class="line">   TypedArray a = context.getTheme().obtainStyledAttributes(</span><br><span class="line">        attrs,</span><br><span class="line">        R.styleable.PieChart,</span><br><span class="line">        <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       mShowText = a.getBoolean(R.styleable.PieChart_showText, <span class="keyword">false</span>);</span><br><span class="line">       mTextPos = a.getInteger(R.styleable.PieChart_labelPosition, <span class="number">0</span>);</span><br><span class="line">   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       a.recycle();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Andorid学习笔记/">Andorid学习笔记</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/09/13/android-custom-view-and-drawable/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android-multiThread-summary" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/08/31/Android-multiThread-summary/" class="article-date">
-  	<time datetime="2016-08-31T12:23:25.000Z" itemprop="datePublished">2016-08-31</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/31/Android-multiThread-summary/">Android 多线程使用总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#asynctask类">AsyncTask类</a></li>
-<li><a href="#loaders框架">Loaders框架</a></li>
-<li><a href="#handlerthread类">HandlerThread类</a></li>
-<li><a href="#intentservice类">IntentService类</a></li>
-<li><a href="#线程池threadpoolexecutor">线程池ThreadPoolExecutor</a></li>
-<li><a href="#参考">参考</a></li>
-</ul>
-<!-- tocstop -->
-<p>APK启动时会执行ActivityThread中main()方法，其中创建ActivityThread的线程作为主线程，由于该线程主要与UI交互相关，所以称为UI线程；UI线程中不能执行耗时操作，否则容易引起ANR，所以Google建议开启worker thread执行耗时操作，然后通过Handler机制通知主线程刷新UI。系统提供三种方法：</p>
-<ol>
-<li>Activity.runOnUiThread(Runnable)</li>
-<li>View.post(Runnable)</li>
-<li>View.postDelayed(Runnable,long)</li>
-</ol>
-<p>使得worker thread中方便的刷新View，但上述方法不便于管理。针对这种场景，系统对Handler机制进行一定轻量级封装，方便worker thread通知主线程，我们主要分析以下几个类：</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/08/31/Android-multiThread-summary/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>

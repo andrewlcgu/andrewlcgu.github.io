@@ -99,7 +99,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 17.5px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/Socket/" style="font-size: 12.5px;">Socket</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android学习笔记/" style="font-size: 17.5px;">Android学习笔记</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/Socket/" style="font-size: 12.5px;">Socket</a> <a href="/tags/多线程/" style="font-size: 12.5px;">多线程</a> <a href="/tags/理论知识/" style="font-size: 10px;">理论知识</a> <a href="/tags/算法与数据结构/" style="font-size: 15px;">算法与数据结构</a> <a href="/tags/纪念日/" style="font-size: 10px;">纪念日</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a>
 					</div>
 				</section>
 				
@@ -156,6 +156,167 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Java-multi-thread" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/02/Java-multi-thread/" class="article-date">
+  	<time datetime="2020-03-02T03:24:04.000Z" itemprop="datePublished">2020-03-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/02/Java-multi-thread/">Java多线程学习</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#jmmjava-memory-model">JMM(Java Memory Model)</a></li>
+<li><a href="#指令重排"><strong>指令重排</strong></a></li>
+<li><a href="#as-if-serial语义"><strong>as-if-serial语义</strong></a></li>
+<li><a href="#happens-before原则"><strong>happens-before原则</strong></a></li>
+<li><a href="#并发编程特性"><strong>并发编程特性</strong></a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="JMM-Java-Memory-Model"><a href="#JMM-Java-Memory-Model" class="headerlink" title="JMM(Java Memory Model)"></a>JMM(Java Memory Model)</h2><img src="/2020/03/02/Java-multi-thread/jmm.jpg">
+<h2 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a><strong>指令重排</strong></h2><p>程序在经过编译器编译之后形成的指令序列会被CPU和编译器进行优化，提升执行效率。</p>
+<h2 id="as-if-serial语义"><a href="#as-if-serial语义" class="headerlink" title="as-if-serial语义"></a><strong>as-if-serial语义</strong></h2><p>不管怎么重排序（编译器和处理器为了提高并行度），（单线程）程序的执行结果不能被改变。编译器，runtime 和处理器都必须遵守 as-if-serial 语义。为了遵守 as-if-serial 语义，编译器和处理器不会对存在数据依赖关系的操作做重排序，因为这种重排序会改变执行结果。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/多线程/">多线程</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2020/03/02/Java-multi-thread/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-sychronized" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/01/sychronized/" class="article-date">
+  	<time datetime="2020-03-01T13:05:40.000Z" itemprop="datePublished">2020-03-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/01/sychronized/">sychronized学习</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <a id="more"></a>
+<h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p><code>synchronized</code>&#x662F;Java&#x5173;&#x952E;&#x5B57;,&#x7528;&#x4E8E;&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x8BBF;&#x95EE;&#x4E34;&#x754C;&#x8D44;&#x6E90;&#x7684;&#x4E92;&#x65A5;&#x8BBF;&#x95EE;&#x3002;</p>
+<ul>
+<li><p>&#x53EF;&#x91CD;&#x5165;&#x9501;</p>
+</li>
+<li><p>&#x5B57;&#x8282;&#x7801;&#x5B9E;&#x73B0;</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x540C;&#x6B65;&#x51FD;&#x6570;</th>
+<th style="text-align:left">&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ACC_SYNCHRONIZED</code> flag</td>
+<td style="text-align:left"><code>monitorenter</code>&#x548C;<code>monitorexit</code>&#x6307;&#x4EE4;</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>&#x56E0;<code>synchronized</code>&#x5BFC;&#x81F4;&#x7EBF;&#x7A0B;&#x7684;&#x963B;&#x585E;&#x65E0;&#x6CD5;&#x88AB;&#x4E2D;&#x65AD;</li>
+</ul>
+<h2 id="&#x5BF9;&#x8C61;&#x5934;&#x4E2D;&#x7684;mark-word"><a href="#&#x5BF9;&#x8C61;&#x5934;&#x4E2D;&#x7684;Mark-Word" class="headerlink" title="&#x5BF9;&#x8C61;&#x5934;&#x4E2D;&#x7684;Mark Word"></a>&#x5BF9;&#x8C61;&#x5934;&#x4E2D;&#x7684;Mark Word</h2><h2 id="jdk16&#x540E;&#x4F18;&#x5316;"><a href="#jdk1-6&#x540E;&#x4F18;&#x5316;" class="headerlink" title="jdk1.6&#x540E;&#x4F18;&#x5316;"></a>jdk1.6&#x540E;&#x4F18;&#x5316;</h2>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/多线程/">多线程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-classloader" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -377,6 +538,8 @@
 <li><a href="#android资源打包及框架">Android资源打包及框架</a></li>
 <li><a href="#jvm结构简图">JVM结构简图</a></li>
 <li><a href="#android-view绘制">Android View绘制</a></li>
+<li><a href="#java常见锁分类">Java常见锁分类</a></li>
+<li><a href="#java-线程状态">Java 线程状态</a></li>
 </ul>
 <!-- tocstop -->
 <p>记录网上博客中一些比较好的图，供学习使用</p>
@@ -845,151 +1008,9 @@
 
 
   
-    <article id="post-quick-sort" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/12/09/quick-sort/" class="article-date">
-  	<time datetime="2018-12-09T03:01:55.000Z" itemprop="datePublished">2018-12-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/09/quick-sort/">快速排序算法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#代码实现">代码实现</a></li>
-<li><a href="#性能分析">性能分析</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>快速排序（Quick Sort）是由图灵奖获得者Tony Hoare设计出来，被列为20世纪十大算法之一，以“快速”命名表明该算法在整体性能上是排序算法的王者。<br>核心思想是：通过一趟排序将待排序记录分割成独立的两部分，其中一部分记录关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序的目的。一趟排序过程示意图如下。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法与数据结构/">算法与数据结构</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/算法与数据结构/">算法与数据结构</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/12/09/quick-sort/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-retrofit2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/11/19/retrofit2/" class="article-date">
-  	<time datetime="2018-11-19T01:48:30.000Z" itemprop="datePublished">2018-11-19</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/retrofit2/">Retrofit2组件分析</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#1-简介">1. 简介</a></li>
-<li><a href="#2-关键分析">2. 关键分析</a></li>
-<li><a href="#3-一些细节">3. 一些细节</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>Retrofit2是由Square公司开源的HTTP网络请求框架的封装，最近阅读v2.4.0源码，在此记录一下。<br>官方使用的Demo：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GitHubService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@GET</span>(<span class="string">"users/&#123;user&#125;/repos"</span>)</span><br><span class="line">  Call&lt;List&lt;Repo&gt;&gt; listRepos(<span class="meta">@Path</span>(<span class="string">"user"</span>) String user);</span><br><span class="line">&#125;</span><br><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">    .baseUrl(<span class="string">"https://api.github.com/"</span>)</span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line">GitHubService service = retrofit.create(GitHubService.class);</span><br><span class="line">Call&lt;List&lt;Repo&gt;&gt; repos = service.listRepos(<span class="string">"octocat"</span>);</span><br><span class="line"><span class="comment">// SYNCHRONOUS</span></span><br><span class="line">repos.execute()</span><br><span class="line"><span class="comment">//  ASYNCHRONOUS</span></span><br><span class="line">repos.enqueue(...)</span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Android学习笔记/">Android学习笔记</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/11/19/retrofit2/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>

@@ -6,20 +6,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>sychronized学习 | Andrewlcgu&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;#x7B80;&amp;#x4ECB;synchronized&amp;#x662F;Java&amp;#x5173;&amp;#x952E;&amp;#x5B57;&amp;#xFF0C;&amp;#x5BF9;&amp;#x4EE3;&amp;#x7801;&amp;#x5757;&amp;#x6216;&amp;#x65B9;&amp;#x6CD5;&amp;#x8FDB;&amp;#x884C;&amp;#x4FEE;&amp;#x9970;&amp;#xFF0C;&amp;#x5B9E;&amp;#x73B0;&amp;#x4E00;&amp;#x79CD">
+  <meta name="description" content="简介 Tips MarkWord 锁优化   简介synchronized是Java关键字，对代码块或方法进行修饰，实现一种简单的策略来防止线程干扰和内存一致性错误，如果一个对象对多个线程是可见的，那么对该对象的所有读或者写都将通过同步的方式来进行。具体表现如下：  提供一种锁机制，确保共享变量的互斥访问  包括monitorenter和monitorexit两个JVM指令，它能够保证在任何时">
 <meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sychronized学习">
 <meta property="og:url" content="http://yoursite.com/2020/03/01/sychronized/index.html">
 <meta property="og:site_name" content="Andrewlcgu&#39;s Blog">
-<meta property="og:description" content="&amp;#x7B80;&amp;#x4ECB;synchronized&amp;#x662F;Java&amp;#x5173;&amp;#x952E;&amp;#x5B57;&amp;#xFF0C;&amp;#x5BF9;&amp;#x4EE3;&amp;#x7801;&amp;#x5757;&amp;#x6216;&amp;#x65B9;&amp;#x6CD5;&amp;#x8FDB;&amp;#x884C;&amp;#x4FEE;&amp;#x9970;&amp;#xFF0C;&amp;#x5B9E;&amp;#x73B0;&amp;#x4E00;&amp;#x79CD">
+<meta property="og:description" content="简介 Tips MarkWord 锁优化   简介synchronized是Java关键字，对代码块或方法进行修饰，实现一种简单的策略来防止线程干扰和内存一致性错误，如果一个对象对多个线程是可见的，那么对该对象的所有读或者写都将通过同步的方式来进行。具体表现如下：  提供一种锁机制，确保共享变量的互斥访问  包括monitorenter和monitorexit两个JVM指令，它能够保证在任何时">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/03/01/sychronized/markword.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/01/sychronized/lock-upgrade.jpg">
-<meta property="og:updated_time" content="2020-03-02T14:59:14.478Z">
+<meta property="og:updated_time" content="2020-03-02T15:01:25.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sychronized学习">
-<meta name="twitter:description" content="&amp;#x7B80;&amp;#x4ECB;synchronized&amp;#x662F;Java&amp;#x5173;&amp;#x952E;&amp;#x5B57;&amp;#xFF0C;&amp;#x5BF9;&amp;#x4EE3;&amp;#x7801;&amp;#x5757;&amp;#x6216;&amp;#x65B9;&amp;#x6CD5;&amp;#x8FDB;&amp;#x884C;&amp;#x4FEE;&amp;#x9970;&amp;#xFF0C;&amp;#x5B9E;&amp;#x73B0;&amp;#x4E00;&amp;#x79CD">
+<meta name="twitter:description" content="简介 Tips MarkWord 锁优化   简介synchronized是Java关键字，对代码块或方法进行修饰，实现一种简单的策略来防止线程干扰和内存一致性错误，如果一个对象对多个线程是可见的，那么对该对象的所有读或者写都将通过同步的方式来进行。具体表现如下：  提供一种锁机制，确保共享变量的互斥访问  包括monitorenter和monitorexit两个JVM指令，它能够保证在任何时">
 <meta name="twitter:image" content="http://yoursite.com/2020/03/01/sychronized/markword.png">
   
     <link rel="alternative" href="/atom.xml" title="Andrewlcgu&#39;s Blog" type="application/atom+xml">
@@ -214,7 +214,14 @@
              </script>
            
          
-        <a id="more"></a>
+        <!-- toc -->
+<ul>
+<li><a href="#&#x7B80;&#x4ECB;">&#x7B80;&#x4ECB;</a></li>
+<li><a href="#tips">Tips</a></li>
+<li><a href="#markword">MarkWord</a></li>
+<li><a href="#&#x9501;&#x4F18;&#x5316;">&#x9501;&#x4F18;&#x5316;</a></li>
+</ul>
+<!-- tocstop -->
 <h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p><code>synchronized</code>&#x662F;Java&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x5BF9;&#x4EE3;&#x7801;&#x5757;&#x6216;&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x4FEE;&#x9970;&#xFF0C;&#x5B9E;&#x73B0;&#x4E00;&#x79CD;&#x7B80;&#x5355;&#x7684;&#x7B56;&#x7565;&#x6765;&#x9632;&#x6B62;&#x7EBF;&#x7A0B;&#x5E72;&#x6270;&#x548C;&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x9519;&#x8BEF;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5BF9;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x662F;&#x53EF;&#x89C1;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x5BF9;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x8BFB;&#x6216;&#x8005;&#x5199;&#x90FD;&#x5C06;&#x901A;&#x8FC7;&#x540C;&#x6B65;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x8FDB;&#x884C;&#x3002;&#x5177;&#x4F53;&#x8868;&#x73B0;&#x5982;&#x4E0B;&#xFF1A;</p>
 <ol>
 <li><p>&#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x9501;&#x673A;&#x5236;&#xFF0C;&#x786E;&#x4FDD;&#x5171;&#x4EAB;&#x53D8;&#x91CF;&#x7684;&#x4E92;&#x65A5;&#x8BBF;&#x95EE;</p>
@@ -224,7 +231,7 @@
 <li><p>&#x4E25;&#x683C;&#x9075;&#x5B88;<code>happens-before</code>&#x89C4;&#x5219;&#xFF0C;&#x4E00;&#x4E2A;<code>monitorexit</code>&#x6307;&#x4EE4;&#x4E4B;&#x524D;&#x5FC5;&#x5B9A;&#x8981;&#x6709;&#x4E00;&#x4E2A;<code>monitorenter</code></p>
 </li>
 </ol>
-<!-- more -->
+<a id="more"></a>
 <h2 id="tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
 <li><p>&#x540C;&#x6B65;&#x65B9;&#x6CD5;JVM&#x91C7;&#x7528;<code>ACC_SYNCHRONIZED</code>&#x6807;&#x8BB0;&#x7B26;&#x6765;&#x5B9E;&#x73B0;&#x540C;&#x6B65;&#xFF0C;&#x548C;<code>monitorenter</code>,<code>monitorexit</code>&#x90FD;&#x662F;&#x57FA;&#x4E8E;Monitor&#x5B9E;&#x73B0;&#xFF0C;&#x5728;HotSpot&#x865A;&#x62DF;&#x673A;&#x4E2D;&#x662F;<code>ObjectMonitor</code>&#x5B9E;&#x73B0;&#x7684;&#x3002;</p>
 </li>

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/01/25/flow-chart-record/</loc>
+    
+    <lastmod>2020-03-03T06:39:01.403Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/03/02/Java-multi-thread/</loc>
     
     <lastmod>2020-03-02T15:24:19.551Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://yoursite.com/2020/03/01/sychronized/</loc>
     
     <lastmod>2020-03-02T15:01:25.198Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/01/25/flow-chart-record/</loc>
-    
-    <lastmod>2020-03-02T13:58:34.808Z</lastmod>
     
   </url>
   
